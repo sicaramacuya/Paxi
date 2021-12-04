@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		E911634E27564A8A00E1F127 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E911634D27564A8A00E1F127 /* AppDelegate.swift */; };
 		E911635027564A8A00E1F127 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E911634F27564A8A00E1F127 /* SceneDelegate.swift */; };
-		E911635227564A8A00E1F127 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E911635127564A8A00E1F127 /* ViewController.swift */; };
+		E911635227564A8A00E1F127 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E911635127564A8A00E1F127 /* HomeVC.swift */; };
 		E911635527564A8A00E1F127 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E911635327564A8A00E1F127 /* Main.storyboard */; };
 		E911635827564A8A00E1F127 /* Paxi.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E911635627564A8A00E1F127 /* Paxi.xcdatamodeld */; };
 		E911635A27564A8D00E1F127 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E911635927564A8D00E1F127 /* Assets.xcassets */; };
@@ -17,6 +17,17 @@
 		E911636827564A8D00E1F127 /* PaxiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E911636727564A8D00E1F127 /* PaxiTests.swift */; };
 		E911637227564A8D00E1F127 /* PaxiUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E911637127564A8D00E1F127 /* PaxiUITests.swift */; };
 		E911637427564A8D00E1F127 /* PaxiUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E911637327564A8D00E1F127 /* PaxiUITestsLaunchTests.swift */; };
+		E982EEA5275C23BF0071CEF2 /* ManageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E982EEA4275C23BF0071CEF2 /* ManageVC.swift */; };
+		E982EEB0275C25640071CEF2 /* PaymentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E982EEAF275C25640071CEF2 /* PaymentVC.swift */; };
+		E982EEB2275C25870071CEF2 /* HistoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E982EEB1275C25870071CEF2 /* HistoryVC.swift */; };
+		E982EEB4275C25E00071CEF2 /* HistorySearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E982EEB3275C25E00071CEF2 /* HistorySearchVC.swift */; };
+		E982EEB6275C26550071CEF2 /* HistoryPaymentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E982EEB5275C26550071CEF2 /* HistoryPaymentView.swift */; };
+		E982EEC0275C281A0071CEF2 /* EntriesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E982EEBF275C281A0071CEF2 /* EntriesVC.swift */; };
+		E982EEC2275C28330071CEF2 /* EntriesInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E982EEC1275C28330071CEF2 /* EntriesInfoView.swift */; };
+		E982EEC4275C285D0071CEF2 /* EntriesEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E982EEC3275C285D0071CEF2 /* EntriesEditView.swift */; };
+		E982EEC6275C28970071CEF2 /* AgendaVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E982EEC5275C28970071CEF2 /* AgendaVC.swift */; };
+		E982EEC8275C28A20071CEF2 /* DashboardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E982EEC7275C28A20071CEF2 /* DashboardVC.swift */; };
+		E982EECC275C2A560071CEF2 /* NewEntrieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E982EECB275C2A560071CEF2 /* NewEntrieView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,7 +51,7 @@
 		E911634A27564A8A00E1F127 /* Paxi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Paxi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E911634D27564A8A00E1F127 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E911634F27564A8A00E1F127 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		E911635127564A8A00E1F127 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		E911635127564A8A00E1F127 /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
 		E911635427564A8A00E1F127 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E911635727564A8A00E1F127 /* Paxi.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Paxi.xcdatamodel; sourceTree = "<group>"; };
 		E911635927564A8D00E1F127 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -51,6 +62,17 @@
 		E911636D27564A8D00E1F127 /* PaxiUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PaxiUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E911637127564A8D00E1F127 /* PaxiUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaxiUITests.swift; sourceTree = "<group>"; };
 		E911637327564A8D00E1F127 /* PaxiUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaxiUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		E982EEA4275C23BF0071CEF2 /* ManageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageVC.swift; sourceTree = "<group>"; };
+		E982EEAF275C25640071CEF2 /* PaymentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentVC.swift; sourceTree = "<group>"; };
+		E982EEB1275C25870071CEF2 /* HistoryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryVC.swift; sourceTree = "<group>"; };
+		E982EEB3275C25E00071CEF2 /* HistorySearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistorySearchVC.swift; sourceTree = "<group>"; };
+		E982EEB5275C26550071CEF2 /* HistoryPaymentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryPaymentView.swift; sourceTree = "<group>"; };
+		E982EEBF275C281A0071CEF2 /* EntriesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntriesVC.swift; sourceTree = "<group>"; };
+		E982EEC1275C28330071CEF2 /* EntriesInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntriesInfoView.swift; sourceTree = "<group>"; };
+		E982EEC3275C285D0071CEF2 /* EntriesEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntriesEditView.swift; sourceTree = "<group>"; };
+		E982EEC5275C28970071CEF2 /* AgendaVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgendaVC.swift; sourceTree = "<group>"; };
+		E982EEC7275C28A20071CEF2 /* DashboardVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardVC.swift; sourceTree = "<group>"; };
+		E982EECB275C2A560071CEF2 /* NewEntrieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewEntrieView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,12 +123,18 @@
 		E911634C27564A8A00E1F127 /* Paxi */ = {
 			isa = PBXGroup;
 			children = (
+				E911635E27564A8D00E1F127 /* Info.plist */,
 				E911634D27564A8A00E1F127 /* AppDelegate.swift */,
 				E911634F27564A8A00E1F127 /* SceneDelegate.swift */,
-				E911635127564A8A00E1F127 /* ViewController.swift */,
-				E911635927564A8D00E1F127 /* Assets.xcassets */,
-				E911635E27564A8D00E1F127 /* Info.plist */,
-				E911635627564A8A00E1F127 /* Paxi.xcdatamodeld */,
+				E911635127564A8A00E1F127 /* HomeVC.swift */,
+				E982EE9F275C1FC40071CEF2 /* Managment */,
+				E982EEA8275C24A50071CEF2 /* Payment */,
+				E982EEAC275C24CA0071CEF2 /* History */,
+				E982EEBE275C27D90071CEF2 /* Entries */,
+				E982EEAE275C24D90071CEF2 /* Agenda */,
+				E982EEAD275C24D30071CEF2 /* Dashboard */,
+				E982EECA275C29110071CEF2 /* Model */,
+				E982EEC9275C29080071CEF2 /* Assets */,
 				E911638027564AE100E1F127 /* Storyboards */,
 			);
 			path = Paxi;
@@ -136,6 +164,75 @@
 				E911635B27564A8D00E1F127 /* LaunchScreen.storyboard */,
 			);
 			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		E982EE9F275C1FC40071CEF2 /* Managment */ = {
+			isa = PBXGroup;
+			children = (
+				E982EEA4275C23BF0071CEF2 /* ManageVC.swift */,
+				E982EECB275C2A560071CEF2 /* NewEntrieView.swift */,
+			);
+			path = Managment;
+			sourceTree = "<group>";
+		};
+		E982EEA8275C24A50071CEF2 /* Payment */ = {
+			isa = PBXGroup;
+			children = (
+				E982EEAF275C25640071CEF2 /* PaymentVC.swift */,
+			);
+			path = Payment;
+			sourceTree = "<group>";
+		};
+		E982EEAC275C24CA0071CEF2 /* History */ = {
+			isa = PBXGroup;
+			children = (
+				E982EEB1275C25870071CEF2 /* HistoryVC.swift */,
+				E982EEB3275C25E00071CEF2 /* HistorySearchVC.swift */,
+				E982EEB5275C26550071CEF2 /* HistoryPaymentView.swift */,
+			);
+			path = History;
+			sourceTree = "<group>";
+		};
+		E982EEAD275C24D30071CEF2 /* Dashboard */ = {
+			isa = PBXGroup;
+			children = (
+				E982EEC7275C28A20071CEF2 /* DashboardVC.swift */,
+			);
+			path = Dashboard;
+			sourceTree = "<group>";
+		};
+		E982EEAE275C24D90071CEF2 /* Agenda */ = {
+			isa = PBXGroup;
+			children = (
+				E982EEC5275C28970071CEF2 /* AgendaVC.swift */,
+			);
+			path = Agenda;
+			sourceTree = "<group>";
+		};
+		E982EEBE275C27D90071CEF2 /* Entries */ = {
+			isa = PBXGroup;
+			children = (
+				E982EEBF275C281A0071CEF2 /* EntriesVC.swift */,
+				E982EEC1275C28330071CEF2 /* EntriesInfoView.swift */,
+				E982EEC3275C285D0071CEF2 /* EntriesEditView.swift */,
+			);
+			path = Entries;
+			sourceTree = "<group>";
+		};
+		E982EEC9275C29080071CEF2 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				E911635927564A8D00E1F127 /* Assets.xcassets */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
+		E982EECA275C29110071CEF2 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				E911635627564A8A00E1F127 /* Paxi.xcdatamodeld */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -269,10 +366,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E911635227564A8A00E1F127 /* ViewController.swift in Sources */,
+				E982EEC0275C281A0071CEF2 /* EntriesVC.swift in Sources */,
+				E982EEC8275C28A20071CEF2 /* DashboardVC.swift in Sources */,
+				E911635227564A8A00E1F127 /* HomeVC.swift in Sources */,
+				E982EEC4275C285D0071CEF2 /* EntriesEditView.swift in Sources */,
 				E911634E27564A8A00E1F127 /* AppDelegate.swift in Sources */,
+				E982EECC275C2A560071CEF2 /* NewEntrieView.swift in Sources */,
+				E982EEB4275C25E00071CEF2 /* HistorySearchVC.swift in Sources */,
 				E911635027564A8A00E1F127 /* SceneDelegate.swift in Sources */,
 				E911635827564A8A00E1F127 /* Paxi.xcdatamodeld in Sources */,
+				E982EEB2275C25870071CEF2 /* HistoryVC.swift in Sources */,
+				E982EEB0275C25640071CEF2 /* PaymentVC.swift in Sources */,
+				E982EEC2275C28330071CEF2 /* EntriesInfoView.swift in Sources */,
+				E982EEB6275C26550071CEF2 /* HistoryPaymentView.swift in Sources */,
+				E982EEC6275C28970071CEF2 /* AgendaVC.swift in Sources */,
+				E982EEA5275C23BF0071CEF2 /* ManageVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
