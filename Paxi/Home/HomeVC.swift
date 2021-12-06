@@ -124,11 +124,10 @@ extension HomeVC: UICollectionViewDelegate {
         if (indexPath.section == 0) && (indexPath.item == 2) {
             print("Managment")
             
-            // This layout is going to get replace it was needed to instanciate ManageCollectionVC.
-            let emptyLayout = UICollectionViewLayout()
-            navigationController?.pushViewController(
-                ManageCollectionVC(collectionViewLayout: emptyLayout),
-                animated: true)
+            let vc = ManageVC()
+            vc.subTitle = "Properties"
+            
+            navigationController?.pushViewController(vc, animated: true)
         }
     }
 }
@@ -139,7 +138,7 @@ extension HomeVC {
         return [
             TestingProperties(title: "Pitahaya"),
             TestingProperties(title: "Collores"),
-            TestingProperties(title: "Anton Ruiz"),
+            TestingProperties(title: "Antón Ruíz"),
             TestingProperties(title: "Tejas"),
             TestingProperties(title: "Leguisamo"),
             TestingProperties(title: "Miradero")

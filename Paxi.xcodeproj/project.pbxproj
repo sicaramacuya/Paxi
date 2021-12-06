@@ -28,6 +28,11 @@
 		E982EEC6275C28970071CEF2 /* AgendaVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E982EEC5275C28970071CEF2 /* AgendaVC.swift */; };
 		E982EEC8275C28A20071CEF2 /* DashboardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E982EEC7275C28A20071CEF2 /* DashboardVC.swift */; };
 		E982EECC275C2A560071CEF2 /* NewEntrieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E982EECB275C2A560071CEF2 /* NewEntrieView.swift */; };
+		E9941BE6275E87AC00A3CC8D /* ManageTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9941BE5275E87AC00A3CC8D /* ManageTitleCell.swift */; };
+		E9941BEA275E87EF00A3CC8D /* ManageEntityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9941BE9275E87EF00A3CC8D /* ManageEntityCell.swift */; };
+		E9941BEC275E880D00A3CC8D /* ManageTitleSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9941BEB275E880D00A3CC8D /* ManageTitleSection.swift */; };
+		E9941BEE275E881900A3CC8D /* ManageEntitySection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9941BED275E881900A3CC8D /* ManageEntitySection.swift */; };
+		E9941BF2275EBA2500A3CC8D /* ManageTestingEntities.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9941BF1275EBA2500A3CC8D /* ManageTestingEntities.swift */; };
 		E99FB7B2275C4A65001B84E2 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99FB7B1275C4A65001B84E2 /* Section.swift */; };
 		E99FB7B4275C50E9001B84E2 /* Selection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99FB7B3275C50E9001B84E2 /* Selection.swift */; };
 		E99FB7BB275C534D001B84E2 /* TitleSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99FB7BA275C534D001B84E2 /* TitleSection.swift */; };
@@ -82,6 +87,11 @@
 		E982EEC5275C28970071CEF2 /* AgendaVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgendaVC.swift; sourceTree = "<group>"; };
 		E982EEC7275C28A20071CEF2 /* DashboardVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardVC.swift; sourceTree = "<group>"; };
 		E982EECB275C2A560071CEF2 /* NewEntrieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewEntrieView.swift; sourceTree = "<group>"; };
+		E9941BE5275E87AC00A3CC8D /* ManageTitleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageTitleCell.swift; sourceTree = "<group>"; };
+		E9941BE9275E87EF00A3CC8D /* ManageEntityCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageEntityCell.swift; sourceTree = "<group>"; };
+		E9941BEB275E880D00A3CC8D /* ManageTitleSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageTitleSection.swift; sourceTree = "<group>"; };
+		E9941BED275E881900A3CC8D /* ManageEntitySection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageEntitySection.swift; sourceTree = "<group>"; };
+		E9941BF1275EBA2500A3CC8D /* ManageTestingEntities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageTestingEntities.swift; sourceTree = "<group>"; };
 		E99FB7B1275C4A65001B84E2 /* Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
 		E99FB7B3275C50E9001B84E2 /* Selection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Selection.swift; sourceTree = "<group>"; };
 		E99FB7BA275C534D001B84E2 /* TitleSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleSection.swift; sourceTree = "<group>"; };
@@ -187,6 +197,8 @@
 		E982EE9F275C1FC40071CEF2 /* Managment */ = {
 			isa = PBXGroup;
 			children = (
+				E9941BDD275E5C6900A3CC8D /* Model */,
+				E9941BDE275E5C6F00A3CC8D /* View */,
 				E982EEA4275C23BF0071CEF2 /* ManageVC.swift */,
 				E982EECB275C2A560071CEF2 /* NewEntrieView.swift */,
 			);
@@ -248,9 +260,45 @@
 		E982EECA275C29110071CEF2 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				E99FB7B1275C4A65001B84E2 /* Section.swift */,
 				E911635627564A8A00E1F127 /* Paxi.xcdatamodeld */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		E9941BDD275E5C6900A3CC8D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				E9941BF1275EBA2500A3CC8D /* ManageTestingEntities.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		E9941BDE275E5C6F00A3CC8D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E9941BDF275E5E3200A3CC8D /* Sections */,
+				E9941BE0275E5E3800A3CC8D /* Cells */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		E9941BDF275E5E3200A3CC8D /* Sections */ = {
+			isa = PBXGroup;
+			children = (
+				E9941BEB275E880D00A3CC8D /* ManageTitleSection.swift */,
+				E9941BED275E881900A3CC8D /* ManageEntitySection.swift */,
+			);
+			path = Sections;
+			sourceTree = "<group>";
+		};
+		E9941BE0275E5E3800A3CC8D /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				E9941BE5275E87AC00A3CC8D /* ManageTitleCell.swift */,
+				E9941BE9275E87EF00A3CC8D /* ManageEntityCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		E99FB7AE275C4928001B84E2 /* Home */ = {
@@ -288,7 +336,6 @@
 			children = (
 				E99FB7AF275C494B001B84E2 /* Sections */,
 				E99FB7B0275C4950001B84E2 /* Cells */,
-				E99FB7B1275C4A65001B84E2 /* Section.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -434,9 +481,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				E99FB7C7275C563D001B84E2 /* PropertiesCell.swift in Sources */,
+				E9941BE6275E87AC00A3CC8D /* ManageTitleCell.swift in Sources */,
 				E982EEC0275C281A0071CEF2 /* EntriesVC.swift in Sources */,
 				E99FB7BD275C537C001B84E2 /* QuickSelectionSection.swift in Sources */,
 				E982EEC8275C28A20071CEF2 /* DashboardVC.swift in Sources */,
+				E9941BF2275EBA2500A3CC8D /* ManageTestingEntities.swift in Sources */,
 				E911635227564A8A00E1F127 /* HomeVC.swift in Sources */,
 				E99FB7C3275C540D001B84E2 /* QuickSelectionCell.swift in Sources */,
 				E982EEC4275C285D0071CEF2 /* EntriesEditView.swift in Sources */,
@@ -452,11 +501,14 @@
 				E982EEB2275C25870071CEF2 /* HistoryVC.swift in Sources */,
 				E982EEB0275C25640071CEF2 /* PaymentVC.swift in Sources */,
 				E99FB7C1275C5400001B84E2 /* TitleCell.swift in Sources */,
+				E9941BEE275E881900A3CC8D /* ManageEntitySection.swift in Sources */,
 				E982EEC2275C28330071CEF2 /* EntriesInfoView.swift in Sources */,
+				E9941BEA275E87EF00A3CC8D /* ManageEntityCell.swift in Sources */,
 				E982EEB6275C26550071CEF2 /* HistoryPaymentView.swift in Sources */,
 				E99FB7B2275C4A65001B84E2 /* Section.swift in Sources */,
 				E982EEC6275C28970071CEF2 /* AgendaVC.swift in Sources */,
 				E982EEA5275C23BF0071CEF2 /* ManageVC.swift in Sources */,
+				E9941BEC275E880D00A3CC8D /* ManageTitleSection.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
