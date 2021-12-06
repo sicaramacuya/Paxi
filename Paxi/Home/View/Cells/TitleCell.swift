@@ -14,7 +14,7 @@ class TitleCell: UICollectionViewCell {
     lazy var label: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize: 32, weight: .bold)
+        label.font = .systemFont(ofSize: 34, weight: .bold)
         label.textColor = UIColor(named: "TitleTextColor")
         
         return label
@@ -51,7 +51,7 @@ class TitleCell: UICollectionViewCell {
         label.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
         label.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 5).isActive = true
         label.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: 20).isActive = true
-        label.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20).isActive = true
+        label.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10).isActive = true
     }
     
     func setContent(title: String) {

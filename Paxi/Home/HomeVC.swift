@@ -52,12 +52,33 @@ class HomeVC: UIViewController {
         setupCollectionView()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        setupNavigationController()
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         collectionView.reloadData()
     }
     
+    
     // MARK: Methods
+    func setupNavigationController() {
+        // add edit button
+        let editBarItem = UIBarButtonItem(title: "Edit", style: .plain, target: .none, action: .none)
+        self.navigationItem.rightBarButtonItem = editBarItem
+        
+        // style title
+        self.navigationController?.navigationBar.prefersLargeTitles = false
+        let titleTextAttribute: [NSAttributedString.Key : Any] = [ .foregroundColor: UIColor.clear,]
+        self.navigationController?.navigationBar.titleTextAttributes = titleTextAttribute
+        
+        // add color
+        self.navigationController?.navigationBar.tintColor = .systemBlue
+    }
+    
     func setupCollectionView() {
         // setting delegate and data source
         collectionView.dataSource = self
@@ -97,6 +118,18 @@ extension HomeVC: UICollectionViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         self.collectionView.reloadData()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if (indexPath.section == 0) && (indexPath.item == 2) {
+            print("Managment")
+            
+            // This layout is going to get replace it was needed to instanciate ManageCollectionVC.
+            let emptyLayout = UICollectionViewLayout()
+            navigationController?.pushViewController(
+                ManageCollectionVC(collectionViewLayout: emptyLayout),
+                animated: true)
+        }
     }
 }
 
