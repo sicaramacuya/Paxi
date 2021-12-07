@@ -29,10 +29,27 @@ class ManageVC: UIViewController {
         return layout
     }()
     lazy var sections: [Section] = [
-        ManageTitleSection(mainTitle: self.mainTitle, subTitle: self.subTitle),
-        ManageEntitySection(entities: entities)
+        ManageTitleSection(mainTitle: "Manage", subTitle: self.subTitle),
+        ManageEntitySection(entities: entries)
     ]
-    lazy var entities: [ManageTestingProperty] = self.getHardCodedEntities()
+    lazy var entries: [Any] = []
+    
+    
+    // MARK: Initializers
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    convenience init(entries: [Any]) {
+        self.init(nibName: nil, bundle: nil)
+        
+        self.entries = entries
+    }
+    
     
     // MARK: VC's Lifecycle
     override func viewDidLoad() {
@@ -83,6 +100,34 @@ class ManageVC: UIViewController {
         // reloads all data in collectionView
         collectionView.reloadData()
     }
+    
+    @objc func addButtonSelected() {
+        // switch set the correct title and entries for any given entity
+        switch type(of: self.entries[0]) {
+        case is ManageTestingProperty.Type:
+            print("New Property")
+            let vc = NewEntityVC()
+            navigationController?.present(vc, animated: true)
+            
+        case is ManageTestingUnit.Type:
+            print("New Unit")
+            let vc = NewEntityVC()
+            navigationController?.present(vc, animated: true)
+            
+        case is ManageTestingTenant.Type:
+            print("New Tenant")
+            let vc = NewEntityVC()
+            navigationController?.present(vc, animated: true)
+         
+        case is ManageTestingPayments.Type:
+            print("New Payments")
+            let vc = NewEntityVC()
+            navigationController?.present(vc, animated: true)
+            
+        default:
+            return
+        }
+    }
 }
 
 extension ManageVC: UICollectionViewDataSource {
@@ -109,66 +154,94 @@ extension ManageVC: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(entities[indexPath.item].title)
         
-        let vc = ManageVC()
-        vc.subTitle = entities[indexPath.item].title
-        //vc.entities = entities[indexPath.item].unit
-        
-        navigationController?.pushViewController(vc, animated: true)
+        let cellsSection = 1
+        if indexPath.section == cellsSection {
+            manageSelectionOfCell(indexPath: indexPath)
+        }
     }
     
-    /*
-     // Uncomment this method to specify if the specified item should be highlighted during tracking
-     override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
-     return true
-     }
-     */
-    
-    /*
-     // Uncomment this method to specify if the specified item should be selected
-     override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-     return true
-     }
-     */
-    
-    /*
-     // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-     override func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
-     return false
-     }
-     
-     override func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
-     return false
-     }
-     
-     override func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
-     
-     }
-     */
+    func manageSelectionOfCell(indexPath: IndexPath) {
+        // create a new view controller
+        let vc = ManageVC(entries: self.entries)
+        
+        // switch set the correct title and entries for any given entity
+        var title: String = ""
+        switch type(of: vc.entries[0]) {
+        case is ManageTestingProperty.Type:
+            
+            let entries = vc.entries as! [ManageTestingProperty]
+            title = entries[indexPath.item].title
+            
+            vc.entries = entries[indexPath.item].units
+            
+        case is ManageTestingUnit.Type:
+            let entries = self.entries as! [ManageTestingUnit]
+            title = entries[indexPath.item].title
+            
+            vc.entries = entries[indexPath.item].tenants
+            
+        case is ManageTestingTenant.Type:
+            let entries = self.entries as! [ManageTestingTenant]
+            title = entries[indexPath.item].title
+            
+            vc.entries = entries[indexPath.item].payments
+         
+        case is ManageTestingPayments.Type:
+            let paymentVC = PaymentVC()
+            navigationController?.present(paymentVC, animated: true)
+            
+            return
+            
+        default:
+            return
+        }
+        
+        // subTitle is set the the title because this property is use to set the self.title property of the view controller
+        vc.subTitle = title
+        
+        // sets the sessions
+        vc.sections = [
+            ManageTitleSection(mainTitle: "Manage", subTitle: title),
+            ManageEntitySection(entities: vc.entries)
+        ]
+        
+        // move to our new view controller
+        navigationController?.pushViewController(vc, animated: true)
+    }
 }
-
 
 extension ManageVC {
     // MARK: Hard Coded Content
-    func getHardCodedEntities() -> [ManageTestingProperty] {
+    static func getHardCodedEntities() -> [ManageTestingProperty] {
+        // Payments
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMMM dd, y"
+        
+        let payment1 = ManageTestingPayments(date: dateFormatter.date(from: "September 05, 2021")!, amount: 250)
+        let payment2 = ManageTestingPayments(date: dateFormatter.date(from: "October 05, 2021")!, amount: 250)
+        let payment3 = ManageTestingPayments(date: dateFormatter.date(from: "November 05, 2021")!, amount: 250)
+        let payment4 = ManageTestingPayments(date: dateFormatter.date(from: "December 05, 2021")!, amount: 250)
+        
         // Tenants
-        let ezra = ManageTestingTenant(title: "Ezra Morales", amount: 200)
-        let layra = ManageTestingTenant(title: "Layra Morales", amount: 300)
-        let azul = ManageTestingTenant(title: "Azul Morales", amount: 100)
+        let ezra = ManageTestingTenant(title: "Ezra Morales", amount: 200, payments: [payment1, payment2, payment3, payment4])
+        let layra = ManageTestingTenant(title: "Lyra Morales", amount: 300, payments: [payment1, payment2, payment3, payment4])
+        let azul = ManageTestingTenant(title: "Azul Morales", amount: 100, payments: [payment1, payment2, payment3, payment4])
+        let miles = ManageTestingTenant(title: "Miles Morales", amount: 700, payments: [payment1, payment2, payment3, payment4])
         
         // Units
-        let unit1 = ManageTestingUnit(title: "Unit 1", amount: 500, tenant: [ezra])
-        let unit2 = ManageTestingUnit(title: "Unit 2", amount: 500, tenant: [layra])
-        let unit3 = ManageTestingUnit(title: "Unit 3", amount: 500, tenant: [azul])
+        let unit1 = ManageTestingUnit(title: "Unit 1", amount: 500, tenants: [ezra])
+        let unit2 = ManageTestingUnit(title: "Unit 2", amount: 500, tenants: [layra])
+        let unit3 = ManageTestingUnit(title: "Unit 3", amount: 500, tenants: [azul])
+        let unit4 = ManageTestingUnit(title: "Unit 4", amount: 500, tenants: [miles])
         
         return [
-            ManageTestingProperty(title: "Pitahaya", amount: 250, unit: [unit1, unit2, unit3]),
-            ManageTestingProperty(title: "Collores", amount: 250, unit: [unit1, unit2, unit3]),
-            ManageTestingProperty(title: "Antón Ruíz", amount: 150, unit: [unit1, unit2, unit3]),
-            ManageTestingProperty(title: "Tejas", amount: 900.25, unit: [unit1, unit2, unit3]),
-            ManageTestingProperty(title: "Leguisamo", amount: 100, unit: [unit1, unit2, unit3]),
-            ManageTestingProperty(title: "Miradero", amount: 12500, unit: [unit1, unit2, unit3])
+            ManageTestingProperty(title: "Pitahaya", amount: 250, units: [unit1, unit2, unit3, unit4]),
+            ManageTestingProperty(title: "Collores", amount: 250, units: [unit1, unit2, unit3, unit4]),
+            ManageTestingProperty(title: "Antón Ruíz", amount: 150, units: [unit1, unit2, unit3, unit4]),
+            ManageTestingProperty(title: "Tejas", amount: 900.25, units: [unit1, unit2, unit3, unit4]),
+            ManageTestingProperty(title: "Leguisamo", amount: 100, units: [unit1, unit2, unit3, unit4]),
+            ManageTestingProperty(title: "Miradero", amount: 12500, units: [unit1, unit2, unit3, unit4])
         ]
     }
 }

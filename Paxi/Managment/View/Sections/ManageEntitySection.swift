@@ -11,11 +11,11 @@ struct ManageEntitySection: Section {
     
     // MARK: Properties
     let numberOfItems: Int
-    let entities: [ManageTestingProperty]!
+    let entities: [Any]!
     
     
     // MARK: Methods
-    init(entities: [ManageTestingProperty]) {
+    init<T>(entities: [T]) {
         self.numberOfItems = entities.count
         self.entities = entities
     }
@@ -40,7 +40,41 @@ struct ManageEntitySection: Section {
     
     func configureCell(collectionView: UICollectionView, indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: ManageEntityCell.self), for: indexPath) as! ManageEntityCell
-        cell.setContent(title: entities[indexPath.item].title, amount: entities[indexPath.item].amount)
+        
+        switch type(of: entities[0]) {
+        case is ManageTestingProperty.Type:
+            let entities = self.entities as! [ManageTestingProperty]
+            let title = entities[indexPath.item].title
+            let amount = entities[indexPath.item].amount
+            
+            cell.setContent(title: title, amount: amount)
+        
+        case is ManageTestingUnit.Type:
+            let entities = self.entities as! [ManageTestingUnit]
+            let title = entities[indexPath.item].title
+            let amount = entities[indexPath.item].amount
+            
+            cell.setContent(title: title, amount: amount)
+            
+        case is ManageTestingTenant.Type:
+            let entities = self.entities as! [ManageTestingTenant]
+            let title = entities[indexPath.item].title
+            let amount = entities[indexPath.item].amount
+            
+            cell.setContent(title: title, amount: amount)
+            
+        case is ManageTestingPayments.Type:
+            let entities = self.entities as! [ManageTestingPayments]
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "MMM dd, y"
+            let title = dateFormatter.string(from: entities[indexPath.item].date)
+            let amount = entities[indexPath.item].amount
+            
+            cell.setContent(title: title, amount: amount)
+            
+        default:
+            break
+        }
         
         return cell
     }

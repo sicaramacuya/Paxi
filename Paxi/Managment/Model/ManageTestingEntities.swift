@@ -10,16 +10,22 @@ import Foundation
 struct ManageTestingProperty {
     let title: String
     let amount: Double
-    let unit: [ManageTestingUnit]
+    let units: [ManageTestingUnit]
 }
 
 struct ManageTestingUnit {
     let title: String
     let amount: Double
-    let tenant: [ManageTestingTenant]
+    let tenants: [ManageTestingTenant]
 }
 
 struct ManageTestingTenant {
     let title: String
+    let amount: Double
+    let payments: [ManageTestingPayments]
+}
+
+struct ManageTestingPayments {
+    let date: Date
     let amount: Double
 }

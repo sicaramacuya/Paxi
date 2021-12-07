@@ -94,9 +94,6 @@ class ManageEntityCell: UICollectionViewCell {
             stackView.centerYAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerYAnchor),
             stackView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: buffer),
             stackView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -buffer),
-            
-            
-            
         ])
         
     }

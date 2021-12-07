@@ -121,10 +121,10 @@ extension HomeVC: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        // Run when management cell is tapped
         if (indexPath.section == 0) && (indexPath.item == 2) {
-            print("Managment")
-            
-            let vc = ManageVC()
+            let vc = ManageVC(entries: ManageVC.getHardCodedEntities())
             vc.subTitle = "Properties"
             
             navigationController?.pushViewController(vc, animated: true)

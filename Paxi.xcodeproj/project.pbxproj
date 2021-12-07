@@ -17,6 +17,7 @@
 		E911636827564A8D00E1F127 /* PaxiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E911636727564A8D00E1F127 /* PaxiTests.swift */; };
 		E911637227564A8D00E1F127 /* PaxiUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E911637127564A8D00E1F127 /* PaxiUITests.swift */; };
 		E911637427564A8D00E1F127 /* PaxiUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E911637327564A8D00E1F127 /* PaxiUITestsLaunchTests.swift */; };
+		E965D2CE276020820056A3B7 /* NewEntityVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E965D2CD276020820056A3B7 /* NewEntityVC.swift */; };
 		E982EEA5275C23BF0071CEF2 /* ManageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E982EEA4275C23BF0071CEF2 /* ManageVC.swift */; };
 		E982EEB0275C25640071CEF2 /* PaymentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E982EEAF275C25640071CEF2 /* PaymentVC.swift */; };
 		E982EEB2275C25870071CEF2 /* HistoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E982EEB1275C25870071CEF2 /* HistoryVC.swift */; };
@@ -27,7 +28,6 @@
 		E982EEC4275C285D0071CEF2 /* EntriesEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E982EEC3275C285D0071CEF2 /* EntriesEditView.swift */; };
 		E982EEC6275C28970071CEF2 /* AgendaVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E982EEC5275C28970071CEF2 /* AgendaVC.swift */; };
 		E982EEC8275C28A20071CEF2 /* DashboardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E982EEC7275C28A20071CEF2 /* DashboardVC.swift */; };
-		E982EECC275C2A560071CEF2 /* NewEntrieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E982EECB275C2A560071CEF2 /* NewEntrieView.swift */; };
 		E9941BE6275E87AC00A3CC8D /* ManageTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9941BE5275E87AC00A3CC8D /* ManageTitleCell.swift */; };
 		E9941BEA275E87EF00A3CC8D /* ManageEntityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9941BE9275E87EF00A3CC8D /* ManageEntityCell.swift */; };
 		E9941BEC275E880D00A3CC8D /* ManageTitleSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9941BEB275E880D00A3CC8D /* ManageTitleSection.swift */; };
@@ -76,6 +76,7 @@
 		E911636D27564A8D00E1F127 /* PaxiUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PaxiUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E911637127564A8D00E1F127 /* PaxiUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaxiUITests.swift; sourceTree = "<group>"; };
 		E911637327564A8D00E1F127 /* PaxiUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaxiUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		E965D2CD276020820056A3B7 /* NewEntityVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewEntityVC.swift; sourceTree = "<group>"; };
 		E982EEA4275C23BF0071CEF2 /* ManageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageVC.swift; sourceTree = "<group>"; };
 		E982EEAF275C25640071CEF2 /* PaymentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentVC.swift; sourceTree = "<group>"; };
 		E982EEB1275C25870071CEF2 /* HistoryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryVC.swift; sourceTree = "<group>"; };
@@ -86,7 +87,6 @@
 		E982EEC3275C285D0071CEF2 /* EntriesEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntriesEditView.swift; sourceTree = "<group>"; };
 		E982EEC5275C28970071CEF2 /* AgendaVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgendaVC.swift; sourceTree = "<group>"; };
 		E982EEC7275C28A20071CEF2 /* DashboardVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardVC.swift; sourceTree = "<group>"; };
-		E982EECB275C2A560071CEF2 /* NewEntrieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewEntrieView.swift; sourceTree = "<group>"; };
 		E9941BE5275E87AC00A3CC8D /* ManageTitleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageTitleCell.swift; sourceTree = "<group>"; };
 		E9941BE9275E87EF00A3CC8D /* ManageEntityCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageEntityCell.swift; sourceTree = "<group>"; };
 		E9941BEB275E880D00A3CC8D /* ManageTitleSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageTitleSection.swift; sourceTree = "<group>"; };
@@ -200,7 +200,7 @@
 				E9941BDD275E5C6900A3CC8D /* Model */,
 				E9941BDE275E5C6F00A3CC8D /* View */,
 				E982EEA4275C23BF0071CEF2 /* ManageVC.swift */,
-				E982EECB275C2A560071CEF2 /* NewEntrieView.swift */,
+				E965D2CD276020820056A3B7 /* NewEntityVC.swift */,
 			);
 			path = Managment;
 			sourceTree = "<group>";
@@ -492,7 +492,6 @@
 				E99FB7B4275C50E9001B84E2 /* Selection.swift in Sources */,
 				E911634E27564A8A00E1F127 /* AppDelegate.swift in Sources */,
 				E99FB7BB275C534D001B84E2 /* TitleSection.swift in Sources */,
-				E982EECC275C2A560071CEF2 /* NewEntrieView.swift in Sources */,
 				E982EEB4275C25E00071CEF2 /* HistorySearchVC.swift in Sources */,
 				E911635027564A8A00E1F127 /* SceneDelegate.swift in Sources */,
 				E99FB7CB275D8BFB001B84E2 /* TestingProperties.swift in Sources */,
@@ -507,6 +506,7 @@
 				E982EEB6275C26550071CEF2 /* HistoryPaymentView.swift in Sources */,
 				E99FB7B2275C4A65001B84E2 /* Section.swift in Sources */,
 				E982EEC6275C28970071CEF2 /* AgendaVC.swift in Sources */,
+				E965D2CE276020820056A3B7 /* NewEntityVC.swift in Sources */,
 				E982EEA5275C23BF0071CEF2 /* ManageVC.swift in Sources */,
 				E9941BEC275E880D00A3CC8D /* ManageTitleSection.swift in Sources */,
 			);

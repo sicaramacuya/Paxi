@@ -28,14 +28,21 @@ class ManageTitleCell: UICollectionViewCell {
         
         return label
     }()
-    lazy var imageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFit
-        imageView.image = UIImage(systemName: "plus")
-        imageView.tintColor = .systemYellow
+    lazy var plusImage:  UIImageView = {
+        let image = UIImageView()
+        image.translatesAutoresizingMaskIntoConstraints = false
+        image.image = UIImage(systemName: "plus")
         
-        return imageView
+        return image
+    }()
+    lazy var plusButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.contentMode = .scaleAspectFit
+        button.tintColor = .systemYellow
+        button.addTarget(ManageVC(), action: #selector(ManageVC.addButtonSelected), for: .touchUpInside)
+        
+        return button
     }()
     
     
@@ -65,7 +72,8 @@ class ManageTitleCell: UICollectionViewCell {
         // adding it to view
         self.addSubview(mainLabel)
         self.addSubview(subLabel)
-        self.addSubview(imageView)
+        self.addSubview(plusButton)
+        plusButton.addSubview(plusImage)
         
         
         // constraints
@@ -79,11 +87,15 @@ class ManageTitleCell: UICollectionViewCell {
             subLabel.topAnchor.constraint(equalTo: mainLabel.bottomAnchor),
             
             
-            // imageView
-            imageView.topAnchor.constraint(equalTo: self.topAnchor),
-            imageView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10),
-            imageView.widthAnchor.constraint(equalToConstant: 50),
-            imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor),
+            // plusButton
+            plusButton.topAnchor.constraint(equalTo: self.topAnchor),
+            plusButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10),
+            plusButton.widthAnchor.constraint(equalToConstant: 50),
+            plusButton.heightAnchor.constraint(equalTo: plusButton.widthAnchor),
+            
+            // plusImage
+            plusImage.widthAnchor.constraint(equalTo: plusButton.widthAnchor),
+            plusImage.heightAnchor.constraint(equalTo: plusButton.heightAnchor),
         ])
 
     }
