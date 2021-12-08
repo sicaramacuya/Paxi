@@ -18,6 +18,8 @@
 		E911637227564A8D00E1F127 /* PaxiUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E911637127564A8D00E1F127 /* PaxiUITests.swift */; };
 		E911637427564A8D00E1F127 /* PaxiUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E911637327564A8D00E1F127 /* PaxiUITestsLaunchTests.swift */; };
 		E965D2CE276020820056A3B7 /* NewEntityVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E965D2CD276020820056A3B7 /* NewEntityVC.swift */; };
+		E965D2D027604D9E0056A3B7 /* NewEntityTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E965D2CF27604D9E0056A3B7 /* NewEntityTitleCell.swift */; };
+		E965D2D2276050140056A3B7 /* NewEntityTitleSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E965D2D1276050140056A3B7 /* NewEntityTitleSection.swift */; };
 		E982EEA5275C23BF0071CEF2 /* ManageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E982EEA4275C23BF0071CEF2 /* ManageVC.swift */; };
 		E982EEB0275C25640071CEF2 /* PaymentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E982EEAF275C25640071CEF2 /* PaymentVC.swift */; };
 		E982EEB2275C25870071CEF2 /* HistoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E982EEB1275C25870071CEF2 /* HistoryVC.swift */; };
@@ -77,6 +79,8 @@
 		E911637127564A8D00E1F127 /* PaxiUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaxiUITests.swift; sourceTree = "<group>"; };
 		E911637327564A8D00E1F127 /* PaxiUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaxiUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		E965D2CD276020820056A3B7 /* NewEntityVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewEntityVC.swift; sourceTree = "<group>"; };
+		E965D2CF27604D9E0056A3B7 /* NewEntityTitleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewEntityTitleCell.swift; sourceTree = "<group>"; };
+		E965D2D1276050140056A3B7 /* NewEntityTitleSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewEntityTitleSection.swift; sourceTree = "<group>"; };
 		E982EEA4275C23BF0071CEF2 /* ManageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageVC.swift; sourceTree = "<group>"; };
 		E982EEAF275C25640071CEF2 /* PaymentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentVC.swift; sourceTree = "<group>"; };
 		E982EEB1275C25870071CEF2 /* HistoryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryVC.swift; sourceTree = "<group>"; };
@@ -288,6 +292,7 @@
 			children = (
 				E9941BEB275E880D00A3CC8D /* ManageTitleSection.swift */,
 				E9941BED275E881900A3CC8D /* ManageEntitySection.swift */,
+				E965D2D1276050140056A3B7 /* NewEntityTitleSection.swift */,
 			);
 			path = Sections;
 			sourceTree = "<group>";
@@ -297,6 +302,7 @@
 			children = (
 				E9941BE5275E87AC00A3CC8D /* ManageTitleCell.swift */,
 				E9941BE9275E87EF00A3CC8D /* ManageEntityCell.swift */,
+				E965D2CF27604D9E0056A3B7 /* NewEntityTitleCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -490,10 +496,12 @@
 				E99FB7C3275C540D001B84E2 /* QuickSelectionCell.swift in Sources */,
 				E982EEC4275C285D0071CEF2 /* EntriesEditView.swift in Sources */,
 				E99FB7B4275C50E9001B84E2 /* Selection.swift in Sources */,
+				E965D2D2276050140056A3B7 /* NewEntityTitleSection.swift in Sources */,
 				E911634E27564A8A00E1F127 /* AppDelegate.swift in Sources */,
 				E99FB7BB275C534D001B84E2 /* TitleSection.swift in Sources */,
 				E982EEB4275C25E00071CEF2 /* HistorySearchVC.swift in Sources */,
 				E911635027564A8A00E1F127 /* SceneDelegate.swift in Sources */,
+				E965D2D027604D9E0056A3B7 /* NewEntityTitleCell.swift in Sources */,
 				E99FB7CB275D8BFB001B84E2 /* TestingProperties.swift in Sources */,
 				E911635827564A8A00E1F127 /* Paxi.xcdatamodeld in Sources */,
 				E99FB7BF275C53A6001B84E2 /* PropertiesSection.swift in Sources */,

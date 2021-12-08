@@ -10,7 +10,6 @@ import UIKit
 class ManageVC: UIViewController {
     
     // MARK: Properties
-    lazy var mainTitle: String = ""
     lazy var subTitle: String = ""
     lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: self.view.bounds, collectionViewLayout: self.collectionViewLayout)
@@ -55,7 +54,6 @@ class ManageVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = subTitle
         self.view.backgroundColor = .systemBackground
         
         setupNavigationController()
@@ -105,23 +103,23 @@ class ManageVC: UIViewController {
         // switch set the correct title and entries for any given entity
         switch type(of: self.entries[0]) {
         case is ManageTestingProperty.Type:
-            print("New Property")
             let vc = NewEntityVC()
+            vc.title = "New Property"
             navigationController?.present(vc, animated: true)
             
         case is ManageTestingUnit.Type:
-            print("New Unit")
             let vc = NewEntityVC()
+            vc.title = "New Unit"
             navigationController?.present(vc, animated: true)
             
         case is ManageTestingTenant.Type:
-            print("New Tenant")
             let vc = NewEntityVC()
+            vc.title = "New Tenant"
             navigationController?.present(vc, animated: true)
          
         case is ManageTestingPayments.Type:
-            print("New Payments")
             let vc = NewEntityVC()
+            vc.title = "New Payment"
             navigationController?.present(vc, animated: true)
             
         default:
