@@ -103,22 +103,22 @@ class ManageVC: UIViewController {
         // switch set the correct title and entries for any given entity
         switch type(of: self.entries[0]) {
         case is ManageTestingProperty.Type:
-            let vc = NewEntityVC()
+            let vc = NewEntityHeaderCVC(collectionViewLayout: UICollectionViewLayout())
             vc.title = "New Property"
             navigationController?.present(vc, animated: true)
             
         case is ManageTestingUnit.Type:
-            let vc = NewEntityVC()
+            let vc = NewEntityHeaderCVC(collectionViewLayout: UICollectionViewLayout())
             vc.title = "New Unit"
             navigationController?.present(vc, animated: true)
             
         case is ManageTestingTenant.Type:
-            let vc = NewEntityVC()
+            let vc = NewEntityHeaderCVC(collectionViewLayout: UICollectionViewLayout())
             vc.title = "New Tenant"
             navigationController?.present(vc, animated: true)
          
         case is ManageTestingPayments.Type:
-            let vc = NewEntityVC()
+            let vc = NewEntityHeaderCVC(collectionViewLayout: UICollectionViewLayout())
             vc.title = "New Payment"
             navigationController?.present(vc, animated: true)
             
