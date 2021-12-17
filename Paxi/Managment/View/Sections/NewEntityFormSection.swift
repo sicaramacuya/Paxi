@@ -1,21 +1,22 @@
 //
-//  NewEntityTitleSection.swift
+//  NewEntityFormSection.swift
 //  Paxi
 //
-//  Created by Eric Morales on 12/7/21.
+//  Created by Eric Morales on 12/17/21.
 //
 
 import UIKit
 
-struct NewEntityTitleSection: Section {
+struct NewEntityFormSection: Section {
     
     // MARK: Properties
-    let numberOfItems: Int = 1
-    let title: String
+    let numberOfItems: Int 
+    let title: [String]
     
     
     // MARK: Methods
-    init(title: String) {
+    init(title: [String]) {
+        self.numberOfItems = title.count
         self.title = title
     }
     
@@ -23,10 +24,13 @@ struct NewEntityTitleSection: Section {
         // item
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        item.edgeSpacing = NSCollectionLayoutEdgeSpacing(leading: nil, top: NSCollectionLayoutSpacing.fixed(20), trailing: nil, bottom: nil)
         
         // group
         let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(0.08))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+        group.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 10, bottom: 10, trailing: 10)
+        //group.interItemSpacing = NSCollectionLayoutSpacing.fixed(10)
         
         // section
         let section = NSCollectionLayoutSection(group: group)
@@ -35,9 +39,9 @@ struct NewEntityTitleSection: Section {
     }
     
     func configureCell(collectionView: UICollectionView, indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: NewEntityTitleCell.self), for: indexPath) as! NewEntityTitleCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: NewEntityFormCell.self), for: indexPath) as! NewEntityFormCell
         
-        cell.setContent(title: self.title)
+        cell.setContent(title: self.title[indexPath.item])
         
         return cell
     }

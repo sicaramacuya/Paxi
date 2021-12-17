@@ -1,16 +1,15 @@
 //
-//  NewEntityPreviewCell.swift
+//  NewEntityPreviewView.swift
 //  Paxi
 //
-//  Created by Eric Morales on 12/9/21.
+//  Created by Eric Morales on 12/17/21.
 //
 
 import UIKit
 
-class NewEntityPreviewCell: UICollectionViewCell {
+class NewEntityPreviewView: UIView {
     
     // MARK: Properties
-    static let identifier: String = "NewEntityPreviewCell"
     lazy var background: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -83,17 +82,14 @@ class NewEntityPreviewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    convenience init(title: String) {
+        self.init(frame: .zero)
+        
+        titleLabel.text = title
+    }
+    
     
     // MARK: Methods
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        self.reset()
-    }
-    
-    func reset() {
-        // add here any cleanup needed.
-    }
-    
     func setup() {
         // MARK: Adding view to hierarchy
         self.addSubview(background)
@@ -121,10 +117,5 @@ class NewEntityPreviewCell: UICollectionViewCell {
 
         ])
         
-    }
-    
-    func setContent(title: String) {
-        // set any content withing the cell
-        titleLabel.text = title
     }
 }

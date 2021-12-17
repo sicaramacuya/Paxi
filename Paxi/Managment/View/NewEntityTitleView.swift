@@ -1,16 +1,15 @@
 //
-//  NewEntityTitleCell.swift
+//  NewEntityTitleView.swift
 //  Paxi
 //
-//  Created by Eric Morales on 12/7/21.
+//  Created by Eric Morales on 12/17/21.
 //
 
 import UIKit
 
-class NewEntityTitleCell: UICollectionViewCell {
+class NewEntityTitleView: UIView {
     
     // MARK: Properties
-    static let identifier: String = "NewEntityTitleCell"
     lazy var cancelImage:  UIImageView = {
         let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
@@ -64,13 +63,14 @@ class NewEntityTitleCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
-    // MARK: Methods
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        self.reset()
+    convenience init(title: String) {
+        self.init(frame: .zero)
+        
+        self.mainLabel.text = title
     }
     
+    
+    // MARK: Methods
     func reset() {
         // add here any cleanup needed.
     }
@@ -86,13 +86,6 @@ class NewEntityTitleCell: UICollectionViewCell {
         
         // constraints
         NSLayoutConstraint.activate([
-            // mainLabel
-            mainLabel.leadingAnchor.constraint(equalTo: cancelButton.trailingAnchor),
-            mainLabel.trailingAnchor.constraint(equalTo: checkMarkButton.leadingAnchor),
-            mainLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 20),
-            mainLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            mainLabel.centerYAnchor.constraint(equalTo: cancelButton.centerYAnchor),
-            
             // cancelButton
             cancelButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 20),
             cancelButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
@@ -102,6 +95,13 @@ class NewEntityTitleCell: UICollectionViewCell {
             // cancelImage
             cancelImage.widthAnchor.constraint(equalTo: cancelButton.widthAnchor),
             cancelImage.heightAnchor.constraint(equalTo: cancelButton.heightAnchor),
+            
+            // mainLabel
+            mainLabel.leadingAnchor.constraint(equalTo: cancelButton.trailingAnchor),
+            mainLabel.trailingAnchor.constraint(equalTo: checkMarkButton.leadingAnchor),
+            mainLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 20),
+            mainLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            mainLabel.centerYAnchor.constraint(equalTo: cancelButton.centerYAnchor),
             
             // checkMarkButton
             checkMarkButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 20),
@@ -113,11 +113,6 @@ class NewEntityTitleCell: UICollectionViewCell {
             checkMarkImage.widthAnchor.constraint(equalTo: checkMarkButton.widthAnchor),
             checkMarkImage.heightAnchor.constraint(equalTo: checkMarkButton.heightAnchor),
         ])
-
-    }
-    
-    func setContent(title: String) {
-        // set any content withing the cell
-        self.mainLabel.text = title
+        
     }
 }
