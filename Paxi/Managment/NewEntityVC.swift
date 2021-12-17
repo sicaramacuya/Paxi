@@ -10,6 +10,8 @@ import UIKit
 class NewEntityVC: UIViewController {
 
     // MARK: Properties
+    var item: Any?
+    var manageVC: ManageVC?
     lazy var entityType: ManageNewEntityType = .notYetAsign
     lazy var titleView: UIView = NewEntityTitleView(title: self.title!)
     lazy var previewView: UIView = NewEntityPreviewView(title: "Aguacate")
@@ -118,24 +120,59 @@ class NewEntityVC: UIViewController {
         presentingViewController?.dismiss(animated: true)
     }
     
-    @objc func checkMarkButtonSelected() {
-        print("Checkmark button selected!")
+    func save(results: [String:String]) {
+        let stack = CDStack.shared
+        let context = stack.persistentContainer.viewContext
+        switch entityType {
+        case .property:
+            let property1 = Property(context: context)
+            property1.title = results["title"]
+            property1.address = results["address"]
+            
+        case .unit:
+            let unit1 = Unit(context: context)
+            unit1.title = results["title"]
+            //unit1.rooms = results["rooms"]
+            //unit1.bathrooms = results["bathrooms"]
+            //unit1.rent = results["rent"]
+            
+            guard let property = item as? Property else {
+                fatalError("item must be a Property when entityType is equal to unit")
+            }
+            
+            unit1.property = property
+        case .tenant:
+            let tenant1 = Tenant(context: context)
+            tenant1.name = results["name"]
+            //tenant1.rooms = results["rooms"]
+            //tenant1.bathrooms = results["bathrooms"]
+            //tenant1.rent = results["rent"]
+            
+            guard let unit = item as? Unit else {
+                fatalError("item must be a Property when entityType is equal to unit")
+            }
+            
+            tenant1.unit = unit
+        case .notYetAsign:
+            break
+        }
         
+        stack.saveContext()
+    }
+    
+    @objc func checkMarkButtonSelected() {
         switch self.entityType {
         case .property:
             let results = getContentFromTextFields(entityType: .property)
-            
-            print(results["title"]!, results["address"]!)
+            save(results: results)
              
         case .unit:
             let results = getContentFromTextFields(entityType: .unit)
-            
-            print(results["title"]!, results["rooms"]!, results["bathrooms"]!, results["rent"]!)
+            save(results: results)
             
         case .tenant:
             let results = getContentFromTextFields(entityType: .tenant)
-            
-            print(results["name"]!, results["email"]!, results["phone"]!, results["deposit"]!, results["startingDate"]!)
+            save(results: results)
     
         case .notYetAsign:
             break

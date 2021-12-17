@@ -27,11 +27,14 @@ class ManageVC: UIViewController {
         }
         return layout
     }()
-    lazy var sections: [Section] = [
-        ManageTitleSection(mainTitle: "Manage", subTitle: self.subTitle),
-        ManageEntitySection(entities: entries)
-    ]
-    lazy var entries: [Any] = []
+    var sections: [Section] {
+        return [
+            ManageTitleSection(mainTitle: "Manage", subTitle: self.subTitle),
+            ManageEntitySection(entities: entries)
+        ]
+    }
+    var item: Any?
+    var entries: [Any] = []
     
     
     // MARK: Initializers
@@ -63,6 +66,20 @@ class ManageVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        if item == nil {
+            let context = CDStack.shared.persistentContainer.viewContext
+            let fetch = Property.fetchRequest()
+            fetch.sortDescriptors = [] // TODO: Sort by name
+            entries = try! context.fetch(fetch)
+        } else if let property = item as? Property {
+            entries = property.allUnits
+        } else if let unit = item as? Unit {
+            entries = unit.allTenants
+        } else if let tenant = item as? Tenant {
+            entries = tenant.allPayments
+        }
+        collectionView.reloadData()
         
         setupNavigationController()
     }
@@ -101,33 +118,37 @@ class ManageVC: UIViewController {
     }
     
     @objc func addButtonSelected() {
-        // switch set the correct title and entries for any given entity
-        switch type(of: self.entries[0]) {
-        case is ManageTestingProperty.Type:
-            //let vc = NewEntityHeaderCVC(collectionViewLayout: UICollectionViewLayout())
+        if item == nil {
+            // this is showing a list of properties
             let vc = NewEntityVC()
             vc.title = "New Property"
             vc.entityType = .property
+            vc.manageVC = self
+            vc.modalPresentationStyle = .fullScreen
             navigationController?.present(vc, animated: true)
             
-        case is ManageTestingUnit.Type:
+        } else if let property = item as? Property {
+            // this is showing a list of units
             let vc = NewEntityVC()
             vc.title = "New Unit"
+            vc.item = property
             vc.entityType = .unit
+            vc.manageVC = self
+            vc.modalPresentationStyle = .fullScreen
             navigationController?.present(vc, animated: true)
-            
-        case is ManageTestingTenant.Type:
+        } else if let unit = item as? Unit {
+            // this is showing a list of tenants
             let vc = NewEntityVC()
-            vc.title = "New Tenant"
+            vc.title = "New Tenants"
+            vc.item = unit
             vc.entityType = .tenant
+            vc.manageVC = self
+            vc.modalPresentationStyle = .fullScreen
             navigationController?.present(vc, animated: true)
-         
-        case is ManageTestingPayments.Type:
+        } else {
+            // this is showing a list of payment
             let vc = PaymentVC()
             navigationController?.present(vc, animated: true)
-            
-        default:
-            return
         }
     }
 }
@@ -165,36 +186,64 @@ extension ManageVC: UICollectionViewDelegate {
     
     func manageSelectionOfCell(indexPath: IndexPath) {
         // create a new view controller
-        let vc = ManageVC(entries: self.entries)
+        let vc = ManageVC(entries: entries)
         
         // switch set the correct title and entries for any given entity
         var title: String = ""
         switch type(of: vc.entries[0]) {
-        case is ManageTestingProperty.Type:
+        case is Property.Type:
+            let entries = vc.entries as! [Property]
+            let property = entries[indexPath.item]
+            title = property.title!
             
-            let entries = vc.entries as! [ManageTestingProperty]
-            title = entries[indexPath.item].title
+            vc.item = property
+            vc.entries = property.allUnits
+        case is Unit.Type:
+            let entries = vc.entries as! [Unit]
+            let property = entries[indexPath.item]
+            title = property.title!
             
-            vc.entries = entries[indexPath.item].units
+            vc.item = property
+            vc.entries = property.allTenants
+        case is Tenant.Type:
+            let entries = vc.entries as! [Tenant]
+            let property = entries[indexPath.item]
+            title = property.name!
             
-        case is ManageTestingUnit.Type:
-            let entries = self.entries as! [ManageTestingUnit]
-            title = entries[indexPath.item].title
+            vc.item = property
+            vc.entries = property.allPayments
             
-            vc.entries = entries[indexPath.item].tenants
-            
-        case is ManageTestingTenant.Type:
-            let entries = self.entries as! [ManageTestingTenant]
-            title = entries[indexPath.item].title
-            
-            vc.entries = entries[indexPath.item].payments
-         
-        case is ManageTestingPayments.Type:
+        case is Payment.Type:
             let paymentVC = PaymentVC()
             navigationController?.present(paymentVC, animated: true)
-            
+
             return
             
+//        case is ManageTestingProperty.Type:
+//
+//            let entries = vc.entries as! [ManageTestingProperty]
+//            title = entries[indexPath.item].title
+//
+//            vc.entries = entries[indexPath.item].units
+//
+//        case is ManageTestingUnit.Type:
+//            let entries = self.entries as! [ManageTestingUnit]
+//            title = entries[indexPath.item].title
+//
+//            vc.entries = entries[indexPath.item].tenants
+//
+//        case is ManageTestingTenant.Type:
+//            let entries = self.entries as! [ManageTestingTenant]
+//            title = entries[indexPath.item].title
+//
+//            vc.entries = entries[indexPath.item].payments
+//
+//        case is ManageTestingPayments.Type:
+//            let paymentVC = PaymentVC()
+//            navigationController?.present(paymentVC, animated: true)
+//
+//            return
+//
         default:
             return
         }
@@ -203,17 +252,54 @@ extension ManageVC: UICollectionViewDelegate {
         vc.subTitle = title
         
         // sets the sessions
-        vc.sections = [
-            ManageTitleSection(mainTitle: "Manage", subTitle: title),
-            ManageEntitySection(entities: vc.entries)
-        ]
+        //vc.sections = [
+        //    ManageTitleSection(mainTitle: "Manage", subTitle: title),
+        //    ManageEntitySection(entities: vc.entries)
+        //]
         
         // move to our new view controller
         navigationController?.pushViewController(vc, animated: true)
     }
 }
 
+//class AddUnitFormVC {
+//    let property: Property
+//
+//    var name: String
+//    var rent: Double
+//
+//    func save() {
+//
+//        let unit1 = Unit(context: CDStack.shared.persistentContainer.viewContext)
+//        // ...
+//        unit1.property = self.property
+//    }
+//}
+
 extension ManageVC {
+    static func populateDB() {
+        let stack = CDStack.shared
+        let context = stack.persistentContainer.viewContext
+        
+        let payment1 = Payment(context: context)
+        // ...
+        
+        let tent1 = Tenant(context: context)
+        // ...
+        tent1.addToPayments(payment1)
+        
+        let unit1 = Unit(context: context)
+        // ...
+        unit1.addToTenants(tent1)
+        
+        let property1 = Property(context: context)
+        property1.title = "SF"
+        property1.address = "Puerto Rico"
+        property1.addToUnits(unit1)
+        
+        stack.saveContext()
+    }
+    
     // MARK: Hard Coded Content
     static func getHardCodedEntities() -> [ManageTestingProperty] {
         // Payments

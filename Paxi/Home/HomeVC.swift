@@ -124,7 +124,13 @@ extension HomeVC: UICollectionViewDelegate {
         
         // Run when management cell is tapped
         if (indexPath.section == 0) && (indexPath.item == 2) {
-            let vc = ManageVC(entries: ManageVC.getHardCodedEntities())
+            //let vc = ManageVC(entries: ManageVC.getHardCodedEntities())
+            let context = CDStack.shared.persistentContainer.viewContext
+            let fetch = Property.fetchRequest()
+            fetch.sortDescriptors = [] // TODO: Sort by name
+            let results = try! context.fetch(fetch)
+            
+            let vc = ManageVC(entries: results)
             vc.subTitle = "Properties"
             
             navigationController?.pushViewController(vc, animated: true)

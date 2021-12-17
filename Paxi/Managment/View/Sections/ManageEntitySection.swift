@@ -42,33 +42,32 @@ struct ManageEntitySection: Section {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: ManageEntityCell.self), for: indexPath) as! ManageEntityCell
         
         switch type(of: entities[0]) {
-        case is ManageTestingProperty.Type:
-            let entities = self.entities as! [ManageTestingProperty]
-            let title = entities[indexPath.item].title
+        case is Property.Type:
+            let entities = self.entities as! [Property]
+            let title = entities[indexPath.item].title ?? "Untitled Property"
             let amount = entities[indexPath.item].amount
             
             cell.setContent(title: title, amount: amount)
-        
-        case is ManageTestingUnit.Type:
-            let entities = self.entities as! [ManageTestingUnit]
-            let title = entities[indexPath.item].title
-            let amount = entities[indexPath.item].amount
-            
-            cell.setContent(title: title, amount: amount)
-            
-        case is ManageTestingTenant.Type:
-            let entities = self.entities as! [ManageTestingTenant]
-            let title = entities[indexPath.item].title
+        case is Unit.Type:
+            let entities = self.entities as! [Unit]
+            let title = entities[indexPath.item].title ?? "Untitled Unit"
             let amount = entities[indexPath.item].amount
             
             cell.setContent(title: title, amount: amount)
             
-        case is ManageTestingPayments.Type:
-            let entities = self.entities as! [ManageTestingPayments]
+        case is Tenant.Type:
+            let entities = self.entities as! [Tenant]
+            let title = entities[indexPath.item].name!
+            let amount = entities[indexPath.item].amount
+            
+            cell.setContent(title: title, amount: amount)
+            
+        case is Payment.Type:
+            let entities = self.entities as! [Payment]
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "MMM dd, y"
-            let title = dateFormatter.string(from: entities[indexPath.item].date)
-            let amount = entities[indexPath.item].amount
+            let title = dateFormatter.string(from: entities[indexPath.item].date!)
+            let amount = entities[indexPath.item].payment
             
             cell.setContent(title: title, amount: amount)
             
