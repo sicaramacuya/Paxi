@@ -55,6 +55,7 @@ class ManageVC: UIViewController {
         super.viewDidLoad()
         
         self.view.backgroundColor = .systemBackground
+        self.title = subTitle
         
         setupNavigationController()
         setupCollectionView()

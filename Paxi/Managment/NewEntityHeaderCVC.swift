@@ -16,12 +16,19 @@ class NewEntityHeaderCVC: UICollectionViewController {
         NewEntityTitleSection(title: self.title!),
         NewEntityPreviewSection(entities: self.entity)
     ]
+    //lazy var form: NewEntityFromView = NewEntityFromView(parentVC: self.view)
     
     // MARK: VC's Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setupCollectionView()
+        //setupForm()
+        
+        
+        
+        
+//        collectionView.register(MyHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "Header")
     }
     
     // MARK: Methods
@@ -31,7 +38,7 @@ class NewEntityHeaderCVC: UICollectionViewController {
         collectionView.backgroundColor = UIColor.systemBackground
         collectionView.alwaysBounceVertical = true
         collectionView.showsVerticalScrollIndicator = false
-        collectionView.isScrollEnabled = false
+        collectionView.isScrollEnabled = true
         
         // collectionViewLayout
         collectionView.collectionViewLayout = {
@@ -56,9 +63,60 @@ class NewEntityHeaderCVC: UICollectionViewController {
         // reloads all data in collectionView
         collectionView.reloadData()
     }
+    
+    func setupForm() {
+    
+        // adding to view hierachy
+        //self.view.addSubview(form)
+    
+        // add constrains
+        //form.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: -50).isActive = true
+        //form.leadingAnchor.constraint(equalTo: collectionView.leadingAnchor).isActive = true
+        //form.trailingAnchor.constraint(equalTo: collectionView.trailingAnchor).isActive = true
+        //form.bottomAnchor.constraint(equalTo: collectionView.bottomAnchor).isActive = true
+    }
 }
 
+//class MyHeader: UICollectionReusableView {
+//    lazy var someTextLabel: UILabel = {
+//        let label = UILabel()
+//        label.translatesAutoresizingMaskIntoConstraints = false
+//        label.textColor = .black
+//        label.font = .systemFont(ofSize: 20)
+//        label.text = "Hello I'm a header!"
+//
+//        return label
+//    }()
+//
+//    override init(frame: CGRect) {
+//        super.init(frame: frame)
+//
+//        addSubview(someTextLabel)
+//
+//        NSLayoutConstraint.activate([
+//            someTextLabel.topAnchor.constraint(lessThanOrEqualTo: self.safeAreaLayoutGuide.topAnchor, constant: 10),
+//            someTextLabel.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+//            someTextLabel.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+//            someTextLabel.heightAnchor.constraint(equalToConstant: 30)
+//        ])
+//    }
+//
+//    required init?(coder: NSCoder) {
+//        fatalError("init(coder:) has not been implemented")
+//    }
+//}
+
+
+
 extension NewEntityHeaderCVC {
+//    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+//
+//        let supplementaryView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "Header", for: indexPath)
+//
+//        return supplementaryView
+//    }
+    
+    
     // MARK: CollectionView DataSource
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -75,6 +133,14 @@ extension NewEntityHeaderCVC {
 }
 
 extension NewEntityHeaderCVC {
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+//        if section == 0 {
+//            return CGSize(width: view.frame.width, height: 80)
+//        } else {
+//            return .zero
+//        }
+//    }
+    
     // MARK: CollectionView Delegate
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -82,6 +148,6 @@ extension NewEntityHeaderCVC {
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+        print(indexPath)
     }
 }
