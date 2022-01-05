@@ -371,8 +371,15 @@ class NewEntityVC: UIViewController {
                     // Ignoring the unit.
                     break
                 case 3:
+                    guard let tenant = self.item as? Tenant else {
+                        fatalError("fatalError trying to cast item as a Tenant inside getFormFields()")
+                    }
+                    guard let unitRent = tenant.unit?.rent else {
+                        fatalError("fatalError trying to access unit's rent")
+                    }
+                    
                     let rentText = cell.textField.text ?? "" // get field if empty make sure is an empty string
-                    if rentText == "" { return [:] } // if an empty string return an empty dictionary
+                    if rentText == "" { rent = unitRent; break } // if there is a empty string is because there where no changes. So save the actual rent for the unit
                     guard let rentDouble = Double(rentText) else {
                         fatalError("Deposit not able to cast as Double.")
                     }
