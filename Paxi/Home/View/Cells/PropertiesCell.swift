@@ -114,7 +114,7 @@ class PropertiesCell: UICollectionViewCell {
         ])
     }
     
-    func setContent(property: TestingProperties) {
+    func setContent(property: Property) {
         self.label.text = property.title
     }
 }

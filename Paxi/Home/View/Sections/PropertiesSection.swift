@@ -11,11 +11,11 @@ struct PropertiesSection: Section {
     
     // MARK: Properties
     let numberOfItems: Int
-    let properties: [TestingProperties]!
+    let properties: [Property]!
     
     
     // MARK: Methods
-    init(properties: [TestingProperties]) {
+    init(properties: [Property]) {
         self.numberOfItems = properties.count
         self.properties = properties
     }

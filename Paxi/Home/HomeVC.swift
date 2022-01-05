@@ -28,19 +28,19 @@ class HomeVC: UIViewController {
     }()
     lazy var quickSelection: [Selection] = [
                                             .agenda,
-                                            .dashboard,
+                                            //.dashboard,
                                             .managment,
                                             .payment,
                                             .history,
-                                            .tenants,
-                                            .units
+                                            //.tenants,
+                                            //.units
     ]
     lazy var sections: [Section] = [
         QuickSelectionSection(selection: quickSelection),
         TitleSection(title: "Properties"),
         PropertiesSection(properties: properties)
     ]
-    lazy var properties = self.getHardCodedProperties()
+    lazy var properties = self.getProperties()
     
     // MARK: VC's Lifecycle
     override func viewDidLoad() {
@@ -121,33 +121,53 @@ extension HomeVC: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        // Quick Selection Section
+        if indexPath.section == 0 {
+            let selection: Selection = quickSelection[indexPath.item]
+            
+            switch selection {
+            case .agenda:
+                break
+                
+            case .managment:
+                let context = CDStack.shared.persistentContainer.viewContext
+                let fetch = Property.fetchRequest()
+                fetch.sortDescriptors = [] // TODO: Sort by name
+                let results = try! context.fetch(fetch)
+                
+                let vc = ManageVC(entries: results)
+                vc.subTitle = "Properties"
+                
+                navigationController?.pushViewController(vc, animated: true)
+                
+            case .payment:
+                let vc = PaymentVC()
+                
+                navigationController?.pushViewController(vc, animated: true)
+                
+            case .history:
+                break
+                
+            default:
+                break
+            }
+        }
         
-        // Run when management cell is tapped
-        if (indexPath.section == 0) && (indexPath.item == 2) {
-            //let vc = ManageVC(entries: ManageVC.getHardCodedEntities())
-            let context = CDStack.shared.persistentContainer.viewContext
-            let fetch = Property.fetchRequest()
-            fetch.sortDescriptors = [] // TODO: Sort by name
-            let results = try! context.fetch(fetch)
-            
-            let vc = ManageVC(entries: results)
-            vc.subTitle = "Properties"
-            
-            navigationController?.pushViewController(vc, animated: true)
+        // Properties Section
+        if indexPath.section == 2 {
+            print(indexPath.item)
         }
     }
 }
 
 extension HomeVC {
     // MARK: Hard Coded Content
-    func getHardCodedProperties() -> [TestingProperties] {
-        return [
-            TestingProperties(title: "Pitahaya"),
-            TestingProperties(title: "Collores"),
-            TestingProperties(title: "Antón Ruíz"),
-            TestingProperties(title: "Tejas"),
-            TestingProperties(title: "Leguisamo"),
-            TestingProperties(title: "Miradero")
-        ]
+    func getProperties() -> [Property] {
+        let context = CDStack.shared.persistentContainer.viewContext
+        let fetch = Property.fetchRequest()
+        fetch.sortDescriptors = [] // TODO: Sort by name
+        let results = try! context.fetch(fetch)
+        
+        return results
     }
 }
