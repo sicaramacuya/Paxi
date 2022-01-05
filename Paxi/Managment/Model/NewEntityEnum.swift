@@ -11,5 +11,6 @@ enum ManageNewEntityType {
     case property
     case unit
     case tenant
+    case payment
     case notYetAsign
 }

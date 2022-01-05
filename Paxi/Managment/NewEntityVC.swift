@@ -120,60 +120,45 @@ class NewEntityVC: UIViewController {
         presentingViewController?.dismiss(animated: true)
     }
     
-    func save(results: [String:String]) {
-        let stack = CDStack.shared
-        let context = stack.persistentContainer.viewContext
-        switch entityType {
-        case .property:
-            let property1 = Property(context: context)
-            property1.title = results["title"]
-            property1.address = results["address"]
-            
-        case .unit:
-            let unit1 = Unit(context: context)
-            unit1.title = results["title"]
-            //unit1.rooms = results["rooms"]
-            //unit1.bathrooms = results["bathrooms"]
-            //unit1.rent = results["rent"]
-            
-            guard let property = item as? Property else {
-                fatalError("item must be a Property when entityType is equal to unit")
-            }
-            
-            unit1.property = property
-        case .tenant:
-            let tenant1 = Tenant(context: context)
-            tenant1.name = results["name"]
-            //tenant1.rooms = results["rooms"]
-            //tenant1.bathrooms = results["bathrooms"]
-            //tenant1.rent = results["rent"]
-            
-            guard let unit = item as? Unit else {
-                fatalError("item must be a Property when entityType is equal to unit")
-            }
-            
-            tenant1.unit = unit
-        case .notYetAsign:
-            break
-        }
-        
-        stack.saveContext()
-    }
-    
     @objc func checkMarkButtonSelected() {
+        // This switch is to get the content in the text field and called the save method on it.
         switch self.entityType {
         case .property:
             let results = getContentFromTextFields(entityType: .property)
-            save(results: results)
+            if !results.isEmpty {
+                save(results: results)
+                print("Property has been saved.")
+            } else {
+                print("Didn't save, fields for the new property wheren't fill out properly.")
+            }
              
         case .unit:
             let results = getContentFromTextFields(entityType: .unit)
-            save(results: results)
+            if !results.isEmpty {
+                save(results: results)
+                print("Unit has been saved.")
+            } else {
+                print("Didn't save, fields for the new unit wheren't fill out properly.")
+            }
             
         case .tenant:
             let results = getContentFromTextFields(entityType: .tenant)
-            save(results: results)
+            if !results.isEmpty {
+                save(results: results)
+                print("Tenant has been saved.")
+            } else {
+                print("Didn't save, fields for the new tenant wheren't fill out properly.")
+            }
     
+        case .payment:
+            let results = getContentFromTextFields(entityType: .payment)
+            if !results.isEmpty {
+                save(results: results)
+                print("Payment has been saved.")
+            } else {
+                print("Didn't save, fields for the new payment wheren't fill out properly.")
+            }
+        
         case .notYetAsign:
             break
         }
@@ -188,13 +173,31 @@ class NewEntityVC: UIViewController {
         case .unit:
             return ["Title", "Rooms", "Bathrooms", "Rent"]
         case .tenant:
-            return ["Name", "Email", "Phone", "Deposit", "Starting Date"]
+            return ["Name", "Email", "Phone", "Deposit", "Starting Date (e.g., 'April 05, 2021')"]
+        case .payment:
+            guard let tenant = item as? Tenant else {
+                fatalError("fatalError trying to cast item as a Tenant inside getFormFields()")
+            }
+            guard let tenantName = tenant.name else {
+                fatalError("fatalError trying to access tenant's name")
+            }
+            guard let tenantProperty = tenant.unit?.property?.title else {
+                fatalError("fatalError trying to access tenant's property")
+            }
+            guard let tenantUnit = tenant.unit?.title else {
+                fatalError("fatalError trying to access tenant's unit")
+            }
+            guard let unitRent = tenant.unit?.rent else {
+                fatalError("fatalError trying to access unit's rent")
+            }
+            
+            return [tenantName, tenantProperty, tenantUnit, String(unitRent), "Actual Payment", "Date (e.g., 'April 05, 2021')", "Note"]
         case .notYetAsign:
             return []
         }
     }
     
-    func getContentFromTextFields(entityType: ManageNewEntityType) -> [String : String] {
+    func getContentFromTextFields(entityType: ManageNewEntityType) -> [String : Any] {
         switch entityType {
         case .property:
             var title: String = ""
@@ -205,9 +208,15 @@ class NewEntityVC: UIViewController {
                 let cell = collectionView.cellForItem(at: indexPath) as! NewEntityFormCell
                 
                 if item == 0 {
-                    title = cell.textField.text!
+                    let titleText = cell.textField.text ?? ""
+                    if titleText == "" { return [:] }
+                    
+                    title = titleText
                 } else {
-                    address = cell.textField.text!
+                    let addressText = cell.textField.text ?? ""
+                    if addressText == "" { return [:] }
+                    
+                    address = addressText
                 }
             }
             
@@ -218,9 +227,9 @@ class NewEntityVC: UIViewController {
             
         case .unit:
             var title: String = ""
-            var rooms: String = ""
-            var bathrooms: String = ""
-            var rent: String = ""
+            var rooms: Int16 = 0
+            var bathrooms: Int16 = 0
+            var rent: Double = 0.00
             
             for item in 0...3 {
                 let indexPath: IndexPath = .init(item: item, section: 0)
@@ -228,13 +237,34 @@ class NewEntityVC: UIViewController {
                 
                 switch item {
                 case 0:
-                    title = cell.textField.text!
+                    let titleText = cell.textField.text ?? ""
+                    if titleText == "" { return [:] }
+                    
+                    title = titleText
                 case 1:
-                    rooms = cell.textField.text!
+                    let roomsText = cell.textField.text ?? ""
+                    if roomsText == "" { return [:] }
+                    guard let roomsInt16 = Int16(roomsText) else {
+                        fatalError("Rooms not able to cast as Int16.")
+                    }
+                    
+                    rooms = roomsInt16
                 case 2:
-                    bathrooms = cell.textField.text!
+                    let bathroomsText = cell.textField.text ?? ""
+                    if bathroomsText == "" { return [:] }
+                    guard let bathroomsInt16 = Int16(bathroomsText) else {
+                        fatalError("Bathrooms not able to cast as Int16.")
+                    }
+                    
+                    bathrooms = bathroomsInt16
                 case 3:
-                    rent = cell.textField.text!
+                    let rentText = cell.textField.text ?? ""
+                    if rentText == "" { return [:] }
+                    guard let rentDouble = Double(rentText) else {
+                        fatalError("Rent not able to cast as Double.")
+                    }
+                    
+                    rent = rentDouble
                 default:
                     break
                 }
@@ -251,8 +281,8 @@ class NewEntityVC: UIViewController {
             var name: String = ""
             var email: String = ""
             var phone: String = ""
-            var deposit: String = ""
-            var startingDate: String = ""
+            var deposit: Double = 0.00
+            var startingDate: Date = Date()
             
             for item in 0...4 {
                 let indexPath: IndexPath = .init(item: item, section: 0)
@@ -260,15 +290,44 @@ class NewEntityVC: UIViewController {
                 
                 switch item {
                 case 0:
-                    name = cell.textField.text!
+                    let nameText = cell.textField.text ?? ""
+                    if nameText == "" { return [:] }
+                    
+                    name = nameText
                 case 1:
-                    email = cell.textField.text!
+                    let emailText = cell.textField.text ?? ""
+                    if emailText == "" { return [:] }
+                    
+                    email = emailText
                 case 2:
-                    phone = cell.textField.text!
+                    let phoneText = cell.textField.text ?? ""
+                    if phoneText == "" { return [:] }
+                    
+                    phone = phoneText
                 case 3:
-                    deposit = cell.textField.text!
+                    let depositText = cell.textField.text ?? ""
+                    if depositText == "" { return [:] }
+                    guard let depositDouble = Double(depositText) else {
+                        fatalError("Deposit not able to cast as Double.")
+                    }
+                    
+                    deposit = depositDouble
                 case 4:
-                    startingDate = cell.textField.text!
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "MMMM dd, y"
+                    if cell.textField.text == "" {
+                        return [
+                            "name" : name,
+                            "email" : email,
+                            "phone" : phone,
+                            "deposit" : deposit,
+                            "startingDate" : startingDate
+                        ]
+                    }
+                    
+                    startingDate = dateFormatter.date(from: cell.textField.text!)!
+                    
+                    
                 default:
                     break
                 }
@@ -282,9 +341,138 @@ class NewEntityVC: UIViewController {
                 "startingDate" : startingDate
             ]
             
+        case .payment:
+            guard let tenant = item as? Tenant else {
+                fatalError("fatalError trying to cast item as a Tenant inside getFormFields()")
+            }
+            guard let property = tenant.unit?.property else {
+                fatalError("fatalError trying to access tenant's property")
+            }
+            guard let unit = tenant.unit else {
+                fatalError("fatalError trying to access tenant's unit")
+            }
+            var rent: Double = 0.00
+            var actualPayment: Double = 0.00
+            var date: Date = Date()
+            var note: String = ""
+            
+            for item in 0...6 {
+                let indexPath: IndexPath = .init(item: item, section: 0)
+                let cell = collectionView.cellForItem(at: indexPath) as! NewEntityFormCell
+                
+                switch item {
+                case 0:
+                    // Ignoring the tenant.
+                    break
+                case 1:
+                    // Ignoring the propery.
+                    break
+                case 2:
+                    // Ignoring the unit.
+                    break
+                case 3:
+                    let rentText = cell.textField.text ?? "" // get field if empty make sure is an empty string
+                    if rentText == "" { return [:] } // if an empty string return an empty dictionary
+                    guard let rentDouble = Double(rentText) else {
+                        fatalError("Deposit not able to cast as Double.")
+                    }
+                    
+                    rent = rentDouble
+                case 4:
+                    let actualPaymentText = cell.textField.text ?? ""
+                    if actualPaymentText == "" { return [:] }
+                    guard let actualPaymentDouble = Double(actualPaymentText) else {
+                        fatalError("Deposit not able to cast as Double.")
+                    }
+                    
+                    actualPayment = actualPaymentDouble
+                case 5:
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "MMMM dd, y"
+                    if cell.textField.text == "" {
+                        return [
+                            "tenant" : tenant,
+                            "property" : property,
+                            "unit" : unit,
+                            "rent" : rent,
+                            "actualPayment" : actualPayment,
+                            "date" : date,
+                            "note" : note
+                        ]
+                    }
+                    
+                    date = dateFormatter.date(from: cell.textField.text!)!
+                case 6:
+                    note = cell.textField.text!
+                default:
+                    break
+                }
+            }
+            
+            return [
+                "tenant" : tenant,
+                "property" : property,
+                "unit" : unit,
+                "rent" : rent,
+                "actualPayment" : actualPayment,
+                "date" : date,
+                "note" : note
+            ]
+            
         case .notYetAsign:
             return ["" : ""]
         }
+    }
+    
+    func save(results: [String:Any]) {
+        let stack = CDStack.shared
+        let context = stack.persistentContainer.viewContext
+        switch entityType {
+        case .property:
+            let property = Property(context: context)
+            property.title = results["title"] as? String
+            property.address = results["address"] as? String
+            
+        case .unit:
+            let unit = Unit(context: context)
+            unit.title = results["title"] as? String
+            unit.rooms = results["rooms"] as! Int16
+            unit.bathrooms = results["bathrooms"] as! Int16
+            unit.rent = results["rent"] as! Double
+            
+            guard let property = item as? Property else {
+                fatalError("fatalError trying to cast item as a Property inside save()")
+            }
+            
+            unit.property = property
+        case .tenant:
+            let tenant = Tenant(context: context)
+            tenant.name = results["name"] as? String
+            tenant.email = results["email"] as? String
+            tenant.phone = results["phone"] as? String
+            tenant.deposit = results["deposit"] as! Double
+            tenant.startingDate = results["startingDate"] as? Date
+            
+            guard let unit = item as? Unit else {
+                fatalError("fatalError trying to cast item as a Unit inside save()")
+            }
+            
+            tenant.unit = unit
+        case .payment:
+            let payment = Payment(context: context)
+            payment.tenant = results["tenant"] as? Tenant
+            payment.property = results["property"] as? Property
+            payment.unit = results["unit"] as? Unit
+            payment.rent = results["rent"] as! Double
+            payment.payment = results["actualPayment"] as! Double
+            payment.date = results["date"] as? Date
+            payment.note = results["note"] as? String
+            
+        case .notYetAsign:
+            break
+        }
+        
+        stack.saveContext()
     }
 }
 

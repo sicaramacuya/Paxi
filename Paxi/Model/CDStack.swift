@@ -62,9 +62,11 @@ extension Property {
             return sum + payment.payment
         }
     }
+    
     var allUnits: [Unit] {
         return units?.allObjects as! [Unit]
     }
+    
     var allPayments: [Payment] {
         return payments?.allObjects as! [Payment]
     }
@@ -76,9 +78,11 @@ extension Unit {
             return sum + payment.payment
         }
     }
+    
     var allTenants: [Tenant] {
         return tenants?.allObjects as! [Tenant]
     }
+    
     var allPayments: [Payment] {
         return payments?.allObjects as! [Payment]
     }
@@ -90,6 +94,7 @@ extension Tenant {
             return sum + payment.payment
         }
     }
+    
     var allPayments: [Payment] {
         return payments?.allObjects as! [Payment]
     }

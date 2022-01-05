@@ -139,15 +139,20 @@ class ManageVC: UIViewController {
         } else if let unit = item as? Unit {
             // this is showing a list of tenants
             let vc = NewEntityVC()
-            vc.title = "New Tenants"
+            vc.title = "New Tenant"
             vc.item = unit
             vc.entityType = .tenant
             vc.manageVC = self
             vc.modalPresentationStyle = .fullScreen
             navigationController?.present(vc, animated: true)
-        } else {
+        } else if let tenant = item as? Tenant {
             // this is showing a list of payment
-            let vc = PaymentVC()
+            let vc = NewEntityVC()
+            vc.title = "New Payment"
+            vc.item = tenant
+            vc.entityType = .payment
+            vc.manageVC = self
+            vc.modalPresentationStyle = .fullScreen
             navigationController?.present(vc, animated: true)
         }
     }
@@ -261,20 +266,6 @@ extension ManageVC: UICollectionViewDelegate {
         navigationController?.pushViewController(vc, animated: true)
     }
 }
-
-//class AddUnitFormVC {
-//    let property: Property
-//
-//    var name: String
-//    var rent: Double
-//
-//    func save() {
-//
-//        let unit1 = Unit(context: CDStack.shared.persistentContainer.viewContext)
-//        // ...
-//        unit1.property = self.property
-//    }
-//}
 
 extension ManageVC {
     static func populateDB() {
