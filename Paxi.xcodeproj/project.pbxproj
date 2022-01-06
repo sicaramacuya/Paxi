@@ -17,6 +17,7 @@
 		E911636827564A8D00E1F127 /* PaxiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E911636727564A8D00E1F127 /* PaxiTests.swift */; };
 		E911637227564A8D00E1F127 /* PaxiUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E911637127564A8D00E1F127 /* PaxiUITests.swift */; };
 		E911637427564A8D00E1F127 /* PaxiUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E911637327564A8D00E1F127 /* PaxiUITestsLaunchTests.swift */; };
+		E94A25422785D84D005A12C3 /* PaymentTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94A25412785D84D005A12C3 /* PaymentTitleView.swift */; };
 		E965D2CE276020820056A3B7 /* NewEntityVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E965D2CD276020820056A3B7 /* NewEntityVC.swift */; };
 		E97EB3A5276C467800B8E0E7 /* NewEntityTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97EB3A4276C467800B8E0E7 /* NewEntityTitleView.swift */; };
 		E97EB3A7276C471F00B8E0E7 /* NewEntityPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97EB3A6276C471F00B8E0E7 /* NewEntityPreviewView.swift */; };
@@ -82,6 +83,7 @@
 		E911636D27564A8D00E1F127 /* PaxiUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PaxiUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E911637127564A8D00E1F127 /* PaxiUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaxiUITests.swift; sourceTree = "<group>"; };
 		E911637327564A8D00E1F127 /* PaxiUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaxiUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		E94A25412785D84D005A12C3 /* PaymentTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentTitleView.swift; sourceTree = "<group>"; };
 		E965D2CD276020820056A3B7 /* NewEntityVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewEntityVC.swift; sourceTree = "<group>"; };
 		E97EB3A4276C467800B8E0E7 /* NewEntityTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewEntityTitleView.swift; sourceTree = "<group>"; };
 		E97EB3A6276C471F00B8E0E7 /* NewEntityPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewEntityPreviewView.swift; sourceTree = "<group>"; };
@@ -206,6 +208,14 @@
 			path = Storyboards;
 			sourceTree = "<group>";
 		};
+		E94A253E2785D7E1005A12C3 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E94A25412785D84D005A12C3 /* PaymentTitleView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		E982EE9F275C1FC40071CEF2 /* Managment */ = {
 			isa = PBXGroup;
 			children = (
@@ -220,6 +230,7 @@
 		E982EEA8275C24A50071CEF2 /* Payment */ = {
 			isa = PBXGroup;
 			children = (
+				E94A253E2785D7E1005A12C3 /* View */,
 				E982EEAF275C25640071CEF2 /* PaymentVC.swift */,
 			);
 			path = Payment;
@@ -530,6 +541,7 @@
 				E99FB7B2275C4A65001B84E2 /* Section.swift in Sources */,
 				E982EEC6275C28970071CEF2 /* AgendaVC.swift in Sources */,
 				E965D2CE276020820056A3B7 /* NewEntityVC.swift in Sources */,
+				E94A25422785D84D005A12C3 /* PaymentTitleView.swift in Sources */,
 				E982EEA5275C23BF0071CEF2 /* ManageVC.swift in Sources */,
 				E97EB3AB276CF8FB00B8E0E7 /* NewEntityFormSection.swift in Sources */,
 				E9941BEC275E880D00A3CC8D /* ManageTitleSection.swift in Sources */,

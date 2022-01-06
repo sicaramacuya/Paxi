@@ -142,8 +142,8 @@ extension HomeVC: UICollectionViewDelegate {
                 
             case .payment:
                 let vc = PaymentVC()
-                
-                navigationController?.pushViewController(vc, animated: true)
+                //vc.modalPresentationStyle = .fullScreen
+                navigationController?.present(vc, animated: true)
                 
             case .history:
                 break
