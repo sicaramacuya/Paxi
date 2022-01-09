@@ -17,4 +17,12 @@ class PaymentTitleView: NewEntityTitleView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    convenience init(title: String, tintColor: UIColor) {
+        self.init()
+        
+        self.mainLabel.text = title
+        self.cancelButton.tintColor = tintColor
+        self.checkMarkButton.tintColor = tintColor
+    }
 }
