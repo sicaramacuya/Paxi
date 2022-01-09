@@ -135,10 +135,10 @@ extension HomeVC: UICollectionViewDelegate {
                 fetch.sortDescriptors = [] // TODO: Sort by name
                 let results = try! context.fetch(fetch)
                 
-                let vc = ManageVC(entries: results)
-                vc.subTitle = "Properties"
+                let manageVC = ManageVC(entries: results)
+                manageVC.subTitle = "Properties"
                 
-                navigationController?.pushViewController(vc, animated: true)
+                navigationController?.pushViewController(manageVC, animated: true)
                 
             case .payment:
                 let context = CDStack.shared.persistentContainer.viewContext
@@ -161,15 +161,17 @@ extension HomeVC: UICollectionViewDelegate {
                 let resultTenant = try! context.fetch(fetchTenat)
                 
                 
-                let vc = PaymentVC()
-                vc.propertyContent = resultsProperty
-                vc.unitContent = resultUnit
-                vc.tenantContent = resultTenant
-                //vc.modalPresentationStyle = .fullScreen
-                navigationController?.present(vc, animated: true)
+                let paymentVC = PaymentVC()
+                paymentVC.propertyContent = resultsProperty
+                paymentVC.unitContent = resultUnit
+                paymentVC.tenantContent = resultTenant
+                //paymentVC.modalPresentationStyle = .fullScreen
+                navigationController?.present(paymentVC, animated: true)
                 
             case .history:
-                break
+                let historyVC = HistoryVC()
+                
+                navigationController?.pushViewController(historyVC, animated: true)
                 
             default:
                 break
