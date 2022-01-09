@@ -13,6 +13,7 @@
         <attribute name="address" optional="YES" attributeType="String"/>
         <attribute name="title" attributeType="String"/>
         <relationship name="payments" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Payment" inverseName="property" inverseEntity="Payment"/>
+        <relationship name="tenants" optional="YES" toMany="YES" deletionRule="Deny" destinationEntity="Tenant" inverseName="property" inverseEntity="Tenant"/>
         <relationship name="units" optional="YES" toMany="YES" deletionRule="Deny" destinationEntity="Unit" inverseName="property" inverseEntity="Unit"/>
     </entity>
     <entity name="Tenant" representedClassName="Tenant" syncable="YES" codeGenerationType="class">
@@ -22,6 +23,7 @@
         <attribute name="phone" optional="YES" attributeType="String"/>
         <attribute name="startingDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <relationship name="payments" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Payment" inverseName="tenant" inverseEntity="Payment"/>
+        <relationship name="property" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Property" inverseName="tenants" inverseEntity="Property"/>
         <relationship name="unit" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Unit" inverseName="tenants" inverseEntity="Unit"/>
     </entity>
     <entity name="Unit" representedClassName="Unit" syncable="YES" codeGenerationType="class">
@@ -35,8 +37,8 @@
     </entity>
     <elements>
         <element name="Payment" positionX="-113.6953125" positionY="234.88671875" width="128" height="148"/>
-        <element name="Property" positionX="-338.21484375" positionY="45.40234375" width="128" height="103"/>
-        <element name="Tenant" positionX="132.60546875" positionY="23.9921875" width="128" height="148"/>
+        <element name="Property" positionX="-338.21484375" positionY="45.40234375" width="128" height="104"/>
+        <element name="Tenant" positionX="132.60546875" positionY="23.9921875" width="128" height="149"/>
         <element name="Unit" positionX="-115.15625" positionY="-123.80859375" width="128" height="148"/>
     </elements>
 </model>

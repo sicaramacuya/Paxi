@@ -465,6 +465,7 @@ class NewEntityVC: UIViewController {
             }
             
             tenant.unit = unit
+            tenant.property = unit.property
         case .payment:
             let payment = Payment(context: context)
             payment.tenant = results["tenant"] as? Tenant

@@ -16,10 +16,12 @@ class PaymentVC: UIViewController {
     lazy var propertyPicker = UIPickerView()
     lazy var unitPicker = UIPickerView()
     lazy var tenantPicker = UIPickerView()
-    lazy var propertyContent: [String] = ["Leguísamo", "Pitahaya", "Miradero"]
-    lazy var unitContent: [String] = ["Unit #1", "Unit #2", "Unit #3"]
-    lazy var tenantContent: [String] = ["Eric Morales", "Tommy Ellis"]
-    
+    var propertyContent: [Property] = []
+    var unitContent: [Unit] = []
+    var tenantContent: [Tenant] = []
+    var propertySelected: Property?
+    var unitSelected: Unit?
+    var tenantSelected: Tenant?
     
     // MARK: VC's Lifecycle
     override func viewDidLoad() {
@@ -84,6 +86,26 @@ class PaymentVC: UIViewController {
         
         presentingViewController?.dismiss(animated: true)
     }
+    
+    func savePayment() {
+        let stack = CDStack.shared
+        let context = stack.persistentContainer.viewContext
+        
+        let payment = Payment(context: context)
+        payment.property = self.propertySelected
+        payment.unit = self.unitSelected
+        payment.tenant = self.tenantSelected
+        payment.rent = Double(self.formView.rentTextField.text!)!
+        payment.payment = Double(self.formView.paymentTextField.text!)!
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMMM dd, y"
+        payment.date = dateFormatter.date(from: self.formView.dateTextField.text!)!
+        
+        payment.note = self.formView.noteTextField.text
+        
+        stack.saveContext()
+    }
 }
 
 
@@ -113,13 +135,13 @@ extension PaymentVC: UIPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         switch pickerView {
         case propertyPicker:
-            return propertyContent[row]
+            return propertyContent[row].title!
             
         case unitPicker:
-            return unitContent[row]
+            return unitContent[row].title!
             
         case tenantPicker:
-            return tenantContent[row]
+            return tenantContent[row].name!
             
         default:
             return "?"
@@ -130,15 +152,59 @@ extension PaymentVC: UIPickerViewDataSource {
 extension PaymentVC: UIPickerViewDelegate {
     // MARK: UIPickerViewDelegate
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        manageSelectionOfPickerRows(pickerView: pickerView, didSelectRow: row)
+    }
+    
+    func manageSelectionOfPickerRows(pickerView: UIPickerView, didSelectRow row: Int) {
         switch pickerView {
         case propertyPicker:
-            formView.propertyTextField.text = propertyContent[row]
+            self.propertySelected = propertyContent[row]
+            self.formView.propertyTextField.text = propertySelected!.title
+            
+            
+            // Unit
+            let property = propertyContent[row]
+            self.unitContent = property.allUnits
+            
+            // Tenant
+            self.tenantContent = property.allTenants
+            
+            
+            // JUST TO TEST IF SAVING WORKS
+            //self.savePayment()
             
         case unitPicker:
-            formView.unitTextField.text = unitContent[row]
+            self.unitSelected = unitContent[row]
+            self.formView.unitTextField.text = unitSelected!.title
+            
+            // Property
+            self.propertySelected = unitSelected!.property!
+            self.propertyContent = [propertySelected!]
+            self.formView.propertyTextField.text = unitSelected!.property!.title
+            
+            // Tenant
+            self.tenantContent = unitSelected!.allTenants
+            
+            // Rent
+            self.formView.rentTextField.text = String(unitSelected!.rent)
             
         case tenantPicker:
-            formView.tenantTextField.text = tenantContent[row]
+            self.tenantSelected = tenantContent[row]
+            self.formView.tenantTextField.text = tenantSelected!.name!
+            
+            // Property
+            self.propertySelected = tenantSelected!.property!
+            self.propertyContent = [propertySelected!]
+            formView.propertyTextField.text = propertySelected!.title
+            
+            // Unit
+            self.unitSelected = tenantSelected!.unit!
+            self.unitContent = [unitSelected!]
+            self.formView.unitTextField.text = unitSelected!.title
+            
+            // Rent
+            guard let rent = unitSelected?.rent else { return }
+            formView.rentTextField.text = String(rent)
             
         default:
             break

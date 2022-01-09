@@ -141,7 +141,30 @@ extension HomeVC: UICollectionViewDelegate {
                 navigationController?.pushViewController(vc, animated: true)
                 
             case .payment:
+                let context = CDStack.shared.persistentContainer.viewContext
+                let titleSortDescriptor = NSSortDescriptor(key: "title", ascending: true)
+                let nameSortDescriptor = NSSortDescriptor(key: "name", ascending: true)
+                
+                // Property
+                let fetchProperty = Property.fetchRequest()
+                fetchProperty.sortDescriptors = [titleSortDescriptor]
+                let resultsProperty = try! context.fetch(fetchProperty)
+                
+                // Unit
+                let fetchUnit = Unit.fetchRequest()
+                fetchUnit.sortDescriptors = [titleSortDescriptor]
+                let resultUnit = try! context.fetch(fetchUnit)
+                
+                // Tenant
+                let fetchTenat = Tenant.fetchRequest()
+                fetchTenat.sortDescriptors = [nameSortDescriptor]
+                let resultTenant = try! context.fetch(fetchTenat)
+                
+                
                 let vc = PaymentVC()
+                vc.propertyContent = resultsProperty
+                vc.unitContent = resultUnit
+                vc.tenantContent = resultTenant
                 //vc.modalPresentationStyle = .fullScreen
                 navigationController?.present(vc, animated: true)
                 

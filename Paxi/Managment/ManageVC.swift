@@ -220,6 +220,7 @@ extension ManageVC: UICollectionViewDelegate {
             
         case is Payment.Type:
             let paymentVC = PaymentVC()
+            paymentVC.vcTintColor = .systemYellow
             navigationController?.present(paymentVC, animated: true)
 
             return

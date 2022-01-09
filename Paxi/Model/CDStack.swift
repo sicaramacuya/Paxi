@@ -67,6 +67,10 @@ extension Property {
         return units?.allObjects as! [Unit]
     }
     
+    var allTenants: [Tenant] {
+        return tenants?.allObjects as! [Tenant]
+    }
+    
     var allPayments: [Payment] {
         return payments?.allObjects as! [Payment]
     }
