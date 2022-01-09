@@ -42,11 +42,11 @@ enum Selection: String {
         case .agenda:
             return .systemPurple
         case .dashboard:
-            return .systemOrange
+            return .systemBlue
         case .managment:
             return .systemYellow
         case .history:
-            return .systemBlue
+            return .systemOrange
         case .payment:
             return .systemGreen
         case .tenants:
@@ -56,4 +56,3 @@ enum Selection: String {
         }
     }
 }
-
