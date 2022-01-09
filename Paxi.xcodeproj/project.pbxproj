@@ -20,6 +20,7 @@
 		E94A25422785D84D005A12C3 /* PaymentTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94A25412785D84D005A12C3 /* PaymentTitleView.swift */; };
 		E94A25462787185E005A12C3 /* PaymentFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94A25452787185E005A12C3 /* PaymentFormView.swift */; };
 		E965D2CE276020820056A3B7 /* NewEntityVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E965D2CD276020820056A3B7 /* NewEntityVC.swift */; };
+		E97D6B88278B9C3C001741C6 /* HistoryAddButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97D6B87278B9C3C001741C6 /* HistoryAddButtonView.swift */; };
 		E97EB3A5276C467800B8E0E7 /* NewEntityTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97EB3A4276C467800B8E0E7 /* NewEntityTitleView.swift */; };
 		E97EB3A7276C471F00B8E0E7 /* NewEntityPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97EB3A6276C471F00B8E0E7 /* NewEntityPreviewView.swift */; };
 		E97EB3A9276CF64100B8E0E7 /* NewEntityFormCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97EB3A8276CF64100B8E0E7 /* NewEntityFormCell.swift */; };
@@ -87,6 +88,7 @@
 		E94A25412785D84D005A12C3 /* PaymentTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentTitleView.swift; sourceTree = "<group>"; };
 		E94A25452787185E005A12C3 /* PaymentFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentFormView.swift; sourceTree = "<group>"; };
 		E965D2CD276020820056A3B7 /* NewEntityVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewEntityVC.swift; sourceTree = "<group>"; };
+		E97D6B87278B9C3C001741C6 /* HistoryAddButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryAddButtonView.swift; sourceTree = "<group>"; };
 		E97EB3A4276C467800B8E0E7 /* NewEntityTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewEntityTitleView.swift; sourceTree = "<group>"; };
 		E97EB3A6276C471F00B8E0E7 /* NewEntityPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewEntityPreviewView.swift; sourceTree = "<group>"; };
 		E97EB3A8276CF64100B8E0E7 /* NewEntityFormCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewEntityFormCell.swift; sourceTree = "<group>"; };
@@ -245,6 +247,7 @@
 				E982EEB1275C25870071CEF2 /* HistoryVC.swift */,
 				E982EEB3275C25E00071CEF2 /* HistorySearchVC.swift */,
 				E982EEB5275C26550071CEF2 /* HistoryPaymentView.swift */,
+				E97D6B87278B9C3C001741C6 /* HistoryAddButtonView.swift */,
 			);
 			path = History;
 			sourceTree = "<group>";
@@ -527,6 +530,7 @@
 				E911634E27564A8A00E1F127 /* AppDelegate.swift in Sources */,
 				E99FB7BB275C534D001B84E2 /* TitleSection.swift in Sources */,
 				E97EB3A9276CF64100B8E0E7 /* NewEntityFormCell.swift in Sources */,
+				E97D6B88278B9C3C001741C6 /* HistoryAddButtonView.swift in Sources */,
 				E97EB3AD276D054400B8E0E7 /* NewEntityEnum.swift in Sources */,
 				E982EEB4275C25E00071CEF2 /* HistorySearchVC.swift in Sources */,
 				E911635027564A8A00E1F127 /* SceneDelegate.swift in Sources */,
