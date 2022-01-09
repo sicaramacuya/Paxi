@@ -34,7 +34,7 @@ class PropertiesCell: UICollectionViewCell {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = UIImage(systemName: "building.fill")
         imageView.contentMode = .scaleAspectFit
-        imageView.tintColor = .systemIndigo
+        imageView.tintColor = .systemCyan
         
         return imageView
     }()
