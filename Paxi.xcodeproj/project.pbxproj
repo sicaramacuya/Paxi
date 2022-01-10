@@ -21,6 +21,8 @@
 		E94A25462787185E005A12C3 /* PaymentFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94A25452787185E005A12C3 /* PaymentFormView.swift */; };
 		E965D2CE276020820056A3B7 /* NewEntityVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E965D2CD276020820056A3B7 /* NewEntityVC.swift */; };
 		E97D6B88278B9C3C001741C6 /* HistoryAddButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97D6B87278B9C3C001741C6 /* HistoryAddButtonView.swift */; };
+		E97D6B8B278B9FD9001741C6 /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = E97D6B8A278B9FD9001741C6 /* FSCalendar */; };
+		E97D6B8E278BCCD9001741C6 /* HistoryPaymentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97D6B8D278BCCD9001741C6 /* HistoryPaymentView.swift */; };
 		E97EB3A5276C467800B8E0E7 /* NewEntityTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97EB3A4276C467800B8E0E7 /* NewEntityTitleView.swift */; };
 		E97EB3A7276C471F00B8E0E7 /* NewEntityPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97EB3A6276C471F00B8E0E7 /* NewEntityPreviewView.swift */; };
 		E97EB3A9276CF64100B8E0E7 /* NewEntityFormCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97EB3A8276CF64100B8E0E7 /* NewEntityFormCell.swift */; };
@@ -31,7 +33,6 @@
 		E982EEB0275C25640071CEF2 /* PaymentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E982EEAF275C25640071CEF2 /* PaymentVC.swift */; };
 		E982EEB2275C25870071CEF2 /* HistoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E982EEB1275C25870071CEF2 /* HistoryVC.swift */; };
 		E982EEB4275C25E00071CEF2 /* HistorySearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E982EEB3275C25E00071CEF2 /* HistorySearchVC.swift */; };
-		E982EEB6275C26550071CEF2 /* HistoryPaymentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E982EEB5275C26550071CEF2 /* HistoryPaymentView.swift */; };
 		E982EEC0275C281A0071CEF2 /* EntriesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E982EEBF275C281A0071CEF2 /* EntriesVC.swift */; };
 		E982EEC2275C28330071CEF2 /* EntriesInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E982EEC1275C28330071CEF2 /* EntriesInfoView.swift */; };
 		E982EEC4275C285D0071CEF2 /* EntriesEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E982EEC3275C285D0071CEF2 /* EntriesEditView.swift */; };
@@ -89,6 +90,7 @@
 		E94A25452787185E005A12C3 /* PaymentFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentFormView.swift; sourceTree = "<group>"; };
 		E965D2CD276020820056A3B7 /* NewEntityVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewEntityVC.swift; sourceTree = "<group>"; };
 		E97D6B87278B9C3C001741C6 /* HistoryAddButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryAddButtonView.swift; sourceTree = "<group>"; };
+		E97D6B8D278BCCD9001741C6 /* HistoryPaymentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryPaymentView.swift; sourceTree = "<group>"; };
 		E97EB3A4276C467800B8E0E7 /* NewEntityTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewEntityTitleView.swift; sourceTree = "<group>"; };
 		E97EB3A6276C471F00B8E0E7 /* NewEntityPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewEntityPreviewView.swift; sourceTree = "<group>"; };
 		E97EB3A8276CF64100B8E0E7 /* NewEntityFormCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewEntityFormCell.swift; sourceTree = "<group>"; };
@@ -99,7 +101,6 @@
 		E982EEAF275C25640071CEF2 /* PaymentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentVC.swift; sourceTree = "<group>"; };
 		E982EEB1275C25870071CEF2 /* HistoryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryVC.swift; sourceTree = "<group>"; };
 		E982EEB3275C25E00071CEF2 /* HistorySearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistorySearchVC.swift; sourceTree = "<group>"; };
-		E982EEB5275C26550071CEF2 /* HistoryPaymentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryPaymentView.swift; sourceTree = "<group>"; };
 		E982EEBF275C281A0071CEF2 /* EntriesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntriesVC.swift; sourceTree = "<group>"; };
 		E982EEC1275C28330071CEF2 /* EntriesInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntriesInfoView.swift; sourceTree = "<group>"; };
 		E982EEC3275C285D0071CEF2 /* EntriesEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntriesEditView.swift; sourceTree = "<group>"; };
@@ -126,6 +127,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E97D6B8B278B9FD9001741C6 /* FSCalendar in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -221,6 +223,15 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		E97D6B8C278BCB32001741C6 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E97D6B87278B9C3C001741C6 /* HistoryAddButtonView.swift */,
+				E97D6B8D278BCCD9001741C6 /* HistoryPaymentView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		E982EE9F275C1FC40071CEF2 /* Managment */ = {
 			isa = PBXGroup;
 			children = (
@@ -244,10 +255,9 @@
 		E982EEAC275C24CA0071CEF2 /* History */ = {
 			isa = PBXGroup;
 			children = (
+				E97D6B8C278BCB32001741C6 /* View */,
 				E982EEB1275C25870071CEF2 /* HistoryVC.swift */,
 				E982EEB3275C25E00071CEF2 /* HistorySearchVC.swift */,
-				E982EEB5275C26550071CEF2 /* HistoryPaymentView.swift */,
-				E97D6B87278B9C3C001741C6 /* HistoryAddButtonView.swift */,
 			);
 			path = History;
 			sourceTree = "<group>";
@@ -400,6 +410,9 @@
 			dependencies = (
 			);
 			name = Paxi;
+			packageProductDependencies = (
+				E97D6B8A278B9FD9001741C6 /* FSCalendar */,
+			);
 			productName = Paxi;
 			productReference = E911634A27564A8A00E1F127 /* Paxi.app */;
 			productType = "com.apple.product-type.application";
@@ -472,6 +485,9 @@
 				Base,
 			);
 			mainGroup = E911634127564A8A00E1F127;
+			packageReferences = (
+				E97D6B89278B9FD9001741C6 /* XCRemoteSwiftPackageReference "FSCalendar" */,
+			);
 			productRefGroup = E911634B27564A8A00E1F127 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -541,11 +557,11 @@
 				E982EEB2275C25870071CEF2 /* HistoryVC.swift in Sources */,
 				E982EEB0275C25640071CEF2 /* PaymentVC.swift in Sources */,
 				E99FB7C1275C5400001B84E2 /* TitleCell.swift in Sources */,
+				E97D6B8E278BCCD9001741C6 /* HistoryPaymentView.swift in Sources */,
 				E9941BEE275E881900A3CC8D /* ManageEntitySection.swift in Sources */,
 				E94A25462787185E005A12C3 /* PaymentFormView.swift in Sources */,
 				E982EEC2275C28330071CEF2 /* EntriesInfoView.swift in Sources */,
 				E9941BEA275E87EF00A3CC8D /* ManageEntityCell.swift in Sources */,
-				E982EEB6275C26550071CEF2 /* HistoryPaymentView.swift in Sources */,
 				E99FB7B2275C4A65001B84E2 /* Section.swift in Sources */,
 				E982EEC6275C28970071CEF2 /* AgendaVC.swift in Sources */,
 				E965D2CE276020820056A3B7 /* NewEntityVC.swift in Sources */,
@@ -914,6 +930,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		E97D6B89278B9FD9001741C6 /* XCRemoteSwiftPackageReference "FSCalendar" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/WenchaoD/FSCalendar.git";
+			requirement = {
+				kind = upToNextMinorVersion;
+				minimumVersion = 2.8.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		E97D6B8A278B9FD9001741C6 /* FSCalendar */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E97D6B89278B9FD9001741C6 /* XCRemoteSwiftPackageReference "FSCalendar" */;
+			productName = FSCalendar;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		E911635627564A8A00E1F127 /* Paxi.xcdatamodeld */ = {

@@ -6,10 +6,12 @@
 //
 
 import UIKit
+import FSCalendar
 
 class HistoryVC: UIViewController {
     
     // MARK: Properties
+    fileprivate weak var calendar: FSCalendar!
     lazy var vcTintColor: UIColor = .systemOrange
     lazy var buttonSize: CGSize = CGSize(width: 60, height: 60)
     lazy var addButton: UIButton = HistoryAddButtonView(buttonSize: buttonSize, vcTintColor: vcTintColor)
@@ -22,6 +24,7 @@ class HistoryVC: UIViewController {
         
         setupPlusButton()
         setupNavigationController()
+        setupCalendar()
     }
     
     // MARK: Methods
@@ -52,6 +55,40 @@ class HistoryVC: UIViewController {
         addButton.addTarget(self, action: #selector(addButtonSelected), for: .touchUpInside)
     }
     
+    func setupCalendar() {
+        // Instantiating FSCalendar
+        let calendar = FSCalendar(frame: CGRect(x: 0, y: 0, width: 320, height: 300))
+        calendar.translatesAutoresizingMaskIntoConstraints = false
+        
+        // Changing it appearance
+        calendar.appearance.headerTitleColor = vcTintColor
+        calendar.appearance.weekdayTextColor = vcTintColor
+        calendar.appearance.todayColor = vcTintColor
+        calendar.appearance.todaySelectionColor = vcTintColor
+        calendar.appearance.titleDefaultColor = UIColor(named: "TitleTextColor")
+        calendar.appearance.titleSelectionColor = UIColor(named: "CalendarTitleSelection")
+        calendar.appearance.selectionColor = UIColor(named: "TitleTextColor") // black/white
+        
+        // Communicating who is the listener
+        calendar.dataSource = self
+        calendar.delegate = self
+        
+        // Adding View to Hierarchy
+        self.view.addSubview(calendar)
+        
+        // Constraints
+        NSLayoutConstraint.activate([
+            calendar.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+            calendar.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
+            calendar.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
+            calendar.widthAnchor.constraint(equalTo: self.view.widthAnchor),
+            calendar.heightAnchor.constraint(equalTo: calendar.widthAnchor)
+        ])
+        
+        // Saving calendar
+        self.calendar = calendar
+    }
+    
     @objc func addButtonSelected() {
         let alert = UIAlertController(title: "Add Something", message: "Add button has been tapped.", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: nil))
@@ -65,4 +102,9 @@ class HistoryVC: UIViewController {
         
         present(alert, animated: true)
     }
+}
+
+// MARK: FSCalendar Protocols
+extension HistoryVC: FSCalendarDataSource, FSCalendarDelegate {
+    
 }
