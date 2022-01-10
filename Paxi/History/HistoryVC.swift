@@ -16,6 +16,12 @@ class HistoryVC: UIViewController {
     lazy var vcTintColor: UIColor = .systemOrange
     lazy var buttonSize: CGSize = CGSize(width: 60, height: 60)
     lazy var addButton: UIButton = HistoryAddButtonView(buttonSize: buttonSize, vcTintColor: vcTintColor)
+    lazy var tableView: UITableView = {
+        let table = UITableView()
+        table.translatesAutoresizingMaskIntoConstraints = false
+        
+        return table
+    }()
     
     // MARK: VC's Lifecycle
     override func viewDidLoad() {
@@ -23,9 +29,10 @@ class HistoryVC: UIViewController {
         
         self.view.backgroundColor = .systemBackground
         
-        setupPlusButton()
         setupNavigationController()
         setupCalendar()
+        setupTableView()
+        setupPlusButton()
     }
     
     // MARK: Methods
@@ -65,6 +72,7 @@ class HistoryVC: UIViewController {
         
         // Changing properties
         calendar.translatesAutoresizingMaskIntoConstraints = false
+        //calendar.locale = .init(identifier: "es")
         
         
         // Changing it appearance
@@ -96,6 +104,20 @@ class HistoryVC: UIViewController {
         
         // Saving calendar
         self.calendar = calendar
+    }
+    
+    func setupTableView() {
+        tableView.dataSource = self
+        tableView.delegate = self
+        
+        self.view.addSubview(tableView)
+        
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: calendar.bottomAnchor),
+            tableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
+            tableView.widthAnchor.constraint(equalTo: self.view.widthAnchor),
+            tableView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)
+        ])
     }
     
     @objc func addButtonSelected() {
@@ -139,5 +161,26 @@ extension HistoryVC: FSCalendarDataSource, FSCalendarDelegate {
                 alert.dismiss(animated: true, completion: nil)
             }
         }
+    }
+}
+
+// MARK: TableView Protocols
+extension HistoryVC: UITableViewDataSource, UITableViewDelegate {
+    // MARK: DataSource
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 10
+    }
+    
+    // MARK: Delegate
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell(style: .default, reuseIdentifier: "cell")
+        let label = UILabel()
+        label.text = "Hello World!"
+        label.textAlignment = .center
+        
+        cell.backgroundView = label
+        cell.backgroundView?.backgroundColor = .systemOrange
+        
+        return cell
     }
 }
