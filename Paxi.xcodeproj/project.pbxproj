@@ -20,6 +20,7 @@
 		E94A25422785D84D005A12C3 /* PaymentTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94A25412785D84D005A12C3 /* PaymentTitleView.swift */; };
 		E94A25462787185E005A12C3 /* PaymentFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94A25452787185E005A12C3 /* PaymentFormView.swift */; };
 		E965D2CE276020820056A3B7 /* NewEntityVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E965D2CD276020820056A3B7 /* NewEntityVC.swift */; };
+		E9776B42278C41C1005A7EB3 /* CalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9776B41278C41C1005A7EB3 /* CalendarCell.swift */; };
 		E97D6B88278B9C3C001741C6 /* HistoryAddButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97D6B87278B9C3C001741C6 /* HistoryAddButtonView.swift */; };
 		E97D6B8B278B9FD9001741C6 /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = E97D6B8A278B9FD9001741C6 /* FSCalendar */; };
 		E97D6B8E278BCCD9001741C6 /* HistoryPaymentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97D6B8D278BCCD9001741C6 /* HistoryPaymentView.swift */; };
@@ -89,6 +90,7 @@
 		E94A25412785D84D005A12C3 /* PaymentTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentTitleView.swift; sourceTree = "<group>"; };
 		E94A25452787185E005A12C3 /* PaymentFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentFormView.swift; sourceTree = "<group>"; };
 		E965D2CD276020820056A3B7 /* NewEntityVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewEntityVC.swift; sourceTree = "<group>"; };
+		E9776B41278C41C1005A7EB3 /* CalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCell.swift; sourceTree = "<group>"; };
 		E97D6B87278B9C3C001741C6 /* HistoryAddButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryAddButtonView.swift; sourceTree = "<group>"; };
 		E97D6B8D278BCCD9001741C6 /* HistoryPaymentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryPaymentView.swift; sourceTree = "<group>"; };
 		E97EB3A4276C467800B8E0E7 /* NewEntityTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewEntityTitleView.swift; sourceTree = "<group>"; };
@@ -223,9 +225,18 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		E9776B3E278C4062005A7EB3 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				E9776B41278C41C1005A7EB3 /* CalendarCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		E97D6B8C278BCB32001741C6 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				E9776B3E278C4062005A7EB3 /* Cells */,
 				E97D6B87278B9C3C001741C6 /* HistoryAddButtonView.swift */,
 				E97D6B8D278BCCD9001741C6 /* HistoryPaymentView.swift */,
 			);
@@ -568,6 +579,7 @@
 				E94A25422785D84D005A12C3 /* PaymentTitleView.swift in Sources */,
 				E982EEA5275C23BF0071CEF2 /* ManageVC.swift in Sources */,
 				E97EB3AB276CF8FB00B8E0E7 /* NewEntityFormSection.swift in Sources */,
+				E9776B42278C41C1005A7EB3 /* CalendarCell.swift in Sources */,
 				E9941BEC275E880D00A3CC8D /* ManageTitleSection.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

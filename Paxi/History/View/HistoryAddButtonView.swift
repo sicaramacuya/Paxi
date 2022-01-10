@@ -21,15 +21,15 @@ class HistoryAddButtonView: UIButton {
     convenience init(buttonSize: CGSize, vcTintColor: UIColor) {
         self.init(frame: CGRect(x: 0, y: 0, width: buttonSize.width, height: buttonSize.height))
         
-        layer.shadowRadius = 5
+        layer.shadowRadius = 15
         layer.shadowOpacity = 0.2
         layer.cornerRadius = buttonSize.width / 2
         backgroundColor = .secondarySystemBackground
         tintColor = vcTintColor
         
         let image = UIImage(systemName: "plus",
-                            withConfiguration: UIImage.SymbolConfiguration(pointSize: 32,
-                                                                           weight: .medium))
+                            withConfiguration: UIImage.SymbolConfiguration(pointSize: 40,
+                                                                           weight: .regular))
         setImage(image, for: .normal)
     }
 }
