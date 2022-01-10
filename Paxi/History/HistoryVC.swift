@@ -12,6 +12,7 @@ class HistoryVC: UIViewController {
     
     // MARK: Properties
     fileprivate weak var calendar: FSCalendar!
+    lazy var formatter: DateFormatter = DateFormatter()
     lazy var vcTintColor: UIColor = .systemOrange
     lazy var buttonSize: CGSize = CGSize(width: 60, height: 60)
     lazy var addButton: UIButton = HistoryAddButtonView(buttonSize: buttonSize, vcTintColor: vcTintColor)
@@ -32,7 +33,10 @@ class HistoryVC: UIViewController {
         // add search button
         let searchButtonBarItem = UIBarButtonItem(image: UIImage(systemName: "magnifyingglass"),
                         style: .plain, target: self, action: #selector(searchButtonSelected))
+        //let plusButtonBarItem = UIBarButtonItem(image: UIImage(systemName: "plus"),
+        //                style: .plain, target: self, action: #selector(addButtonSelected))
         
+        //self.navigationItem.rightBarButtonItems = [plusButtonBarItem, searchButtonBarItem]
         self.navigationItem.rightBarButtonItem = searchButtonBarItem
         
         // style title
@@ -58,7 +62,10 @@ class HistoryVC: UIViewController {
     func setupCalendar() {
         // Instantiating FSCalendar
         let calendar = FSCalendar(frame: CGRect(x: 0, y: 0, width: 320, height: 300))
+        
+        // Changing properties
         calendar.translatesAutoresizingMaskIntoConstraints = false
+        
         
         // Changing it appearance
         calendar.appearance.headerTitleColor = vcTintColor
@@ -68,6 +75,8 @@ class HistoryVC: UIViewController {
         calendar.appearance.titleDefaultColor = UIColor(named: "TitleTextColor")
         calendar.appearance.titleSelectionColor = UIColor(named: "CalendarTitleSelection")
         calendar.appearance.selectionColor = UIColor(named: "TitleTextColor") // black/white
+        calendar.appearance.eventDefaultColor = vcTintColor
+        calendar.appearance.eventSelectionColor = vcTintColor
         
         // Communicating who is the listener
         calendar.dataSource = self
@@ -106,5 +115,29 @@ class HistoryVC: UIViewController {
 
 // MARK: FSCalendar Protocols
 extension HistoryVC: FSCalendarDataSource, FSCalendarDelegate {
+    // MARK: DataSource
+    func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
+        formatter.dateStyle = .long
+        
+        guard let eventDate = formatter.date(from: "January 05, 2022") else { return 0 }
+        if date.compare(eventDate) == .orderedSame {
+            return 3
+        }
+        
+        return 0
+    }
     
+    // MARK: Delegate
+    func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
+        formatter.dateStyle = .long
+        
+        let dateSelected = formatter.string(from: date)
+        let alert = UIAlertController(title: "Date Selected", message: "\(dateSelected)", preferredStyle: .alert)
+        present(alert, animated: true) {
+            // Dismiss alert after 1.5 seconds automatically.
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                alert.dismiss(animated: true, completion: nil)
+            }
+        }
+    }
 }
