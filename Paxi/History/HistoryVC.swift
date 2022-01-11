@@ -23,7 +23,11 @@ class HistoryVC: UIViewController {
         
         return table
     }()
-    lazy var paymentsForSelectedDay: [String] = [String](repeating: "Giannis Antetokounmpo", count: 1)
+    lazy var paymentsForSelectedDay: [Payment] = getPaymentsOnSpecific(date: calendar.today!) {
+        didSet {
+            tableView.reloadData()
+        }
+    }
     
     // MARK: VC's Lifecycle
     override func viewDidLoad() {
@@ -87,7 +91,7 @@ class HistoryVC: UIViewController {
         calendar.appearance.selectionColor = UIColor(named: "TitleTextColor") // black/white
         calendar.appearance.eventDefaultColor = vcTintColor
         calendar.appearance.eventSelectionColor = vcTintColor
-        calendar.appearance.headerTitleFont = .systemFont(ofSize: 13.5, weight: .semibold)
+        calendar.appearance.headerTitleFont = .systemFont(ofSize: 16, weight: .semibold)
         calendar.appearance.weekdayFont = .systemFont(ofSize: 13.5, weight: .medium)
         calendar.appearance.titleFont = .systemFont(ofSize: 13.5, weight: .regular)
         
@@ -129,6 +133,22 @@ class HistoryVC: UIViewController {
         ])
     }
     
+    func getPaymentsOnSpecific(date: Date) -> [Payment] {
+        let context = CDStack.shared.persistentContainer.viewContext
+        let fetch = Payment.fetchRequest()
+        
+        // Fetching the payments that match the date selected.
+        fetch.predicate = NSPredicate(format: "date == %@", date as NSDate)
+        
+        // Sorting the payments on that date by name.
+        let dateSortDescriptor = NSSortDescriptor(key: "payment", ascending: false)
+        fetch.sortDescriptors = [dateSortDescriptor] // TODO: Sort by name
+        
+        let results = try! context.fetch(fetch)
+        
+        return results
+    }
+    
     @objc func addButtonSelected() {
         let alert = UIAlertController(title: "Add Something", message: "Add button has been tapped.", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: nil))
@@ -148,28 +168,14 @@ class HistoryVC: UIViewController {
 extension HistoryVC: FSCalendarDataSource, FSCalendarDelegate {
     // MARK: DataSource
     func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
-        formatter.dateStyle = .long
+        let paymentsOnGivenDate = getPaymentsOnSpecific(date: date)
         
-        guard let eventDate = formatter.date(from: "January 05, 2022") else { return 0 }
-        if date.compare(eventDate) == .orderedSame {
-            return 3
-        }
-        
-        return 0
+        return paymentsOnGivenDate.count
     }
     
     // MARK: Delegate
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
-        formatter.dateStyle = .long
-        
-        let dateSelected = formatter.string(from: date)
-        let alert = UIAlertController(title: "Date Selected", message: "\(dateSelected)", preferredStyle: .actionSheet)
-        present(alert, animated: true) {
-            // Dismiss alert after 1.5 seconds automatically.
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                alert.dismiss(animated: true, completion: nil)
-            }
-        }
+        self.paymentsForSelectedDay = getPaymentsOnSpecific(date: date)
     }
 }
 
@@ -183,15 +189,16 @@ extension HistoryVC: UITableViewDataSource, UITableViewDelegate {
     // MARK: Delegate
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CalendarCell.identifier, for: indexPath) as! CalendarCell
-        cell.nameLabel.text = self.paymentsForSelectedDay[indexPath.row]
-        cell.paymentLabel.text = "$500"
         
+        let payment = self.paymentsForSelectedDay[indexPath.row]
+        cell.nameLabel.text = payment.tenant?.name
+        cell.paymentLabel.text = String(payment.payment)
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let alert = UIAlertController(title: "Row Selected", message: "Name: \(paymentsForSelectedDay[indexPath.row])", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Row Selected", message: "\(indexPath.row)", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Dismiss", style: .default))
     
         self.present(alert, animated: true)
