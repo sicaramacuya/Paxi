@@ -46,6 +46,8 @@ class NewEntityVC: UIViewController {
         NewEntityFormSection(title: getFormFields(entityType: entityType))
     ]
     
+    lazy var tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard (_:)))
+    
     
     // MARK: Initializers
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -66,6 +68,7 @@ class NewEntityVC: UIViewController {
         super.viewDidLoad()
 
         self.view.backgroundColor = .systemBackground
+        self.view.addGestureRecognizer(tapGesture)
         
         setupStack()
         setupCollectionView()
@@ -164,6 +167,10 @@ class NewEntityVC: UIViewController {
         }
         
         presentingViewController?.dismiss(animated: true)
+    }
+    
+    @objc func dismissKeyboard(_ sender: UITapGestureRecognizer) {
+        collectionView.endEditing(true)
     }
     
     func getFormFields(entityType: ManageNewEntityType) -> [String] {
