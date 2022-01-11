@@ -37,8 +37,6 @@ class HistorySearchVC: UIViewController {
         }
     }
     
-    lazy var tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard (_:)))
-    
     
     // MARK: VC's Lifecycle
     override func viewDidLoad() {
@@ -62,8 +60,6 @@ class HistorySearchVC: UIViewController {
             searchBar.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
             searchBar.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
         ])
-        
-        self.view.addGestureRecognizer(tapGesture)
     }
     
     func setupTableView() {
@@ -125,18 +121,47 @@ class HistorySearchVC: UIViewController {
         return results
     }
     
-    @objc func dismissKeyboard(_ sender: UITapGestureRecognizer) {
-
-        // dismiss keyboard for weight text field
-        if searchBar.searchTextField.isEditing {
-            searchBar.searchTextField.resignFirstResponder()
-            searchBar.setShowsCancelButton(false, animated: true)
-        }
+    func manageTableViewCellSelection(indexPath: IndexPath) {
+        formatter.dateStyle = .long
+        
+        let paymentSelected = searchResult[indexPath.item]
+        guard let property = paymentSelected.tenant?.unit?.property else { return }
+        guard let unit = paymentSelected.tenant?.unit else { return }
+        guard let tenant = paymentSelected.tenant else { return }
+        
+        
+        let paymentVC = PaymentVC()
+        paymentVC.titleView.mainLabel.text = "Payment"
+        paymentVC.titleView.mainLabel.textColor = vcTintColor
+        paymentVC.titleView.cancelButton.isHidden = true
+        paymentVC.titleView.checkMarkButton.isHidden = true
+        paymentVC.vcTintColor = .systemOrange
+        
+        navigationController?.present(paymentVC, animated: true)
+        
+        // Populating Fields
+        paymentVC.formView.propertyTextField.text = property.title
+        paymentVC.formView.unitTextField.text = unit.title
+        paymentVC.formView.tenantTextField.text = tenant.name
+        paymentVC.formView.rentTextField.text = String(paymentSelected.rent)
+        paymentVC.formView.paymentTextField.text = String(paymentSelected.payment)
+        paymentVC.formView.dateTextField.text = formatter.string(from: paymentSelected.date!)
+        paymentVC.formView.noteTextField.text = paymentSelected.note ?? ""
+        
+        // Disabling Fields
+        paymentVC.formView.propertyTextField.isEnabled = false
+        paymentVC.formView.unitTextField.isEnabled = false
+        paymentVC.formView.tenantTextField.isEnabled = false
+        paymentVC.formView.rentTextField.isEnabled = false
+        paymentVC.formView.paymentTextField.isEnabled = false
+        paymentVC.formView.dateTextField.isEnabled = false
+        paymentVC.formView.noteTextField.isEnabled = false
     }
 }
 
 // MARK: SearchBar Protocols
 extension HistorySearchVC: UISearchBarDelegate {
+    // MARK: TableView Delegate
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         searchBar.setShowsCancelButton(true, animated: true)
     }
@@ -159,7 +184,7 @@ extension HistorySearchVC: UISearchBarDelegate {
 
 // MARK: TableView Protocols
 extension HistorySearchVC: UITableViewDataSource, UITableViewDelegate {
-    
+    // MARK: TableView DataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return searchResult.count
     }
@@ -176,5 +201,8 @@ extension HistorySearchVC: UITableViewDataSource, UITableViewDelegate {
         return cell
     }
     
-    
+    // MARK: TableView Delegate
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        manageTableViewCellSelection(indexPath: indexPath)
+    }
 }
