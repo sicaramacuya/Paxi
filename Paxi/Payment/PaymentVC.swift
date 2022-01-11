@@ -51,7 +51,7 @@ class PaymentVC: UIViewController {
             titleView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
             
             // formView
-            formView.topAnchor.constraint(equalTo: titleView.bottomAnchor, constant: 50),
+            formView.topAnchor.constraint(equalTo: titleView.bottomAnchor, constant: 20),
             formView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
             formView.widthAnchor.constraint(equalTo: self.view.widthAnchor),
             formView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)

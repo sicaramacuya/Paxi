@@ -35,6 +35,7 @@ class HistoryVC: UIViewController {
         super.viewDidLoad()
         
         self.view.backgroundColor = .systemBackground
+        self.title = "History"
         
         setupNavigationController()
         setupCalendar()
@@ -76,6 +77,9 @@ class HistoryVC: UIViewController {
     func setupCalendar() {
         // Instantiating FSCalendar
         let calendar = FSCalendar(frame: CGRect(x: 0, y: 0, width: 320, height: 300))
+        calendar.backgroundColor = .secondarySystemBackground
+        calendar.layer.cornerRadius = self.view.frame.width / 30
+        calendar.clipsToBounds = true
         
         // Changing properties
         calendar.translatesAutoresizingMaskIntoConstraints = false
@@ -107,9 +111,9 @@ class HistoryVC: UIViewController {
         // Constraints
         NSLayoutConstraint.activate([
             calendar.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
-            calendar.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
-            calendar.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
-            calendar.widthAnchor.constraint(equalTo: self.view.widthAnchor),
+            calendar.leadingAnchor.constraint(equalTo: self.view.layoutMarginsGuide.leadingAnchor),
+            calendar.trailingAnchor.constraint(equalTo: self.view.layoutMarginsGuide.trailingAnchor),
+            calendar.widthAnchor.constraint(equalTo: self.view.layoutMarginsGuide.widthAnchor),
             calendar.heightAnchor.constraint(equalTo: calendar.widthAnchor)
         ])
         
@@ -161,6 +165,7 @@ class HistoryVC: UIViewController {
         
         let paymentVC = PaymentVC()
         paymentVC.titleView.mainLabel.text = "Payment"
+        paymentVC.titleView.mainLabel.textColor = vcTintColor
         paymentVC.titleView.cancelButton.isHidden = true
         paymentVC.titleView.checkMarkButton.isHidden = true
         paymentVC.vcTintColor = .systemOrange
@@ -217,10 +222,9 @@ class HistoryVC: UIViewController {
     }
     
     @objc func searchButtonSelected() {
-        let alert = UIAlertController(title: "Search Something", message: "Search button has been tapped.", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: nil))
+        let historySearchVC = HistorySearchVC()
         
-        present(alert, animated: true)
+        navigationController?.pushViewController(historySearchVC, animated: true)
     }
 }
 

@@ -52,6 +52,7 @@
 		E99FB7C3275C540D001B84E2 /* QuickSelectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99FB7C2275C540D001B84E2 /* QuickSelectionCell.swift */; };
 		E99FB7C7275C563D001B84E2 /* PropertiesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99FB7C6275C563D001B84E2 /* PropertiesCell.swift */; };
 		E99FB7CB275D8BFB001B84E2 /* TestingProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99FB7CA275D8BFB001B84E2 /* TestingProperties.swift */; };
+		E9C85ACB278E1CE8006505D5 /* SearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C85ACA278E1CE8006505D5 /* SearchCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -120,6 +121,7 @@
 		E99FB7C2275C540D001B84E2 /* QuickSelectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickSelectionCell.swift; sourceTree = "<group>"; };
 		E99FB7C6275C563D001B84E2 /* PropertiesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertiesCell.swift; sourceTree = "<group>"; };
 		E99FB7CA275D8BFB001B84E2 /* TestingProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestingProperties.swift; sourceTree = "<group>"; };
+		E9C85ACA278E1CE8006505D5 /* SearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -227,6 +229,7 @@
 			isa = PBXGroup;
 			children = (
 				E9776B41278C41C1005A7EB3 /* CalendarCell.swift */,
+				E9C85ACA278E1CE8006505D5 /* SearchCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -552,6 +555,7 @@
 				E99FB7B4275C50E9001B84E2 /* Selection.swift in Sources */,
 				E97EB3AF276D2E6700B8E0E7 /* CDStack.swift in Sources */,
 				E911634E27564A8A00E1F127 /* AppDelegate.swift in Sources */,
+				E9C85ACB278E1CE8006505D5 /* SearchCell.swift in Sources */,
 				E99FB7BB275C534D001B84E2 /* TitleSection.swift in Sources */,
 				E97EB3A9276CF64100B8E0E7 /* NewEntityFormCell.swift in Sources */,
 				E97D6B88278B9C3C001741C6 /* HistoryAddButtonView.swift in Sources */,
