@@ -18,6 +18,9 @@ class HistorySearchVC: UIViewController {
         searchBar.searchBarStyle = .minimal
         searchBar.placeholder = "Search"
         searchBar.tintColor = vcTintColor
+        searchBar.showsScopeBar = true
+        searchBar.scopeButtonTitles = ["Name", "Property", "Quantity", "Note"]
+        searchBar.selectedScopeButtonIndex = 0
         
         return searchBar
     }()
@@ -94,12 +97,24 @@ class HistorySearchVC: UIViewController {
         return results
     }
     
-    func getPaymentsOnSpecific(searchText: String) -> [Payment] {
+    func getPaymentsOnSpecific(searchText: String, selectedScopeButtonIndex: Int = 0) -> [Payment] {
         let context = CDStack.shared.persistentContainer.viewContext
         let fetch = Payment.fetchRequest()
         
-        // Fetching the payments that match the date selected.
-        fetch.predicate = NSPredicate(format: "tenant.name CONTAINS[c] %@", searchText as NSString)
+        switch selectedScopeButtonIndex {
+        case 1:
+            // Fetching the payments that match the date selected.
+            fetch.predicate = NSPredicate(format: "tenant.property.title CONTAINS[c] %@", searchText as NSString)
+        case 2:
+            // Fetching the payments that match the payment/quantity selected.
+            fetch.predicate = NSPredicate(format: "payment CONTAINS[c] %@", searchText)
+        case 3:
+            // Fetching the payments that match the note selected.
+            fetch.predicate = NSPredicate(format: "note CONTAINS[c] %@", searchText as NSString)
+        default:
+            // Fetching the payments that match the date selected.
+            fetch.predicate = NSPredicate(format: "tenant.name CONTAINS[c] %@", searchText as NSString)
+        }
         
         // Sorting the payments on that date by name.
         let dateSortDescriptor = NSSortDescriptor(key: "date", ascending: true)
@@ -137,9 +152,8 @@ extension HistorySearchVC: UISearchBarDelegate {
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        print(searchText)
-        self.searchResult = getPaymentsOnSpecific(searchText: searchText)
-        
+        let selectedIndex = self.searchBar.selectedScopeButtonIndex
+        self.searchResult = getPaymentsOnSpecific(searchText: searchText, selectedScopeButtonIndex: selectedIndex)
     }
 }
 
