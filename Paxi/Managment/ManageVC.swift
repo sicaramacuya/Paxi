@@ -258,10 +258,6 @@ extension ManageVC: UICollectionViewDelegate {
             vc.entries = property.allPayments
             
         case is Payment.Type:
-            //let paymentVC = PaymentVC()
-            //paymentVC.vcTintColor = .systemYellow
-            //navigationController?.present(paymentVC, animated: true)
-            
             self.managePaymentSelection(indexPath: indexPath)
 
             return
@@ -274,63 +270,5 @@ extension ManageVC: UICollectionViewDelegate {
         
         // move to our new view controller
         navigationController?.pushViewController(vc, animated: true)
-    }
-}
-
-extension ManageVC {
-    static func populateDB() {
-        let stack = CDStack.shared
-        let context = stack.persistentContainer.viewContext
-        
-        let payment1 = Payment(context: context)
-        // ...
-        
-        let tent1 = Tenant(context: context)
-        // ...
-        tent1.addToPayments(payment1)
-        
-        let unit1 = Unit(context: context)
-        // ...
-        unit1.addToTenants(tent1)
-        
-        let property1 = Property(context: context)
-        property1.title = "SF"
-        property1.address = "Puerto Rico"
-        property1.addToUnits(unit1)
-        
-        stack.saveContext()
-    }
-    
-    // MARK: Hard Coded Content
-    static func getHardCodedEntities() -> [ManageTestingProperty] {
-        // Payments
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MMMM dd, y"
-        
-        let payment1 = ManageTestingPayments(date: dateFormatter.date(from: "September 05, 2021")!, amount: 250)
-        let payment2 = ManageTestingPayments(date: dateFormatter.date(from: "October 05, 2021")!, amount: 250)
-        let payment3 = ManageTestingPayments(date: dateFormatter.date(from: "November 05, 2021")!, amount: 250)
-        let payment4 = ManageTestingPayments(date: dateFormatter.date(from: "December 05, 2021")!, amount: 250)
-        
-        // Tenants
-        let ezra = ManageTestingTenant(title: "Ezra Morales", amount: 200, payments: [payment1, payment2, payment3, payment4])
-        let layra = ManageTestingTenant(title: "Lyra Morales", amount: 300, payments: [payment1, payment2, payment3, payment4])
-        let azul = ManageTestingTenant(title: "Azul Morales", amount: 100, payments: [payment1, payment2, payment3, payment4])
-        let miles = ManageTestingTenant(title: "Miles Morales", amount: 700, payments: [payment1, payment2, payment3, payment4])
-        
-        // Units
-        let unit1 = ManageTestingUnit(title: "Unit 1", amount: 500, tenants: [ezra])
-        let unit2 = ManageTestingUnit(title: "Unit 2", amount: 500, tenants: [layra])
-        let unit3 = ManageTestingUnit(title: "Unit 3", amount: 500, tenants: [azul])
-        let unit4 = ManageTestingUnit(title: "Unit 4", amount: 500, tenants: [miles])
-        
-        return [
-            ManageTestingProperty(title: "Pitahaya", amount: 250, units: [unit1, unit2, unit3, unit4]),
-            ManageTestingProperty(title: "Collores", amount: 250, units: [unit1, unit2, unit3, unit4]),
-            ManageTestingProperty(title: "Antón Ruíz", amount: 150, units: [unit1, unit2, unit3, unit4]),
-            ManageTestingProperty(title: "Tejas", amount: 900.25, units: [unit1, unit2, unit3, unit4]),
-            ManageTestingProperty(title: "Leguisamo", amount: 100, units: [unit1, unit2, unit3, unit4]),
-            ManageTestingProperty(title: "Miradero", amount: 12500, units: [unit1, unit2, unit3, unit4])
-        ]
     }
 }
