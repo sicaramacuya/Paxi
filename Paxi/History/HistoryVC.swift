@@ -28,6 +28,7 @@ class HistoryVC: UIViewController {
             tableView.reloadData()
         }
     }
+    lazy var paymentSelected: Payment? = nil
     
     // MARK: VC's Lifecycle
     override func viewDidLoad() {
@@ -150,10 +151,33 @@ class HistoryVC: UIViewController {
     }
     
     @objc func addButtonSelected() {
-        let alert = UIAlertController(title: "Add Something", message: "Add button has been tapped.", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: nil))
+        let context = CDStack.shared.persistentContainer.viewContext
+        let titleSortDescriptor = NSSortDescriptor(key: "title", ascending: true)
+        let nameSortDescriptor = NSSortDescriptor(key: "name", ascending: true)
         
-        present(alert, animated: true)
+        // Property
+        let fetchProperty = Property.fetchRequest()
+        fetchProperty.sortDescriptors = [titleSortDescriptor]
+        let resultsProperty = try! context.fetch(fetchProperty)
+        
+        // Unit
+        let fetchUnit = Unit.fetchRequest()
+        fetchUnit.sortDescriptors = [titleSortDescriptor]
+        let resultUnit = try! context.fetch(fetchUnit)
+        
+        // Tenant
+        let fetchTenat = Tenant.fetchRequest()
+        fetchTenat.sortDescriptors = [nameSortDescriptor]
+        let resultTenant = try! context.fetch(fetchTenat)
+        
+        
+        let paymentVC = PaymentVC()
+        paymentVC.propertyContent = resultsProperty
+        paymentVC.unitContent = resultUnit
+        paymentVC.tenantContent = resultTenant
+        paymentVC.vcTintColor = .systemOrange
+        
+        navigationController?.present(paymentVC, animated: true)
     }
     
     @objc func searchButtonSelected() {
@@ -198,9 +222,6 @@ extension HistoryVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let alert = UIAlertController(title: "Row Selected", message: "\(indexPath.row)", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Dismiss", style: .default))
-    
-        self.present(alert, animated: true)
+        paymentSelected = paymentsForSelectedDay[indexPath.item]
     }
 }
