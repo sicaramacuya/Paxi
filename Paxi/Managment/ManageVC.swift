@@ -11,6 +11,7 @@ class ManageVC: UIViewController {
     
     // MARK: Properties
     lazy var subTitle: String = ""
+    lazy var formatter: DateFormatter = DateFormatter()
     lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: self.view.bounds, collectionViewLayout: self.collectionViewLayout)
         collectionView.backgroundColor = .systemBackground
@@ -189,6 +190,44 @@ extension ManageVC: UICollectionViewDelegate {
         }
     }
     
+    func managePaymentSelection(indexPath: IndexPath) {
+        formatter.dateStyle = .long
+        
+        let payment = self.entries[indexPath.item] as! Payment
+        let paymentSelected = payment
+        guard let property = paymentSelected.tenant?.unit?.property else { return }
+        guard let unit = paymentSelected.tenant?.unit else { return }
+        guard let tenant = paymentSelected.tenant else { return }
+        
+        
+        let paymentVC = PaymentVC()
+        paymentVC.titleView.mainLabel.text = "Payment"
+        paymentVC.titleView.mainLabel.textColor = .systemYellow
+        paymentVC.titleView.cancelButton.isHidden = true
+        paymentVC.titleView.checkMarkButton.isHidden = true
+        paymentVC.vcTintColor = .systemOrange
+        
+        navigationController?.present(paymentVC, animated: true)
+        
+        // Populating Fields
+        paymentVC.formView.propertyTextField.text = property.title
+        paymentVC.formView.unitTextField.text = unit.title
+        paymentVC.formView.tenantTextField.text = tenant.name
+        paymentVC.formView.rentTextField.text = String(paymentSelected.rent)
+        paymentVC.formView.paymentTextField.text = String(paymentSelected.payment)
+        paymentVC.formView.dateTextField.text = formatter.string(from: paymentSelected.date!)
+        paymentVC.formView.noteTextField.text = paymentSelected.note ?? ""
+        
+        // Disabling Fields
+        paymentVC.formView.propertyTextField.isEnabled = false
+        paymentVC.formView.unitTextField.isEnabled = false
+        paymentVC.formView.tenantTextField.isEnabled = false
+        paymentVC.formView.rentTextField.isEnabled = true
+        paymentVC.formView.paymentTextField.isEnabled = true
+        paymentVC.formView.dateTextField.isEnabled = true
+        paymentVC.formView.noteTextField.isEnabled = true
+    }
+    
     func manageSelectionOfCell(indexPath: IndexPath) {
         // create a new view controller
         let vc = ManageVC(entries: entries)
@@ -219,49 +258,19 @@ extension ManageVC: UICollectionViewDelegate {
             vc.entries = property.allPayments
             
         case is Payment.Type:
-            let paymentVC = PaymentVC()
-            paymentVC.vcTintColor = .systemYellow
-            navigationController?.present(paymentVC, animated: true)
+            //let paymentVC = PaymentVC()
+            //paymentVC.vcTintColor = .systemYellow
+            //navigationController?.present(paymentVC, animated: true)
+            
+            self.managePaymentSelection(indexPath: indexPath)
 
             return
-            
-//        case is ManageTestingProperty.Type:
-//
-//            let entries = vc.entries as! [ManageTestingProperty]
-//            title = entries[indexPath.item].title
-//
-//            vc.entries = entries[indexPath.item].units
-//
-//        case is ManageTestingUnit.Type:
-//            let entries = self.entries as! [ManageTestingUnit]
-//            title = entries[indexPath.item].title
-//
-//            vc.entries = entries[indexPath.item].tenants
-//
-//        case is ManageTestingTenant.Type:
-//            let entries = self.entries as! [ManageTestingTenant]
-//            title = entries[indexPath.item].title
-//
-//            vc.entries = entries[indexPath.item].payments
-//
-//        case is ManageTestingPayments.Type:
-//            let paymentVC = PaymentVC()
-//            navigationController?.present(paymentVC, animated: true)
-//
-//            return
-//
         default:
             return
         }
         
         // subTitle is set the the title because this property is use to set the self.title property of the view controller
         vc.subTitle = title
-        
-        // sets the sessions
-        //vc.sections = [
-        //    ManageTitleSection(mainTitle: "Manage", subTitle: title),
-        //    ManageEntitySection(entities: vc.entries)
-        //]
         
         // move to our new view controller
         navigationController?.pushViewController(vc, animated: true)
