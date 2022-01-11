@@ -150,6 +150,42 @@ class HistoryVC: UIViewController {
         return results
     }
     
+    func manageTableViewCellSelection(indexPath: IndexPath) {
+        formatter.dateStyle = .long
+        
+        paymentSelected = paymentsForSelectedDay[indexPath.item]
+        guard let property = paymentSelected?.tenant?.unit?.property else { return }
+        guard let unit = paymentSelected?.tenant?.unit else { return }
+        guard let tenant = paymentSelected?.tenant else { return }
+        
+        
+        let paymentVC = PaymentVC()
+        paymentVC.titleView.mainLabel.text = "Payment"
+        paymentVC.titleView.cancelButton.isHidden = true
+        paymentVC.titleView.checkMarkButton.isHidden = true
+        paymentVC.vcTintColor = .systemOrange
+        
+        navigationController?.present(paymentVC, animated: true)
+        
+        // Populating Fields
+        paymentVC.formView.propertyTextField.text = property.title
+        paymentVC.formView.unitTextField.text = unit.title
+        paymentVC.formView.tenantTextField.text = tenant.name
+        paymentVC.formView.rentTextField.text = String(paymentSelected!.rent)
+        paymentVC.formView.paymentTextField.text = String(paymentSelected!.payment)
+        paymentVC.formView.dateTextField.text = formatter.string(from: paymentSelected!.date!)
+        paymentVC.formView.noteTextField.text = paymentSelected?.note ?? ""
+        
+        // Disabling Fields
+        paymentVC.formView.propertyTextField.isEnabled = false
+        paymentVC.formView.unitTextField.isEnabled = false
+        paymentVC.formView.tenantTextField.isEnabled = false
+        paymentVC.formView.rentTextField.isEnabled = false
+        paymentVC.formView.paymentTextField.isEnabled = false
+        paymentVC.formView.dateTextField.isEnabled = false
+        paymentVC.formView.noteTextField.isEnabled = false
+    }
+    
     @objc func addButtonSelected() {
         let context = CDStack.shared.persistentContainer.viewContext
         let titleSortDescriptor = NSSortDescriptor(key: "title", ascending: true)
@@ -222,38 +258,6 @@ extension HistoryVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        formatter.dateStyle = .long
-        
-        paymentSelected = paymentsForSelectedDay[indexPath.item]
-        guard let property = paymentSelected?.tenant?.unit?.property else { return }
-        guard let unit = paymentSelected?.tenant?.unit else { return }
-        guard let tenant = paymentSelected?.tenant else { return }
-        
-        
-        let paymentVC = PaymentVC()
-        paymentVC.titleView.mainLabel.text = "Payment"
-        paymentVC.titleView.cancelButton.isHidden = true
-        paymentVC.titleView.checkMarkButton.isHidden = true
-        paymentVC.vcTintColor = .systemOrange
-        
-        navigationController?.present(paymentVC, animated: true)
-        
-        // Populating Fields
-        paymentVC.formView.propertyTextField.text = property.title
-        paymentVC.formView.unitTextField.text = unit.title
-        paymentVC.formView.tenantTextField.text = tenant.name
-        paymentVC.formView.rentTextField.text = String(paymentSelected!.rent)
-        paymentVC.formView.paymentTextField.text = String(paymentSelected!.payment)
-        paymentVC.formView.dateTextField.text = formatter.string(from: paymentSelected!.date!)
-        paymentVC.formView.noteTextField.text = paymentSelected?.note ?? ""
-        
-        // Disabling Fields
-        paymentVC.formView.propertyTextField.isEnabled = false
-        paymentVC.formView.unitTextField.isEnabled = false
-        paymentVC.formView.tenantTextField.isEnabled = false
-        paymentVC.formView.rentTextField.isEnabled = false
-        paymentVC.formView.paymentTextField.isEnabled = false
-        paymentVC.formView.dateTextField.isEnabled = false
-        paymentVC.formView.noteTextField.isEnabled = false
+        manageTableViewCellSelection(indexPath: indexPath)
     }
 }
