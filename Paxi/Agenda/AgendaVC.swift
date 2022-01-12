@@ -9,21 +9,30 @@ import UIKit
 
 class AgendaVC: UIViewController {
     
+    // MARK: Properties
+    lazy var vcTintColor: UIColor = .systemPurple
+    
+    // MARK: VC's LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
+        self.view.backgroundColor = .systemBackground
+        self.title = "Agenda"
+        
+        
+        setupNavigationController()
     }
     
     
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    
+    // MARK: Methods
+    func setupNavigationController() {
+        // style title
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+        let titleTextAttribute: [NSAttributedString.Key : Any] = [ .foregroundColor: UIColor.clear,]
+        self.navigationController?.navigationBar.titleTextAttributes = titleTextAttribute
+        
+        // add color
+        self.navigationController?.navigationBar.tintColor = vcTintColor
+    }
 }

@@ -127,7 +127,9 @@ extension HomeVC: UICollectionViewDelegate {
             
             switch selection {
             case .agenda:
-                break
+                let agendaVC = AgendaVC()
+                
+                navigationController?.pushViewController(agendaVC, animated: true)
                 
             case .managment:
                 let context = CDStack.shared.persistentContainer.viewContext
