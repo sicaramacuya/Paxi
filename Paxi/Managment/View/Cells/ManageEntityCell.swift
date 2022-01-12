@@ -102,8 +102,8 @@ class ManageEntityCell: UICollectionViewCell {
         self.titleLabel.text = title
         
         let numberFormatter = NumberFormatter()
-        numberFormatter.numberStyle = .decimal
-        let formattedNumber = numberFormatter.string(from: NSNumber(value:amount))
-        self.amountLabel.text = "$\(formattedNumber!)"
+        numberFormatter.numberStyle = .currency
+        let formattedNumber = numberFormatter.string(from: NSNumber(value:amount)) ?? ""
+        self.amountLabel.text = formattedNumber
     }
 }

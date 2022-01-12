@@ -11,7 +11,6 @@ class HistorySearchVC: UIViewController {
     
     // MARK: Properties
     lazy var vcTintColor: UIColor = .systemOrange
-    lazy var formatter: DateFormatter = DateFormatter()
     lazy var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
         searchBar.translatesAutoresizingMaskIntoConstraints = false
@@ -122,7 +121,6 @@ class HistorySearchVC: UIViewController {
     }
     
     func manageTableViewCellSelection(indexPath: IndexPath) {
-        formatter.dateStyle = .long
         
         let paymentSelected = searchResult[indexPath.item]
         guard let property = paymentSelected.tenant?.unit?.property else { return }
@@ -145,7 +143,7 @@ class HistorySearchVC: UIViewController {
         paymentVC.formView.tenantTextField.text = tenant.name
         paymentVC.formView.rentTextField.text = String(paymentSelected.rent)
         paymentVC.formView.paymentTextField.text = String(paymentSelected.payment)
-        paymentVC.formView.dateTextField.text = formatter.string(from: paymentSelected.date!)
+        paymentVC.formView.dateTextField.text = paymentSelected.date!.formatted(date: .long, time: .omitted)
         paymentVC.formView.noteTextField.text = paymentSelected.note ?? ""
         
         // Disabling Fields
@@ -194,8 +192,7 @@ extension HistorySearchVC: UITableViewDataSource, UITableViewDelegate {
         
         let payment = searchResult[indexPath.item]
         cell.nameLabel.text = payment.tenant?.name
-        formatter.dateStyle = .short
-        cell.dateLabel.text = formatter.string(from: payment.date!)
+        cell.dateLabel.text = payment.date!.formatted(date: .numeric, time: .omitted)
         cell.paymentLabel.text = String(payment.payment)
         
         return cell

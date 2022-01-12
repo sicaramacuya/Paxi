@@ -11,7 +11,6 @@ class ManageVC: UIViewController {
     
     // MARK: Properties
     lazy var subTitle: String = ""
-    lazy var formatter: DateFormatter = DateFormatter()
     lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: self.view.bounds, collectionViewLayout: self.collectionViewLayout)
         collectionView.backgroundColor = .systemBackground
@@ -151,7 +150,6 @@ extension ManageVC: UICollectionViewDelegate {
     }
     
     func managePaymentSelection(indexPath: IndexPath) {
-        formatter.dateStyle = .long
         
         let payment = self.entries[indexPath.item] as! Payment
         let paymentSelected = payment
@@ -175,7 +173,7 @@ extension ManageVC: UICollectionViewDelegate {
         paymentVC.formView.tenantTextField.text = tenant.name
         paymentVC.formView.rentTextField.text = String(paymentSelected.rent)
         paymentVC.formView.paymentTextField.text = String(paymentSelected.payment)
-        paymentVC.formView.dateTextField.text = formatter.string(from: paymentSelected.date!)
+        paymentVC.formView.dateTextField.text = paymentSelected.date!.formatted(date: .long, time: .omitted)
         paymentVC.formView.noteTextField.text = paymentSelected.note ?? ""
         
         // Disabling Fields

@@ -155,12 +155,6 @@ class PaymentFormView: UIView {
         
         return datePicker
     }()
-    lazy var dateFormatter: DateFormatter = {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .long
-        
-        return dateFormatter
-    }()
     lazy var noteLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -284,7 +278,7 @@ class PaymentFormView: UIView {
         // dismiss keyboard for date text field
         if dateTextField.isEditing {
             
-            dateTextField.text = dateFormatter.string(from: datePicker.date)
+            dateTextField.text = datePicker.date.formatted(date: .long, time: .omitted)
             dateTextField.resignFirstResponder()
         }
         

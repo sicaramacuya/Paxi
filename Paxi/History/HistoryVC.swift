@@ -12,7 +12,6 @@ class HistoryVC: UIViewController {
     
     // MARK: Properties
     fileprivate weak var calendar: FSCalendar!
-    lazy var formatter: DateFormatter = DateFormatter()
     lazy var vcTintColor: UIColor = .systemOrange
     lazy var buttonSize: CGSize = CGSize(width: 60, height: 60)
     lazy var tableView: UITableView = {
@@ -142,7 +141,6 @@ class HistoryVC: UIViewController {
     }
     
     func manageTableViewCellSelection(indexPath: IndexPath) {
-        formatter.dateStyle = .long
         
         paymentSelected = paymentsForSelectedDay[indexPath.item]
         guard let property = paymentSelected?.tenant?.unit?.property else { return }
@@ -165,7 +163,7 @@ class HistoryVC: UIViewController {
         paymentVC.formView.tenantTextField.text = tenant.name
         paymentVC.formView.rentTextField.text = String(paymentSelected!.rent)
         paymentVC.formView.paymentTextField.text = String(paymentSelected!.payment)
-        paymentVC.formView.dateTextField.text = formatter.string(from: paymentSelected!.date!)
+        paymentVC.formView.dateTextField.text = paymentSelected!.date!.formatted(date: .long, time: .omitted)
         paymentVC.formView.noteTextField.text = paymentSelected?.note ?? ""
         
         // Disabling Fields
