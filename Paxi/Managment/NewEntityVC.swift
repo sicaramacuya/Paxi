@@ -13,7 +13,12 @@ class NewEntityVC: UIViewController {
     var item: Any?
     var manageVC: ManageVC?
     lazy var entityType: ManageNewEntityType = .notYetAsign
-    lazy var titleView: UIView = NewEntityTitleView(title: self.title!)
+    lazy var titleView: NewEntityTitleView = {
+        let view = NewEntityTitleView(title: self.title!)
+        view.delegate = self
+        
+        return view
+    }()
     lazy var previewView: UIView = NewEntityPreviewView(title: "Aguacate")
     lazy var stackView: UIStackView = {
         let stack = UIStackView()
@@ -114,59 +119,6 @@ class NewEntityVC: UIViewController {
         
         // reloads all data in collectionView
         collectionView.reloadData()
-    }
-    
-    @objc func cancelButtonSelected() {
-        print("Cancel button selected!")
-        
-        
-        presentingViewController?.dismiss(animated: true)
-    }
-    
-    @objc func checkMarkButtonSelected() {
-        // This switch is to get the content in the text field and called the save method on it.
-        switch self.entityType {
-        case .property:
-            let results = getContentFromTextFields(entityType: .property)
-            if !results.isEmpty {
-                save(results: results)
-                print("Property has been saved.")
-            } else {
-                print("Didn't save, fields for the new property wheren't fill out properly.")
-            }
-             
-        case .unit:
-            let results = getContentFromTextFields(entityType: .unit)
-            if !results.isEmpty {
-                save(results: results)
-                print("Unit has been saved.")
-            } else {
-                print("Didn't save, fields for the new unit wheren't fill out properly.")
-            }
-            
-        case .tenant:
-            let results = getContentFromTextFields(entityType: .tenant)
-            if !results.isEmpty {
-                save(results: results)
-                print("Tenant has been saved.")
-            } else {
-                print("Didn't save, fields for the new tenant wheren't fill out properly.")
-            }
-    
-        case .payment:
-            let results = getContentFromTextFields(entityType: .payment)
-            if !results.isEmpty {
-                save(results: results)
-                print("Payment has been saved.")
-            } else {
-                print("Didn't save, fields for the new payment wheren't fill out properly.")
-            }
-        
-        case .notYetAsign:
-            break
-        }
-        
-        presentingViewController?.dismiss(animated: true)
     }
     
     @objc func dismissKeyboard(_ sender: UITapGestureRecognizer) {
@@ -516,5 +468,60 @@ extension NewEntityVC: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print(indexPath)
+    }
+}
+
+extension NewEntityVC: ButtonSelectionDelegate {
+    func buttonSelected(cancelButton: UIButton) {
+        print("Cancel button selected!")
+        
+        
+        presentingViewController?.dismiss(animated: true)
+    }
+    
+    func buttonSelected(checkMarkButton: UIButton) {
+        // This switch is to get the content in the text field and called the save method on it.
+        switch self.entityType {
+        case .property:
+            let results = getContentFromTextFields(entityType: .property)
+            if !results.isEmpty {
+                save(results: results)
+                print("Property has been saved.")
+            } else {
+                print("Didn't save, fields for the new property wheren't fill out properly.")
+            }
+             
+        case .unit:
+            let results = getContentFromTextFields(entityType: .unit)
+            if !results.isEmpty {
+                save(results: results)
+                print("Unit has been saved.")
+            } else {
+                print("Didn't save, fields for the new unit wheren't fill out properly.")
+            }
+            
+        case .tenant:
+            let results = getContentFromTextFields(entityType: .tenant)
+            if !results.isEmpty {
+                save(results: results)
+                print("Tenant has been saved.")
+            } else {
+                print("Didn't save, fields for the new tenant wheren't fill out properly.")
+            }
+    
+        case .payment:
+            let results = getContentFromTextFields(entityType: .payment)
+            if !results.isEmpty {
+                save(results: results)
+                print("Payment has been saved.")
+            } else {
+                print("Didn't save, fields for the new payment wheren't fill out properly.")
+            }
+        
+        case .notYetAsign:
+            break
+        }
+        
+        presentingViewController?.dismiss(animated: true)
     }
 }

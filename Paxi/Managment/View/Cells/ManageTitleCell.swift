@@ -7,10 +7,15 @@
 
 import UIKit
 
+protocol ManageTitleCellButtonSelectionDelegate {
+    func buttonSelected(plusButton: UIButton)
+}
+
 class ManageTitleCell: UICollectionViewCell {
     
     // MARK: Properties
     static let identifier: String = "ManageTitleCell"
+    var delegate: ManageTitleCellButtonSelectionDelegate!
     lazy var mainLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -40,7 +45,7 @@ class ManageTitleCell: UICollectionViewCell {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.contentMode = .scaleAspectFit
         button.tintColor = .systemYellow
-        button.addTarget(ManageVC(), action: #selector(ManageVC.addButtonSelected), for: .touchUpInside)
+        button.addTarget(self, action: #selector(addButtonSelected(_:)), for: .touchUpInside)
         
         return button
     }()
@@ -102,5 +107,9 @@ class ManageTitleCell: UICollectionViewCell {
     
     func setContent(subTitle: String) {
         subLabel.text = subTitle
+    }
+    
+    @objc func addButtonSelected(_ sender: UIButton) {
+        delegate.buttonSelected(plusButton: sender)
     }
 }

@@ -7,9 +7,15 @@
 
 import UIKit
 
+protocol ButtonSelectionDelegate {
+    func buttonSelected(cancelButton: UIButton)
+    func buttonSelected(checkMarkButton: UIButton)
+}
+
 class NewEntityTitleView: UIView {
     
     // MARK: Properties
+    var delegate: ButtonSelectionDelegate!
     lazy var cancelImage:  UIImageView = {
         let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
@@ -22,7 +28,7 @@ class NewEntityTitleView: UIView {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.contentMode = .scaleAspectFit
         button.tintColor = .systemYellow
-        button.addTarget(NewEntityVC(), action: #selector(NewEntityVC.cancelButtonSelected), for: .touchUpInside)
+        button.addTarget(self, action: #selector(cancelButtonTapped(_:)), for: .touchUpInside)
         
         return button
     }()
@@ -47,7 +53,7 @@ class NewEntityTitleView: UIView {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.contentMode = .scaleAspectFit
         button.tintColor = .systemYellow
-        button.addTarget(NewEntityVC(), action: #selector(NewEntityVC.checkMarkButtonSelected), for: .touchUpInside)
+        button.addTarget(self, action: #selector(checkMarkButtonTapped(_:)), for: .touchUpInside)
         
         return button
     }()
@@ -114,5 +120,13 @@ class NewEntityTitleView: UIView {
             checkMarkImage.heightAnchor.constraint(equalTo: checkMarkButton.heightAnchor),
         ])
         
+    }
+    
+    @objc func cancelButtonTapped(_ sender: UIButton) {
+        delegate.buttonSelected(cancelButton: sender)
+    }
+    
+    @objc func checkMarkButtonTapped(_ sender: UIButton) {
+        delegate.buttonSelected(checkMarkButton: sender)
     }
 }

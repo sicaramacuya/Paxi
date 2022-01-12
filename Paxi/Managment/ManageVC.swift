@@ -30,7 +30,7 @@ class ManageVC: UIViewController {
     }()
     var sections: [Section] {
         return [
-            ManageTitleSection(mainTitle: "Manage", subTitle: self.subTitle),
+            ManageTitleSection(mainTitle: "Manage", subTitle: self.subTitle, delegate: self),
             ManageEntitySection(entities: entries)
         ]
     }
@@ -116,46 +116,6 @@ class ManageVC: UIViewController {
         
         // reloads all data in collectionView
         collectionView.reloadData()
-    }
-    
-    @objc func addButtonSelected() {
-        if item == nil {
-            // this is showing a list of properties
-            let vc = NewEntityVC()
-            vc.title = "New Property"
-            vc.entityType = .property
-            vc.manageVC = self
-            vc.modalPresentationStyle = .fullScreen
-            navigationController?.present(vc, animated: true)
-            
-        } else if let property = item as? Property {
-            // this is showing a list of units
-            let vc = NewEntityVC()
-            vc.title = "New Unit"
-            vc.item = property
-            vc.entityType = .unit
-            vc.manageVC = self
-            vc.modalPresentationStyle = .fullScreen
-            navigationController?.present(vc, animated: true)
-        } else if let unit = item as? Unit {
-            // this is showing a list of tenants
-            let vc = NewEntityVC()
-            vc.title = "New Tenant"
-            vc.item = unit
-            vc.entityType = .tenant
-            vc.manageVC = self
-            vc.modalPresentationStyle = .fullScreen
-            navigationController?.present(vc, animated: true)
-        } else if let tenant = item as? Tenant {
-            // this is showing a list of payment
-            let vc = NewEntityVC()
-            vc.title = "New Payment"
-            vc.item = tenant
-            vc.entityType = .payment
-            vc.manageVC = self
-            vc.modalPresentationStyle = .fullScreen
-            navigationController?.present(vc, animated: true)
-        }
     }
 }
 
@@ -270,5 +230,49 @@ extension ManageVC: UICollectionViewDelegate {
         
         // move to our new view controller
         navigationController?.pushViewController(vc, animated: true)
+    }
+}
+
+extension ManageVC: ManageTitleCellButtonSelectionDelegate {
+    // MARK: ManageTitleCellButtonSelectionDelegate
+    
+    func buttonSelected(plusButton: UIButton) {
+        if item == nil {
+            // this is showing a list of properties
+            let vc = NewEntityVC()
+            vc.title = "New Property"
+            vc.entityType = .property
+            vc.manageVC = self
+            vc.modalPresentationStyle = .fullScreen
+            navigationController?.present(vc, animated: true)
+            
+        } else if let property = item as? Property {
+            // this is showing a list of units
+            let vc = NewEntityVC()
+            vc.title = "New Unit"
+            vc.item = property
+            vc.entityType = .unit
+            vc.manageVC = self
+            vc.modalPresentationStyle = .fullScreen
+            navigationController?.present(vc, animated: true)
+        } else if let unit = item as? Unit {
+            // this is showing a list of tenants
+            let vc = NewEntityVC()
+            vc.title = "New Tenant"
+            vc.item = unit
+            vc.entityType = .tenant
+            vc.manageVC = self
+            vc.modalPresentationStyle = .fullScreen
+            navigationController?.present(vc, animated: true)
+        } else if let tenant = item as? Tenant {
+            // this is showing a list of payment
+            let vc = NewEntityVC()
+            vc.title = "New Payment"
+            vc.item = tenant
+            vc.entityType = .payment
+            vc.manageVC = self
+            vc.modalPresentationStyle = .fullScreen
+            navigationController?.present(vc, animated: true)
+        }
     }
 }

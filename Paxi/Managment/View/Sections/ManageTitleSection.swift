@@ -13,12 +13,14 @@ struct ManageTitleSection: Section {
     let numberOfItems: Int = 1
     let mainTitle: String
     let subTitle: String
+    let delegate: UIViewController
     
     
     // MARK: Methods
-    init(mainTitle: String, subTitle: String) {
+    init(mainTitle: String, subTitle: String, delegate: UIViewController) {
         self.mainTitle = mainTitle
         self.subTitle = subTitle
+        self.delegate = delegate
     }
     
     func layoutSection() -> NSCollectionLayoutSection? {
@@ -38,6 +40,7 @@ struct ManageTitleSection: Section {
     
     func configureCell(collectionView: UICollectionView, indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: ManageTitleCell.self), for: indexPath) as! ManageTitleCell
+        cell.delegate = self.delegate as! ManageTitleCellButtonSelectionDelegate
         cell.setContent(subTitle: self.subTitle)
         
         return cell

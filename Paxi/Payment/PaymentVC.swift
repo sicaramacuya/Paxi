@@ -39,6 +39,8 @@ class PaymentVC: UIViewController {
         titleView.translatesAutoresizingMaskIntoConstraints = false
         formView.translatesAutoresizingMaskIntoConstraints = false
         
+        titleView.delegate = self
+        
         // Adding to hierarchy
         self.view.addSubview(titleView)
         self.view.addSubview(formView)
@@ -49,6 +51,7 @@ class PaymentVC: UIViewController {
             titleView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
             titleView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
             titleView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
+            titleView.heightAnchor.constraint(equalToConstant: 60),
             
             // formView
             formView.topAnchor.constraint(equalTo: titleView.bottomAnchor, constant: 20),
@@ -73,18 +76,6 @@ class PaymentVC: UIViewController {
         tenantPicker.dataSource = self
         tenantPicker.delegate = self
         formView.tenantTextField.inputView = tenantPicker
-    }
-    
-    @objc func cancelButtonSelected() {
-        print("Cancel button selected! [PaymentVC]")
-        
-        presentingViewController?.dismiss(animated: true)
-    }
-    
-    @objc func checkMarkButtonSelected() {
-        print("Checkmark button selected!")
-        
-        presentingViewController?.dismiss(animated: true)
     }
     
     func savePayment() {
@@ -169,10 +160,6 @@ extension PaymentVC: UIPickerViewDelegate {
             // Tenant
             self.tenantContent = property.allTenants
             
-            
-            // JUST TO TEST IF SAVING WORKS
-            //self.savePayment()
-            
         case unitPicker:
             self.unitSelected = unitContent[row]
             self.formView.unitTextField.text = unitSelected!.title
@@ -212,3 +199,20 @@ extension PaymentVC: UIPickerViewDelegate {
     }
 }
 
+// MARK: Buttons Protocol
+extension PaymentVC: ButtonSelectionDelegate {
+    // MARK: ButtonSelectionDelegate
+    func buttonSelected(cancelButton: UIButton) {
+        print("Cancel button selected! [PaymentVC]")
+        
+        presentingViewController?.dismiss(animated: true)
+    }
+    
+    func buttonSelected(checkMarkButton: UIButton) {
+        print("Checkmark button selected! [PaymentVC]")
+        savePayment()
+        
+        presentingViewController?.dismiss(animated: true)
+    }
+    
+}

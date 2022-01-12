@@ -15,7 +15,6 @@ class HistoryVC: UIViewController {
     lazy var formatter: DateFormatter = DateFormatter()
     lazy var vcTintColor: UIColor = .systemOrange
     lazy var buttonSize: CGSize = CGSize(width: 60, height: 60)
-    lazy var addButton: UIButton = HistoryAddButtonView(buttonSize: buttonSize, vcTintColor: vcTintColor)
     lazy var tableView: UITableView = {
         let table = UITableView()
         table.translatesAutoresizingMaskIntoConstraints = false
@@ -40,7 +39,6 @@ class HistoryVC: UIViewController {
         setupNavigationController()
         setupCalendar()
         setupTableView()
-        //setupPlusButton()
     }
     
     // MARK: Methods
@@ -61,17 +59,6 @@ class HistoryVC: UIViewController {
         
         // add color
         self.navigationController?.navigationBar.tintColor = vcTintColor
-    }
-    
-    func setupPlusButton() {
-        self.view.addSubview(addButton)
-        
-        let buffer: CGFloat = 20
-        addButton.frame = CGRect(x: self.view.frame.size.width - buttonSize.width - buffer,
-                                 y: self.view.frame.size.height - buttonSize.height - buffer,
-                                 width: buttonSize.width, height: buttonSize.height)
-        
-        addButton.addTarget(self, action: #selector(addButtonSelected), for: .touchUpInside)
     }
     
     func setupCalendar() {
