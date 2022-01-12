@@ -126,7 +126,7 @@ class HistoryVC: UIViewController {
     }
     
     func getPaymentsOnSpecific(date: Date) -> [Payment] {
-        let context = CDStack.shared.persistentContainer.viewContext
+        let context = CoreDataStack.shared.persistentContainer.viewContext
         let fetch = Payment.fetchRequest()
         
         // Fetching the payments that match the date selected.
@@ -179,7 +179,7 @@ class HistoryVC: UIViewController {
     }
     
     @objc func addButtonSelected() {
-        let context = CDStack.shared.persistentContainer.viewContext
+        let context = CoreDataStack.shared.persistentContainer.viewContext
         let titleSortDescriptor = NSSortDescriptor(key: "title", ascending: true)
         let nameSortDescriptor = NSSortDescriptor(key: "name", ascending: true)
         

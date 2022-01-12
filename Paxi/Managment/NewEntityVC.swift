@@ -391,7 +391,7 @@ class NewEntityVC: UIViewController {
     }
     
     func save(results: [String:Any]) {
-        let stack = CDStack.shared
+        let stack = CoreDataStack.shared
         let context = stack.persistentContainer.viewContext
         switch entityType {
         case .property:

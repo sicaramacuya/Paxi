@@ -40,7 +40,7 @@ struct ManageTitleSection: Section {
     
     func configureCell(collectionView: UICollectionView, indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: ManageTitleCell.self), for: indexPath) as! ManageTitleCell
-        cell.delegate = self.delegate as! ManageTitleCellButtonSelectionDelegate
+        cell.delegate = self.delegate as! ManageTitleCellButtonSelectionDelegate?
         cell.setContent(subTitle: self.subTitle)
         
         return cell

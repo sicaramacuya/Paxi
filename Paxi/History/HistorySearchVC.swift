@@ -80,7 +80,7 @@ class HistorySearchVC: UIViewController {
     }
     
     func getAllPayments() -> [Payment] {
-        let context = CDStack.shared.persistentContainer.viewContext
+        let context = CoreDataStack.shared.persistentContainer.viewContext
         let fetch = Payment.fetchRequest()
         
         // Sorting the payments on that date by name.
@@ -94,7 +94,7 @@ class HistorySearchVC: UIViewController {
     }
     
     func getPaymentsOnSpecific(searchText: String, selectedScopeButtonIndex: Int = 0) -> [Payment] {
-        let context = CDStack.shared.persistentContainer.viewContext
+        let context = CoreDataStack.shared.persistentContainer.viewContext
         let fetch = Payment.fetchRequest()
         
         switch selectedScopeButtonIndex {

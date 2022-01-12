@@ -79,7 +79,7 @@ class PaymentVC: UIViewController {
     }
     
     func savePayment() {
-        let stack = CDStack.shared
+        let stack = CoreDataStack.shared
         let context = stack.persistentContainer.viewContext
         
         let payment = Payment(context: context)
@@ -203,13 +203,11 @@ extension PaymentVC: UIPickerViewDelegate {
 extension PaymentVC: ButtonSelectionDelegate {
     // MARK: ButtonSelectionDelegate
     func buttonSelected(cancelButton: UIButton) {
-        print("Cancel button selected! [PaymentVC]")
         
         presentingViewController?.dismiss(animated: true)
     }
     
     func buttonSelected(checkMarkButton: UIButton) {
-        print("Checkmark button selected! [PaymentVC]")
         savePayment()
         
         presentingViewController?.dismiss(animated: true)

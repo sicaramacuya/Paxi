@@ -69,7 +69,7 @@ class ManageVC: UIViewController {
         super.viewWillAppear(animated)
         
         if item == nil {
-            let context = CDStack.shared.persistentContainer.viewContext
+            let context = CoreDataStack.shared.persistentContainer.viewContext
             let fetch = Property.fetchRequest()
             fetch.sortDescriptors = [] // TODO: Sort by name
             entries = try! context.fetch(fetch)

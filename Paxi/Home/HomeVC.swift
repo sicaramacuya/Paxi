@@ -132,7 +132,7 @@ extension HomeVC: UICollectionViewDelegate {
                 navigationController?.pushViewController(agendaVC, animated: true)
                 
             case .managment:
-                let context = CDStack.shared.persistentContainer.viewContext
+                let context = CoreDataStack.shared.persistentContainer.viewContext
                 let fetch = Property.fetchRequest()
                 fetch.sortDescriptors = [] // TODO: Sort by name
                 let results = try! context.fetch(fetch)
@@ -143,7 +143,7 @@ extension HomeVC: UICollectionViewDelegate {
                 navigationController?.pushViewController(manageVC, animated: true)
                 
             case .payment:
-                let context = CDStack.shared.persistentContainer.viewContext
+                let context = CoreDataStack.shared.persistentContainer.viewContext
                 let titleSortDescriptor = NSSortDescriptor(key: "title", ascending: true)
                 let nameSortDescriptor = NSSortDescriptor(key: "name", ascending: true)
                 
@@ -190,7 +190,7 @@ extension HomeVC: UICollectionViewDelegate {
 extension HomeVC {
     // MARK: Hard Coded Content
     func getProperties() -> [Property] {
-        let context = CDStack.shared.persistentContainer.viewContext
+        let context = CoreDataStack.shared.persistentContainer.viewContext
         let fetch = Property.fetchRequest()
         fetch.sortDescriptors = [] // TODO: Sort by name
         let results = try! context.fetch(fetch)

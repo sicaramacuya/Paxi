@@ -1,5 +1,5 @@
 //
-//  CDStack.swift
+//  CoreDataStack.swift
 //  Paxi
 //
 //  Created by Eric Morales on 12/17/21.
@@ -7,8 +7,8 @@
 
 import CoreData
 
-class CDStack {
-    static let shared = CDStack()
+class CoreDataStack {
+    static let shared = CoreDataStack()
     
     // MARK: - Core Data stack
     
