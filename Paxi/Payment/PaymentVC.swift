@@ -11,8 +11,30 @@ class PaymentVC: UIViewController {
     
     // MARK: Properties
     lazy var vcTintColor: UIColor = .systemGreen
-    lazy var titleView = PaymentTitleView(title: "New Payment", tintColor: vcTintColor)
-    lazy var formView = PaymentFormView(viewController: self, tintColor: vcTintColor)
+    lazy var titleView: PaymentTitleView = {
+        let view = PaymentTitleView(title: "New Payment", tintColor: vcTintColor)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        return view
+    }()
+    lazy var rentTicketView: PaymentRentTicketView = {
+        let view = PaymentRentTicketView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .secondarySystemBackground
+        view.layer.cornerRadius = 10
+        view.layer.masksToBounds = true
+        view.backgroundTicketNumber.backgroundColor = vcTintColor
+        
+        return view
+    }()
+    lazy var formView: PaymentFormView = {
+        let view = PaymentFormView(viewController: self, tintColor: vcTintColor)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.rentLabel.isHidden = true
+        view.rentTextField.isHidden = true
+        
+        return view
+    }()
     lazy var propertyPicker = UIPickerView()
     lazy var unitPicker = UIPickerView()
     lazy var tenantPicker = UIPickerView()
@@ -37,13 +59,12 @@ class PaymentVC: UIViewController {
     
     // MARK: Methods
     func setupViews() {
-        titleView.translatesAutoresizingMaskIntoConstraints = false
-        formView.translatesAutoresizingMaskIntoConstraints = false
         
         titleView.delegate = self
         
         // Adding to hierarchy
         self.view.addSubview(titleView)
+        self.view.addSubview(rentTicketView)
         self.view.addSubview(formView)
         
         // Constraints
@@ -54,8 +75,14 @@ class PaymentVC: UIViewController {
             titleView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
             titleView.heightAnchor.constraint(equalToConstant: 60),
             
+            // ticketView
+            rentTicketView.topAnchor.constraint(equalTo: titleView.bottomAnchor, constant: 20),
+            rentTicketView.leadingAnchor.constraint(equalTo: self.view.layoutMarginsGuide.leadingAnchor),
+            rentTicketView.trailingAnchor.constraint(equalTo: self.view.layoutMarginsGuide.trailingAnchor),
+            rentTicketView.heightAnchor.constraint(equalToConstant: 66),
+            
             // formView
-            formView.topAnchor.constraint(equalTo: titleView.bottomAnchor, constant: 20),
+            formView.topAnchor.constraint(equalTo: rentTicketView.bottomAnchor, constant: 20),
             formView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
             formView.widthAnchor.constraint(equalTo: self.view.widthAnchor),
             formView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)
@@ -174,7 +201,14 @@ extension PaymentVC: UIPickerViewDelegate {
             self.tenantContent = unitSelected!.allTenants
             
             // Rent
-            self.formView.rentTextField.text = String(unitSelected!.rent)
+            //self.formView.rentTextField.text = String(unitSelected!.rent)
+            guard let rent = unitSelected?.rent else { return }
+
+            let numberFormatter = NumberFormatter()
+            numberFormatter.numberStyle = .currency
+            let formattedNumber = numberFormatter.string(from: NSNumber(value:rent))
+            
+            self.rentTicketView.amountLabel.text = formattedNumber
             
         case tenantPicker:
             self.tenantSelected = tenantContent[row]
@@ -191,8 +225,14 @@ extension PaymentVC: UIPickerViewDelegate {
             self.formView.unitTextField.text = unitSelected!.title
             
             // Rent
+            //self.formView.rentTextField.text = String(unitSelected!.rent)
             guard let rent = unitSelected?.rent else { return }
-            formView.rentTextField.text = String(rent)
+
+            let numberFormatter = NumberFormatter()
+            numberFormatter.numberStyle = .currency
+            let formattedNumber = numberFormatter.string(from: NSNumber(value:rent))
+            
+            self.rentTicketView.amountLabel.text = formattedNumber
             
         default:
             break
