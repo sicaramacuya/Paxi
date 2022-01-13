@@ -71,8 +71,8 @@ extension Property {
         return tenants?.allObjects as! [Tenant]
     }
     
-    var allPayments: [Payment] {
-        return payments?.allObjects as! [Payment]
+    var allPayments: [Rent] {
+        return payments?.allObjects as! [Rent]
     }
 }
 
@@ -87,8 +87,8 @@ extension Unit {
         return tenants?.allObjects as! [Tenant]
     }
     
-    var allPayments: [Payment] {
-        return payments?.allObjects as! [Payment]
+    var allPayments: [Rent] {
+        return payments?.allObjects as! [Rent]
     }
 }
 
@@ -99,7 +99,7 @@ extension Tenant {
         }
     }
     
-    var allPayments: [Payment] {
-        return payments?.allObjects as! [Payment]
+    var allPayments: [Rent] {
+        return payments?.allObjects as! [Rent]
     }
 }

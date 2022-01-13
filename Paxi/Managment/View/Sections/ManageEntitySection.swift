@@ -62,8 +62,8 @@ struct ManageEntitySection: Section {
             
             cell.setContent(title: title, amount: amount)
             
-        case is Payment.Type:
-            let entities = self.entities as! [Payment]
+        case is Rent.Type:
+            let entities = self.entities as! [Rent]
             let title = entities[indexPath.item].datePayment?.formatted(date: .abbreviated, time: .omitted) ?? "Error"
             let amount = entities[indexPath.item].payment
             

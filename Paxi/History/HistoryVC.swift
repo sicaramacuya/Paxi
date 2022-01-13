@@ -21,12 +21,12 @@ class HistoryVC: UIViewController {
         
         return table
     }()
-    lazy var paymentsForSelectedDay: [Payment] = getPaymentsOnSpecific(date: calendar.today!) {
+    lazy var paymentsForSelectedDay: [Rent] = getPaymentsOnSpecific(date: calendar.today!) {
         didSet {
             tableView.reloadData()
         }
     }
-    lazy var paymentSelected: Payment? = nil
+    lazy var paymentSelected: Rent? = nil
     
     // MARK: VC's Lifecycle
     override func viewDidLoad() {
@@ -124,9 +124,9 @@ class HistoryVC: UIViewController {
         ])
     }
     
-    func getPaymentsOnSpecific(date: Date) -> [Payment] {
+    func getPaymentsOnSpecific(date: Date) -> [Rent] {
         let context = CoreDataStack.shared.persistentContainer.viewContext
-        let fetch = Payment.fetchRequest()
+        let fetch = Rent.fetchRequest()
         
         // Fetching the payments that match the date selected.
         fetch.predicate = NSPredicate(format: "datePayment == %@", date as NSDate)

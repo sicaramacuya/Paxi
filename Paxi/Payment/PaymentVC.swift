@@ -110,11 +110,11 @@ class PaymentVC: UIViewController {
         let stack = CoreDataStack.shared
         let context = stack.persistentContainer.viewContext
         
-        let payment = Payment(context: context)
+        let payment = Rent(context: context)
         payment.property = self.propertySelected
         payment.unit = self.unitSelected
         payment.tenant = self.tenantSelected
-        payment.rent = Double(self.formView.rentTextField.text!)!
+        //payment.rent = Double(self.formView.rentTextField.text!)!
         payment.payment = Double(self.formView.paymentTextField.text!)!
         
         let dateFormatter = DateFormatter()

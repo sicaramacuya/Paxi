@@ -151,7 +151,7 @@ extension ManageVC: UICollectionViewDelegate {
     
     func managePaymentSelection(indexPath: IndexPath) {
         
-        let payment = self.entries[indexPath.item] as! Payment
+        let payment = self.entries[indexPath.item] as! Rent
         let paymentSelected = payment
         guard let property = paymentSelected.tenant?.unit?.property else { return }
         guard let unit = paymentSelected.tenant?.unit else { return }
@@ -215,7 +215,7 @@ extension ManageVC: UICollectionViewDelegate {
             vc.item = property
             vc.entries = property.allPayments
             
-        case is Payment.Type:
+        case is Rent.Type:
             self.managePaymentSelection(indexPath: indexPath)
 
             return

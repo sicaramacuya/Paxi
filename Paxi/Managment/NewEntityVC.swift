@@ -390,7 +390,7 @@ class NewEntityVC: UIViewController {
         }
     }
     
-    func save(results: [String:Any]) {
+    func save(results: [String : Any]) {
         let stack = CoreDataStack.shared
         let context = stack.persistentContainer.viewContext
         switch entityType {
@@ -426,7 +426,7 @@ class NewEntityVC: UIViewController {
             tenant.unit = unit
             tenant.property = unit.property
         case .payment:
-            let payment = Payment(context: context)
+            let payment = Rent(context: context)
             payment.tenant = results["tenant"] as? Tenant
             payment.property = results["property"] as? Property
             payment.unit = results["unit"] as? Unit
@@ -438,6 +438,22 @@ class NewEntityVC: UIViewController {
         case .notYetAsign:
             break
         }
+        
+        stack.saveContext()
+    }
+    
+    func createNewRent(results: [String : Any]) {
+        let stack = CoreDataStack.shared
+        let context = stack.persistentContainer.viewContext
+        
+        let payment = Rent(context: context)
+        payment.tenant = results["tenant"] as? Tenant
+        payment.property = results["property"] as? Property
+        payment.unit = results["unit"] as? Unit
+        payment.rent = results["rent"] as! Double
+        payment.payment = results["actualPayment"] as! Double
+        payment.datePayment = results["date"] as? Date
+        payment.note = results["note"] as? String
         
         stack.saveContext()
     }
@@ -504,7 +520,9 @@ extension NewEntityVC: ButtonSelectionDelegate {
             let results = getContentFromTextFields(entityType: .tenant)
             if !results.isEmpty {
                 save(results: results)
-                print("Tenant has been saved.")
+                createNewRent(results: results)
+                
+                print("Tenant has been saved and a new Payment/Rent has been created.")
             } else {
                 print("Didn't save, fields for the new tenant wheren't fill out properly.")
             }

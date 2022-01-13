@@ -30,7 +30,7 @@ class HistorySearchVC: UIViewController {
         
         return table
     }()
-    lazy var searchResult: [Payment] = getAllPayments() {
+    lazy var searchResult: [Rent] = getAllPayments() {
         didSet {
             tableView.reloadData()
         }
@@ -78,9 +78,9 @@ class HistorySearchVC: UIViewController {
         ])
     }
     
-    func getAllPayments() -> [Payment] {
+    func getAllPayments() -> [Rent] {
         let context = CoreDataStack.shared.persistentContainer.viewContext
-        let fetch = Payment.fetchRequest()
+        let fetch = Rent.fetchRequest()
         
         // Sorting the payments on that date by name.
         let nameSortDescriptor = NSSortDescriptor(key: "tenant.name", ascending: true)
@@ -92,9 +92,9 @@ class HistorySearchVC: UIViewController {
         return results
     }
     
-    func getPaymentsOnSpecific(searchText: String, selectedScopeButtonIndex: Int = 0) -> [Payment] {
+    func getPaymentsOnSpecific(searchText: String, selectedScopeButtonIndex: Int = 0) -> [Rent] {
         let context = CoreDataStack.shared.persistentContainer.viewContext
-        let fetch = Payment.fetchRequest()
+        let fetch = Rent.fetchRequest()
         
         switch selectedScopeButtonIndex {
         case 1:
