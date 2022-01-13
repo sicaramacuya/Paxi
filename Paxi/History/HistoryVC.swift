@@ -129,7 +129,7 @@ class HistoryVC: UIViewController {
         let fetch = Payment.fetchRequest()
         
         // Fetching the payments that match the date selected.
-        fetch.predicate = NSPredicate(format: "date == %@", date as NSDate)
+        fetch.predicate = NSPredicate(format: "datePayment == %@", date as NSDate)
         
         // Sorting the payments on that date by name.
         let dateSortDescriptor = NSSortDescriptor(key: "payment", ascending: false)
@@ -163,7 +163,7 @@ class HistoryVC: UIViewController {
         paymentVC.formView.tenantTextField.text = tenant.name
         paymentVC.formView.rentTextField.text = String(paymentSelected!.rent)
         paymentVC.formView.paymentTextField.text = String(paymentSelected!.payment)
-        paymentVC.formView.dateTextField.text = paymentSelected!.date!.formatted(date: .long, time: .omitted)
+        paymentVC.formView.dateTextField.text = paymentSelected!.datePayment!.formatted(date: .long, time: .omitted)
         paymentVC.formView.noteTextField.text = paymentSelected?.note ?? ""
         
         // Disabling Fields
@@ -203,6 +203,7 @@ class HistoryVC: UIViewController {
         paymentVC.tenantContent = resultTenant
         paymentVC.vcTintColor = .systemOrange
         
+        paymentVC.modalPresentationStyle = .fullScreen
         navigationController?.present(paymentVC, animated: true)
     }
     

@@ -432,7 +432,7 @@ class NewEntityVC: UIViewController {
             payment.unit = results["unit"] as? Unit
             payment.rent = results["rent"] as! Double
             payment.payment = results["actualPayment"] as! Double
-            payment.date = results["date"] as? Date
+            payment.datePayment = results["date"] as? Date
             payment.note = results["note"] as? String
             
         case .notYetAsign:

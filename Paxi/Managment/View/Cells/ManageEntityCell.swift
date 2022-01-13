@@ -24,7 +24,7 @@ class ManageEntityCell: UICollectionViewCell {
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis = .horizontal
         stack.distribution = .fill // direction of axis
-        stack.alignment = .leading // direction perpendiculat to the axis
+        stack.alignment = .center // direction perpendiculat to the axis
         stack.spacing = 5
         
         return stack

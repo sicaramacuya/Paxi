@@ -84,7 +84,7 @@ class HistorySearchVC: UIViewController {
         
         // Sorting the payments on that date by name.
         let nameSortDescriptor = NSSortDescriptor(key: "tenant.name", ascending: true)
-        let dateSortDescriptor = NSSortDescriptor(key: "date", ascending: true)
+        let dateSortDescriptor = NSSortDescriptor(key: "datePayment", ascending: true)
         fetch.sortDescriptors = [nameSortDescriptor, dateSortDescriptor] // TODO: Sort by name
         
         let results = try! context.fetch(fetch)
@@ -112,7 +112,7 @@ class HistorySearchVC: UIViewController {
         }
         
         // Sorting the payments on that date by name.
-        let dateSortDescriptor = NSSortDescriptor(key: "date", ascending: true)
+        let dateSortDescriptor = NSSortDescriptor(key: "datePayment", ascending: true)
         fetch.sortDescriptors = [dateSortDescriptor] // TODO: Sort by name
         
         let results = try! context.fetch(fetch)
@@ -143,7 +143,7 @@ class HistorySearchVC: UIViewController {
         paymentVC.formView.tenantTextField.text = tenant.name
         paymentVC.formView.rentTextField.text = String(paymentSelected.rent)
         paymentVC.formView.paymentTextField.text = String(paymentSelected.payment)
-        paymentVC.formView.dateTextField.text = paymentSelected.date!.formatted(date: .long, time: .omitted)
+        paymentVC.formView.dateTextField.text = paymentSelected.datePayment!.formatted(date: .long, time: .omitted)
         paymentVC.formView.noteTextField.text = paymentSelected.note ?? ""
         
         // Disabling Fields
@@ -192,7 +192,7 @@ extension HistorySearchVC: UITableViewDataSource, UITableViewDelegate {
         
         let payment = searchResult[indexPath.item]
         cell.nameLabel.text = payment.tenant?.name
-        cell.dateLabel.text = payment.date!.formatted(date: .numeric, time: .omitted)
+        cell.dateLabel.text = payment.datePayment!.formatted(date: .numeric, time: .omitted)
         cell.paymentLabel.text = String(payment.payment)
         
         return cell

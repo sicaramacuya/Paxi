@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19574" systemVersion="21C52" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Payment" representedClassName="Payment" syncable="YES" codeGenerationType="class">
-        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="datePayment" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="dateRentIsDue" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="isRentPaid" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="note" optional="YES" attributeType="String"/>
         <attribute name="payment" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="rent" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
@@ -36,7 +38,7 @@
         <relationship name="tenants" optional="YES" toMany="YES" deletionRule="Deny" destinationEntity="Tenant" inverseName="unit" inverseEntity="Tenant"/>
     </entity>
     <elements>
-        <element name="Payment" positionX="-113.6953125" positionY="234.88671875" width="128" height="148"/>
+        <element name="Payment" positionX="-113.6953125" positionY="234.88671875" width="128" height="164"/>
         <element name="Property" positionX="-338.21484375" positionY="45.40234375" width="128" height="104"/>
         <element name="Tenant" positionX="132.60546875" positionY="23.9921875" width="128" height="149"/>
         <element name="Unit" positionX="-115.15625" positionY="-123.80859375" width="128" height="148"/>

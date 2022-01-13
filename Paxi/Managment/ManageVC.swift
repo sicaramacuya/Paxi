@@ -173,7 +173,7 @@ extension ManageVC: UICollectionViewDelegate {
         paymentVC.formView.tenantTextField.text = tenant.name
         paymentVC.formView.rentTextField.text = String(paymentSelected.rent)
         paymentVC.formView.paymentTextField.text = String(paymentSelected.payment)
-        paymentVC.formView.dateTextField.text = paymentSelected.date!.formatted(date: .long, time: .omitted)
+        paymentVC.formView.dateTextField.text = paymentSelected.datePayment!.formatted(date: .long, time: .omitted)
         paymentVC.formView.noteTextField.text = paymentSelected.note ?? ""
         
         // Disabling Fields

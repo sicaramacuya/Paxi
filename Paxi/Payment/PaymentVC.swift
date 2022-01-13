@@ -23,6 +23,7 @@ class PaymentVC: UIViewController {
     var unitSelected: Unit?
     var tenantSelected: Tenant?
     
+    
     // MARK: VC's Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -91,7 +92,7 @@ class PaymentVC: UIViewController {
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MMMM dd, y"
-        payment.date = dateFormatter.date(from: self.formView.dateTextField.text!)!
+        payment.datePayment = dateFormatter.date(from: self.formView.dateTextField.text!)!
         
         payment.note = self.formView.noteTextField.text
         
@@ -212,5 +213,4 @@ extension PaymentVC: ButtonSelectionDelegate {
         
         presentingViewController?.dismiss(animated: true)
     }
-    
 }

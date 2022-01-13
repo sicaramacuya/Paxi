@@ -167,7 +167,7 @@ extension HomeVC: UICollectionViewDelegate {
                 paymentVC.propertyContent = resultsProperty
                 paymentVC.unitContent = resultUnit
                 paymentVC.tenantContent = resultTenant
-                //paymentVC.modalPresentationStyle = .fullScreen
+                paymentVC.modalPresentationStyle = .fullScreen
                 navigationController?.present(paymentVC, animated: true)
                 
             case .history:
