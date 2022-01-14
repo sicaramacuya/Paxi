@@ -202,18 +202,18 @@ extension ManageVC: UICollectionViewDelegate {
             vc.entries = property.allUnits
         case is Unit.Type:
             let entries = vc.entries as! [Unit]
-            let property = entries[indexPath.item]
-            title = property.title!
+            let unit = entries[indexPath.item]
+            title = unit.title!
             
-            vc.item = property
-            vc.entries = property.allTenants
+            vc.item = unit
+            vc.entries = unit.allTenants
         case is Tenant.Type:
             let entries = vc.entries as! [Tenant]
-            let property = entries[indexPath.item]
-            title = property.name!
+            let tenant = entries[indexPath.item]
+            title = tenant.name!
             
-            vc.item = property
-            vc.entries = property.allPayments
+            vc.item = tenant
+            vc.entries = tenant.allPayments
             
         case is Rent.Type:
             self.managePaymentSelection(indexPath: indexPath)
