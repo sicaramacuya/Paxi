@@ -64,11 +64,13 @@ extension Property {
     }
     
     var allUnits: [Unit] {
-        return units?.allObjects as! [Unit]
+        let result =  units?.allObjects as! [Unit]
+        return result.sorted { $0.title! < $1.title! }
     }
     
     var allTenants: [Tenant] {
-        return tenants?.allObjects as! [Tenant]
+        let result = tenants?.allObjects as! [Tenant]
+        return result.sorted { $0.name! < $1.name! }
     }
     
     var allPayments: [Rent] {
@@ -100,6 +102,54 @@ extension Tenant {
     }
     
     var allPayments: [Rent] {
-        return payments?.allObjects as! [Rent]
+        
+        let rents = payments?.allObjects as! [Rent]
+        var rentsPaid: [Rent] = []
+        
+        for rent in rents {
+            if rent.isRentPaid {
+                rentsPaid.append(rent)
+            }
+        }
+        
+        return rentsPaid
+    }
+    
+    var ticketNumber: Int {
+        return self.allPayments.count + 1
+    }
+    
+    var rentToPay: Rent {
+        let rents = payments?.allObjects as! [Rent]
+        let lastRent: Rent? = rents.last { rent in
+            return !rent.isRentPaid
+        }
+        
+        return lastRent!
+    }
+    
+    func createNextMonthRent(dateOfRentPayingNow: Date? = nil) {
+        let stack = CoreDataStack.shared
+        let context = stack.persistentContainer.viewContext
+
+        
+        let rent = Rent(context: context)
+        rent.tenant = self
+        rent.property = self.property
+        rent.unit = self.unit
+        rent.rent = self.unit!.rent
+        
+        if rent.tenant!.allPayments.isEmpty {
+            // The tenant wont have any payments when is created in Management
+            let oneMonth = DateComponents(calendar: .current, timeZone: .current, month: 1)
+            let nextMonthRent = Calendar.current.date(byAdding: oneMonth, to: self.startingDate!)
+            rent.dateRentIsDue = nextMonthRent
+        } else {
+            let oneMonth = DateComponents(calendar: .current, timeZone: .current, month: 1)
+            let nextMonthRent = Calendar.current.date(byAdding: oneMonth, to: dateOfRentPayingNow!)
+            rent.dateRentIsDue = nextMonthRent
+        }
+        
+        stack.saveContext()
     }
 }

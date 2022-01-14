@@ -70,7 +70,8 @@ class ManageVC: UIViewController {
         if item == nil {
             let context = CoreDataStack.shared.persistentContainer.viewContext
             let fetch = Property.fetchRequest()
-            fetch.sortDescriptors = [] // TODO: Sort by name
+            let titleSortDescriptor = NSSortDescriptor(key: "title", ascending: true)
+            fetch.sortDescriptors = [titleSortDescriptor] // TODO: Sort by name
             entries = try! context.fetch(fetch)
         } else if let property = item as? Property {
             entries = property.allUnits

@@ -106,22 +106,24 @@ class PaymentVC: UIViewController {
         formView.tenantTextField.inputView = tenantPicker
     }
     
-    func savePayment() {
+    func payRent() {
         let stack = CoreDataStack.shared
-        let context = stack.persistentContainer.viewContext
         
-        let payment = Rent(context: context)
-        payment.property = self.propertySelected
-        payment.unit = self.unitSelected
-        payment.tenant = self.tenantSelected
-        //payment.rent = Double(self.formView.rentTextField.text!)!
-        payment.payment = Double(self.formView.paymentTextField.text!)!
+        guard let rentToPay = self.tenantSelected?.rentToPay else { return }
         
+        rentToPay.payment = Double(self.formView.paymentTextField.text!)!
+        
+        // Storing it this way I assure it has the same time.
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MMMM dd, y"
-        payment.datePayment = dateFormatter.date(from: self.formView.dateTextField.text!)!
+        rentToPay.datePayment = dateFormatter.date(from: self.formView.dateTextField.text!)!
         
-        payment.note = self.formView.noteTextField.text
+        
+        rentToPay.note = self.formView.noteTextField.text
+        
+        rentToPay.isRentPaid = true
+        
+        rentToPay.tenant!.createNextMonthRent(dateOfRentPayingNow: rentToPay.dateRentIsDue)
         
         stack.saveContext()
     }
@@ -201,7 +203,6 @@ extension PaymentVC: UIPickerViewDelegate {
             self.tenantContent = unitSelected!.allTenants
             
             // Rent
-            //self.formView.rentTextField.text = String(unitSelected!.rent)
             guard let rent = unitSelected?.rent else { return }
 
             let numberFormatter = NumberFormatter()
@@ -209,6 +210,15 @@ extension PaymentVC: UIPickerViewDelegate {
             let formattedNumber = numberFormatter.string(from: NSNumber(value:rent))
             
             self.rentTicketView.amountLabel.text = formattedNumber
+            
+            // Date Rent is Due
+            guard let dueDate = unitSelected?.allTenants.first?.rentToPay.dateRentIsDue else { return } // NOT ALL THE TENANTS WILL START THE SAME DAY... REMEMBER THE RENT TO PAY DEPENDS ON WHEN THE TENANT HAS "MOVED IN".
+            
+            self.rentTicketView.dueDateLabel.text = dueDate.formatted(date: .long, time: .omitted)
+            
+            // Rent Ticket Number
+            guard let ticketNumber = unitSelected?.allTenants.first?.ticketNumber else { return } // NOT ALL THE TENANTS WILL HAVE THE SAME AMOUNT OF PAYMENTS
+            self.rentTicketView.ticketNumberLabel.text = String(ticketNumber)
             
         case tenantPicker:
             self.tenantSelected = tenantContent[row]
@@ -225,7 +235,6 @@ extension PaymentVC: UIPickerViewDelegate {
             self.formView.unitTextField.text = unitSelected!.title
             
             // Rent
-            //self.formView.rentTextField.text = String(unitSelected!.rent)
             guard let rent = unitSelected?.rent else { return }
 
             let numberFormatter = NumberFormatter()
@@ -233,6 +242,14 @@ extension PaymentVC: UIPickerViewDelegate {
             let formattedNumber = numberFormatter.string(from: NSNumber(value:rent))
             
             self.rentTicketView.amountLabel.text = formattedNumber
+            
+            // Date Rent is Due
+            guard let dueDate = tenantSelected?.rentToPay.dateRentIsDue else { return }
+            self.rentTicketView.dueDateLabel.text = dueDate.formatted(date: .long, time: .omitted)
+            
+            // Rent Ticket Number
+            guard let ticketNumber = tenantSelected?.ticketNumber else { return }
+            self.rentTicketView.ticketNumberLabel.text = String(format: "%04d", ticketNumber)
             
         default:
             break
@@ -249,7 +266,7 @@ extension PaymentVC: ButtonSelectionDelegate {
     }
     
     func buttonSelected(checkMarkButton: UIButton) {
-        savePayment()
+        payRent()
         
         presentingViewController?.dismiss(animated: true)
     }

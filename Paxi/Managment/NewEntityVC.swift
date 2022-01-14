@@ -425,35 +425,25 @@ class NewEntityVC: UIViewController {
             
             tenant.unit = unit
             tenant.property = unit.property
+            
+            tenant.createNextMonthRent()
+            
         case .payment:
-            let payment = Rent(context: context)
-            payment.tenant = results["tenant"] as? Tenant
-            payment.property = results["property"] as? Property
-            payment.unit = results["unit"] as? Unit
-            payment.rent = results["rent"] as! Double
-            payment.payment = results["actualPayment"] as! Double
-            payment.datePayment = results["date"] as? Date
-            payment.note = results["note"] as? String
+            let tenant = results["tenant"] as? Tenant
+            let rentToPay = tenant!.rentToPay
+            rentToPay.payment = results["actualPayment"] as! Double
+            rentToPay.datePayment = results["date"] as? Date
+            rentToPay.note = results["note"] as? String
+            
+            rentToPay.isRentPaid = true
+            
+            tenant?.createNextMonthRent(dateOfRentPayingNow: rentToPay.dateRentIsDue)
+            
+            stack.saveContext()
             
         case .notYetAsign:
             break
         }
-        
-        stack.saveContext()
-    }
-    
-    func createNewRent(results: [String : Any]) {
-        let stack = CoreDataStack.shared
-        let context = stack.persistentContainer.viewContext
-        
-        let payment = Rent(context: context)
-        payment.tenant = results["tenant"] as? Tenant
-        payment.property = results["property"] as? Property
-        payment.unit = results["unit"] as? Unit
-        payment.rent = results["rent"] as! Double
-        payment.payment = results["actualPayment"] as! Double
-        payment.datePayment = results["date"] as? Date
-        payment.note = results["note"] as? String
         
         stack.saveContext()
     }
@@ -520,7 +510,6 @@ extension NewEntityVC: ButtonSelectionDelegate {
             let results = getContentFromTextFields(entityType: .tenant)
             if !results.isEmpty {
                 save(results: results)
-                createNewRent(results: results)
                 
                 print("Tenant has been saved and a new Payment/Rent has been created.")
             } else {

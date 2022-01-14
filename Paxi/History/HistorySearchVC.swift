@@ -82,6 +82,8 @@ class HistorySearchVC: UIViewController {
         let context = CoreDataStack.shared.persistentContainer.viewContext
         let fetch = Rent.fetchRequest()
         
+        fetch.predicate = NSPredicate(format: "isRentPaid == true")
+        
         // Sorting the payments on that date by name.
         let nameSortDescriptor = NSSortDescriptor(key: "tenant.name", ascending: true)
         let dateSortDescriptor = NSSortDescriptor(key: "datePayment", ascending: true)
@@ -99,16 +101,28 @@ class HistorySearchVC: UIViewController {
         switch selectedScopeButtonIndex {
         case 1:
             // Fetching the payments that match the date selected.
-            fetch.predicate = NSPredicate(format: "tenant.property.title CONTAINS[c] %@", searchText as NSString)
+            let searchForRentsPaid = NSPredicate(format: "isRentPaid == true")
+            let searchByTitle = NSPredicate(format: "tenant.property.title CONTAINS[c] %@", searchText as NSString)
+            let predicate = NSCompoundPredicate(type: .and, subpredicates: [searchByTitle, searchForRentsPaid])
+            fetch.predicate = predicate
         case 2:
             // Fetching the payments that match the payment/quantity selected.
-            fetch.predicate = NSPredicate(format: "payment CONTAINS[c] %@", searchText)
+            let searchForRentsPaid = NSPredicate(format: "isRentPaid == true")
+            let searchByPayment = NSPredicate(format: "payment CONTAINS[c] %@", searchText)
+            let predicate = NSCompoundPredicate(type: .and, subpredicates: [searchByPayment,searchForRentsPaid])
+            fetch.predicate = predicate
         case 3:
             // Fetching the payments that match the note selected.
-            fetch.predicate = NSPredicate(format: "note CONTAINS[c] %@", searchText as NSString)
+            let searchForRentsPaid = NSPredicate(format: "isRentPaid == true")
+            let searchByNote = NSPredicate(format: "note CONTAINS[c] %@", searchText as NSString)
+            let predicate = NSCompoundPredicate(type: .and, subpredicates: [searchByNote, searchForRentsPaid])
+            fetch.predicate = predicate
         default:
             // Fetching the payments that match the date selected.
-            fetch.predicate = NSPredicate(format: "tenant.name CONTAINS[c] %@", searchText as NSString)
+            let searchForRentsPaid = NSPredicate(format: "isRentPaid == true")
+            let searchByName = NSPredicate(format: "tenant.name CONTAINS[c] %@", searchText as NSString)
+            let predicate = NSCompoundPredicate(type: .and, subpredicates: [searchByName, searchForRentsPaid])
+            fetch.predicate = predicate
         }
         
         // Sorting the payments on that date by name.
@@ -192,7 +206,7 @@ extension HistorySearchVC: UITableViewDataSource, UITableViewDelegate {
         
         let payment = searchResult[indexPath.item]
         cell.nameLabel.text = payment.tenant?.name
-        cell.dateLabel.text = payment.datePayment!.formatted(date: .numeric, time: .omitted)
+        cell.dateLabel.text = payment.datePayment?.formatted(date: .numeric, time: .omitted) ?? ""
         cell.paymentLabel.text = String(payment.payment)
         
         return cell
