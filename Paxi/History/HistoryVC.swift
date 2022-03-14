@@ -153,6 +153,7 @@ class HistoryVC: UIViewController {
         paymentVC.titleView.mainLabel.textColor = vcTintColor
         paymentVC.titleView.cancelButton.isHidden = true
         paymentVC.titleView.checkMarkButton.isHidden = true
+        paymentVC.rentTicketView.isHidden = true
         paymentVC.vcTintColor = .systemOrange
         
         navigationController?.present(paymentVC, animated: true)

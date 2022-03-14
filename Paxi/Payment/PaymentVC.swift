@@ -82,7 +82,9 @@ class PaymentVC: UIViewController {
             rentTicketView.heightAnchor.constraint(equalToConstant: 66),
             
             // formView
-            formView.topAnchor.constraint(equalTo: rentTicketView.bottomAnchor, constant: 20),
+            formView.topAnchor.constraint(equalTo:
+                                            rentTicketView.isHidden ? titleView.bottomAnchor : rentTicketView.bottomAnchor,
+                                          constant: 20),
             formView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
             formView.widthAnchor.constraint(equalTo: self.view.widthAnchor),
             formView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)
